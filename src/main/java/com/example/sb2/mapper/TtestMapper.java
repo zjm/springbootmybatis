@@ -19,8 +19,8 @@ public interface TtestMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into t_test (id, sname)",
-        "values (#{id,jdbcType=INTEGER}, #{sname,jdbcType=VARCHAR})"
+        "insert into t_test (id, name)",
+        "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})"
     })
     int insert(Ttest record);
 
@@ -29,13 +29,13 @@ public interface TtestMapper {
 
     @Select({
         "select",
-        "id, sname",
+        "id, name",
         "from t_test",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="sname", property="sname", jdbcType=JdbcType.VARCHAR)
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR)
     })
     Ttest selectByPrimaryKey(Integer id);
 
@@ -44,7 +44,7 @@ public interface TtestMapper {
 
     @Update({
         "update t_test",
-        "set sname = #{sname,jdbcType=VARCHAR}",
+        "set name = #{name,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Ttest record);

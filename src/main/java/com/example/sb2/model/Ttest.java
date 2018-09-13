@@ -3,7 +3,7 @@ package com.example.sb2.model;
 public class Ttest {
     private Integer id;
 
-    private String sname;
+    private String name;
 
     public Integer getId() {
         return id;
@@ -13,11 +13,11 @@ public class Ttest {
         this.id = id;
     }
 
-    public String getSname() {
-        return sname;
+    public String getName() {
+        return name;
     }
 
-    public void setSname(String sname) {
-        this.sname = sname == null ? null : sname.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 }

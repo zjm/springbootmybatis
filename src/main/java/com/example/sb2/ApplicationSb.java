@@ -1,4 +1,4 @@
-package cn.no7player;
+package com.example.sb2;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
@@ -19,9 +19,11 @@ import javax.sql.DataSource;
 @EnableAutoConfiguration
 @SpringBootApplication
 @ComponentScan
-@MapperScan("cn.no7player.mapper")
-public class Application {
-    private static Logger logger = Logger.getLogger(Application.class);
+//@MapperScan("cn.no7player.mapper")
+//com.example.sb2
+@MapperScan("com.example.sb2")
+public class ApplicationSb {
+    private static Logger logger = Logger.getLogger(ApplicationSb.class);
 
     @Bean
     @ConfigurationProperties(prefix="spring.datasource")
@@ -52,7 +54,7 @@ public class Application {
      * Start
      */
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(ApplicationSb.class, args);
         logger.info("SpringBoot Start Success");
     }
 

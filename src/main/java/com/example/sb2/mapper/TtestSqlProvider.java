@@ -20,8 +20,8 @@ public class TtestSqlProvider {
             VALUES("id", "#{id,jdbcType=INTEGER}");
         }
         
-        if (record.getSname() != null) {
-            VALUES("sname", "#{sname,jdbcType=VARCHAR}");
+        if (record.getName() != null) {
+            VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
         return SQL();
@@ -31,8 +31,8 @@ public class TtestSqlProvider {
         BEGIN();
         UPDATE("t_test");
         
-        if (record.getSname() != null) {
-            SET("sname = #{sname,jdbcType=VARCHAR}");
+        if (record.getName() != null) {
+            SET("name = #{name,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=INTEGER}");
