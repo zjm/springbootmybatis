@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping(value = "/test")
 public class TtestController {
@@ -50,6 +52,16 @@ public class TtestController {
         logger.info("saveUser======name:"+name+",address:"+pwd);
         return "保存成功";
     }
+
+    //http://127.0.0.1:9090/test/login ;key - value形式
+//    @RequestMapping(value = "/loginmap",method = RequestMethod.POST)
+//    @ResponseBody
+//    public String saveUsersMap(@RequestParam Map<String,Object> reqMap) {
+//        String name = reqMap.get("name").toString();
+//        String pwd = reqMap.get("Password").toString();
+//        logger.info("saveUsersMapr======name:"+name+",pwd:"+pwd);
+//        return "保存成功";
+//    }
 
     @RequestMapping(value = "/testpost",method = RequestMethod.POST)
     public String saveUser( ) {
