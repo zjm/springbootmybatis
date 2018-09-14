@@ -5,11 +5,13 @@ import com.example.sb2.model.Ttest;
 import com.example.sb2.service.TtestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
+@RequestMapping(value = "/model")
 public class TtestController {
     @Autowired
     private TtestService ttestService;
@@ -20,6 +22,9 @@ public class TtestController {
     {
        return  ttestService.show(id);
     }
+
+
+
     /*
     @RequestMapping(value = "/show")
   public String show() {
