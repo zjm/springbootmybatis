@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2018-09-15 00:23:08
+Date: 2018-09-15 08:09:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,14 +39,34 @@ DROP TABLE IF EXISTS `rolltitles`;
 CREATE TABLE `rolltitles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `nickname` varchar(100) DEFAULT '0' COMMENT '用户昵称',
-  `headiconpath` varchar(300) DEFAULT NULL COMMENT '头像路径',
-  `dimension` varchar(20) DEFAULT NULL COMMENT '人脉维度',
+  `headiconpath` varchar(300) DEFAULT '' COMMENT '头像路径',
+  `dimension` varchar(20) DEFAULT '' COMMENT '人脉维度',
   `money` int(11) NOT NULL COMMENT '显示解决了“”',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rolltitles
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sellproduct
+-- ----------------------------
+DROP TABLE IF EXISTS `sellproduct`;
+CREATE TABLE `sellproduct` (
+  `id` bigint(20) NOT NULL,
+  `productname` varchar(200) DEFAULT '' COMMENT '出售产品名称',
+  `price` float DEFAULT '0' COMMENT '价格',
+  `kernel` int(11) DEFAULT '0' COMMENT '麦粒数',
+  `thumbnail` varchar(100) DEFAULT '' COMMENT '缩略图路径',
+  `detailimg` varchar(100) DEFAULT '' COMMENT '详情图路径',
+  `remainingnum` int(11) DEFAULT '0' COMMENT '剩余数',
+  `totalnum` int(11) DEFAULT '0' COMMENT '商品总数',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sellproduct
 -- ----------------------------
 
 -- ----------------------------
@@ -61,6 +81,7 @@ CREATE TABLE `userinfo` (
   `company` varchar(255) DEFAULT NULL COMMENT '公司',
   `department` varchar(100) DEFAULT NULL COMMENT '部门',
   `weixinhao` varchar(100) DEFAULT NULL COMMENT '微信号',
+  `mykernel` int(11) DEFAULT '0' COMMENT '我的麦粒数',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
