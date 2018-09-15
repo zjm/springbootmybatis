@@ -1,4 +1,4 @@
-package com.example.sb2.mapper;
+package com.liwen.wprogram.mapper;
 
 import static org.apache.ibatis.jdbc.SqlBuilder.BEGIN;
 import static org.apache.ibatis.jdbc.SqlBuilder.INSERT_INTO;
@@ -8,7 +8,7 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.example.sb2.model.RemoteTest;
+import com.liwen.wprogram.model.RemoteTest;
 
 public class RemoteTestSqlProvider {
 

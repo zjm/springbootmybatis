@@ -1,7 +1,7 @@
-package com.example.sb2.service;
+package com.liwen.wprogram.user.service;
 
-import com.example.sb2.mapper.TtestMapper;
-import com.example.sb2.model.Ttest;
+import com.liwen.wprogram.mapper.TtestMapper;
+import com.liwen.wprogram.model.Ttest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

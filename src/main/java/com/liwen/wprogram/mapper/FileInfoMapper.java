@@ -1,6 +1,6 @@
-package com.example.sb2.mapper;
+package com.liwen.wprogram.mapper;
 
-import com.example.sb2.model.FileInfo;
+import com.liwen.wprogram.model.FileInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;

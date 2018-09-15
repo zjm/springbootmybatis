@@ -1,4 +1,4 @@
-package com.example.sb2.model;
+package com.liwen.wprogram.model;
 
 public class Ttest {
     private Integer id;

@@ -1,6 +1,6 @@
-package com.example.sb2.mapper;
+package com.liwen.wprogram.mapper;
 
-import com.example.sb2.model.Ttest;
+import com.liwen.wprogram.model.Ttest;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;

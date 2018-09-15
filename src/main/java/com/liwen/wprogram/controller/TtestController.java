@@ -1,14 +1,12 @@
-package com.example.sb2.controller;
+package com.liwen.wprogram.controller;
 
 
-import com.example.sb2.model.Ttest;
-import com.example.sb2.service.TtestService;
+import com.liwen.wprogram.model.Ttest;
+import com.liwen.wprogram.user.service.TtestService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/test")

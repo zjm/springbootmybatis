@@ -1,4 +1,4 @@
-package com.example.sb2;
+package com.liwen.wprogram;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 @ComponentScan
 //@MapperScan("cn.no7player.mapper")
 //com.example.sb2
-@MapperScan("com.example.sb2")
+@MapperScan("com.liwen.wprogram")
 public class ApplicationSb {
     private static Logger logger = Logger.getLogger(ApplicationSb.class);
 
