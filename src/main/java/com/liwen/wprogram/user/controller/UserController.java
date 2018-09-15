@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
@@ -21,6 +23,12 @@ public class UserController {
     @ResponseBody
     public UserInfo getUserInfo(Integer id) {
         return userInfoService.getUserInfo(id);
+    }
+
+    @RequestMapping(value = "/alluserInfo")
+    @ResponseBody
+    public List<UserInfo> getUserInfos() {
+        return userInfoService.getUserAll();
     }
 
    @RequestMapping(value = "saveuserinfo")

@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
+import java.util.List;
+
 public interface UserInfoMapper {
     @Delete({
         "delete from userinfo",
@@ -50,6 +52,23 @@ public interface UserInfoMapper {
         @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR)
     })
     UserInfo selectByPrimaryKey(Long id);
+
+    @Select({
+            "select",
+            "id, phone, name, company, department, weixinhao, mykernel, address",
+            "from userinfo"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+            @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="company", property="company", jdbcType=JdbcType.VARCHAR),
+            @Result(column="department", property="department", jdbcType=JdbcType.VARCHAR),
+            @Result(column="weixinhao", property="weixinhao", jdbcType=JdbcType.VARCHAR),
+            @Result(column="mykernel", property="mykernel", jdbcType=JdbcType.INTEGER),
+            @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR)
+    })
+    List<UserInfo> selectAll();
 
     @UpdateProvider(type=UserInfoSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(UserInfo record);
