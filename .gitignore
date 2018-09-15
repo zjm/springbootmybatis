@@ -5,3 +5,4 @@
 *.class
 *.class
 .idea/workspace.xml
+target/classes/generatorConfig.xml

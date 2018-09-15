@@ -1,6 +1,6 @@
 package com.liwen.wprogram.user.controller;
 
-import com.liwen.wprogram.controller.TtestController;
+
 import com.liwen.wprogram.user.model.UserInfo;
 import com.liwen.wprogram.user.service.UserInfoService;
 import org.apache.log4j.Logger;
