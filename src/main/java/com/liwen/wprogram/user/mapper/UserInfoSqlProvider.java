@@ -20,16 +20,12 @@ public class UserInfoSqlProvider {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
-        }
-        
         if (record.getPhone() != null) {
             VALUES("phone", "#{phone,jdbcType=VARCHAR}");
         }
         
-        if (record.getAddress() != null) {
-            VALUES("address", "#{address,jdbcType=VARCHAR}");
+        if (record.getName() != null) {
+            VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
         if (record.getCompany() != null) {
@@ -48,6 +44,10 @@ public class UserInfoSqlProvider {
             VALUES("mykernel", "#{mykernel,jdbcType=INTEGER}");
         }
         
+        if (record.getAddress() != null) {
+            VALUES("address", "#{address,jdbcType=VARCHAR}");
+        }
+        
         return SQL();
     }
 
@@ -55,16 +55,12 @@ public class UserInfoSqlProvider {
         BEGIN();
         UPDATE("userinfo");
         
-        if (record.getName() != null) {
-            SET("name = #{name,jdbcType=VARCHAR}");
-        }
-        
         if (record.getPhone() != null) {
             SET("phone = #{phone,jdbcType=VARCHAR}");
         }
         
-        if (record.getAddress() != null) {
-            SET("address = #{address,jdbcType=VARCHAR}");
+        if (record.getName() != null) {
+            SET("name = #{name,jdbcType=VARCHAR}");
         }
         
         if (record.getCompany() != null) {
@@ -81,6 +77,10 @@ public class UserInfoSqlProvider {
         
         if (record.getMykernel() != null) {
             SET("mykernel = #{mykernel,jdbcType=INTEGER}");
+        }
+        
+        if (record.getAddress() != null) {
+            SET("address = #{address,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

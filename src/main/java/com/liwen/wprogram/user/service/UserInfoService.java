@@ -13,4 +13,19 @@ public class UserInfoService {
     public UserInfo getUserInfo(long id) {
         return userInfoMapper.selectByPrimaryKey(id);
     }
+
+    public  void saveUserInfo(UserInfo userInfo)
+    {
+        userInfoMapper.insert(userInfo);
+    }
+
+    public  void delUserInfo(long id)
+    {
+        userInfoMapper.deleteByPrimaryKey(id);
+    }
+
+    public  void  updateUserInfo(UserInfo userInfo)
+    {
+        userInfoMapper.updateByPrimaryKey(userInfo);
+    }
 }

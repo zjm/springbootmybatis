@@ -3,11 +3,9 @@ package com.liwen.wprogram.user.model;
 public class UserInfo {
     private Long id;
 
-    private String name;
-
     private String phone;
 
-    private String address;
+    private String name;
 
     private String company;
 
@@ -17,20 +15,14 @@ public class UserInfo {
 
     private Integer mykernel;
 
+    private String address;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
     }
 
     public String getPhone() {
@@ -41,12 +33,12 @@ public class UserInfo {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getAddress() {
-        return address;
+    public String getName() {
+        return name;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getCompany() {
@@ -79,5 +71,13 @@ public class UserInfo {
 
     public void setMykernel(Integer mykernel) {
         this.mykernel = mykernel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }
