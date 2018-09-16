@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,7 +32,7 @@ public class UserController {
         return userInfoService.getUserAll();
     }
 
-   @RequestMapping(value = "saveuserinfo")
+   @RequestMapping(value = "/saveuserinfo",method = RequestMethod.GET)
    @ResponseBody
     public String saveUserInfo(@RequestParam(value = "phone", required = true) String phone,
                              @RequestParam(value = "name", required = true) String name,
