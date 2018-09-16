@@ -1,5 +1,7 @@
 package com.liwen.wprogram.sellproduct.controller;
 
+import com.liwen.wprogram.common.BaseConstant;
+import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.sellproduct.model.SellProduct;
 import com.liwen.wprogram.sellproduct.service.SellProductService;
 
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/sell")
@@ -30,6 +33,50 @@ public class SellProductController {
         return sellProductService.getSellProduct(id);
     }
 
+    @RequestMapping(value="/savproduct", method=RequestMethod.POST)
+    @ResponseBody
+//    "productname": "产品1",
+//            "price": "10.2",
+//            "kernel": "100",
+//            "thumbnail": "headimg",
+//            "detailimg": "long img",
+//            "remainingnum": "100",
+//            "totalnum":100
+    public BaseResult saveProductMap(@RequestParam Map<String, Object> requestMap) {
+
+        logger.info("requestmap:"+requestMap);
+
+        String productName = requestMap.get("productname").toString();
+        float price = Float.valueOf(requestMap.get("price").toString());
+        int kernel = Integer.valueOf(requestMap.get("kernel").toString());
+        String thum = requestMap.get("thumbnail").toString();
+        String detailimg = requestMap.get("detailimg").toString();
+        int remainingnum = Integer.valueOf(requestMap.get("remainingnum").toString());
+        int totalnum = Integer.valueOf(requestMap.get("totalnum").toString());
+        SellProduct sellProduct = new SellProduct();
+        sellProduct.setProductname(productName);
+        sellProduct.setPrice(price);
+        sellProduct.setKernel(kernel);
+        sellProduct.setThumbnail(thum);
+        sellProduct.setDetailimg(detailimg);
+        sellProduct.setRemainingnum(remainingnum);
+        sellProduct.setTotalnum(totalnum);
+        BaseResult br = new BaseResult();
+        br.setCode(BaseConstant.SUCCESS_CODE);
+        br.setResult(BaseConstant.SUCCESS_INFO);
+        try {
+            sellProductService.saveSellProduct(sellProduct);
+        }catch (Exception e)
+        {
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setResult(e.getMessage());
+            logger.info(e.getMessage());
+        }
+
+        return br;
+    }
+
+
     public void saveProduct()
     {
 
@@ -38,8 +85,8 @@ public class SellProductController {
     @RequestMapping("file")
 
     public String file(){
-        logger.info("aaaaaaaaaaa=====");
-        return "/file";
+       // logger.info("aaaaaaaaaaa=====");
+        return "file";
     }
 
     class ResultUpload{
@@ -101,7 +148,7 @@ public class SellProductController {
         String path=System.getProperty("user.dir")+"/uploadFiles";
         if (!"pngjpgjpegbmp".contains(extName.toLowerCase()))
         {
-            resUp.setResult("图片格式不正确,请上传png或jpg格式文件！");
+            resUp.setResult("图片格式不正确,请上传png或jpg格式图片！");
             return resUp;
         }
 
