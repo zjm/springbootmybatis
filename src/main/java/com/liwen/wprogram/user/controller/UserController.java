@@ -48,7 +48,7 @@ public class UserController {
        userInfo.setWeixinhao(weixinhao);
       // userInfo.setMykernel(0);
        userInfoService.saveUserInfo(userInfo);
-       logger.info("saveUser inforwed:"+name+",phone:"+phone);
+       logger.info("saveUser inforw:"+name+",phone:"+phone);
        return "保存成功";
    }
 
