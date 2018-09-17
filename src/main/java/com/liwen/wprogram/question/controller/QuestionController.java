@@ -76,7 +76,7 @@ public class QuestionController {
      */
     @RequestMapping(value="/getnormalquestion", method=RequestMethod.GET)
     @ResponseBody
-    public List<Question> getQuestions(int type)
+    public List<Question> getQuestions(byte type)
     {
         return questionService.getQuestions(type);
 
