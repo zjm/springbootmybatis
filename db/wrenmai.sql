@@ -10,26 +10,70 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2018-09-17 00:49:51
+Date: 2018-09-18 01:58:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for kernelrecord
+-- ----------------------------
+DROP TABLE IF EXISTS `kernelrecord`;
+CREATE TABLE `kernelrecord` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) DEFAULT '' COMMENT '奖励标题',
+  `rewardnum` int(11) DEFAULT '0' COMMENT '奖励数量',
+  `type` tinyint(4) DEFAULT '1' COMMENT '0.减少麦粒，1.增加麦粒',
+  `rewardtime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of kernelrecord
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for question
 -- ----------------------------
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
-  `id` bigint(11) NOT NULL,
-  `userid` bigint(20) DEFAULT NULL,
+  `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` bigint(20) DEFAULT '0',
   `content` varchar(300) DEFAULT NULL COMMENT '提问',
-  `type` tinyint(4) DEFAULT NULL COMMENT '0.我发起的；1.我参与的',
-  `realnamepublish` tinyint(4) DEFAULT NULL COMMENT '1.是实名发布；0.非实名发布',
+  `type` tinyint(4) DEFAULT '0' COMMENT '0.我发起的；1.我参与的',
+  `realnamepublish` tinyint(4) DEFAULT '0' COMMENT '1.是实名发布；0.非实名发布',
+  `validityperiod` int(11) DEFAULT '0' COMMENT '有效期，当前时间与有创建时间计算小于等于有效期 查询显示',
+  `status` tinyint(255) DEFAULT '0' COMMENT '0.进行中，1.结束',
+  `viewnum` int(11) DEFAULT '0' COMMENT '被浏览数量',
+  `ansernum` int(11) DEFAULT '0' COMMENT '回答数',
+  `giftimg` varchar(200) DEFAULT '' COMMENT '礼物图片，可保持礼物id',
+  `giftname` varchar(200) DEFAULT '' COMMENT '礼物名称',
+  `publishcompany` varchar(200) DEFAULT '' COMMENT '发布者公司名称',
+  `rewardbalance` float DEFAULT '0',
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of question
+-- ----------------------------
+INSERT INTO `question` VALUES ('1', '12', '发布呢人', '1', '0', '3', '0', '0', '0', null, null, null, null, '2018-09-18 01:17:06');
+INSERT INTO `question` VALUES ('2', '12', '发布呢人', '1', '0', '3', '0', '0', '0', null, null, null, null, '2018-09-18 01:17:36');
+INSERT INTO `question` VALUES ('3', '12', '发布呢人', '0', '0', '3', '0', '0', '0', null, null, null, null, '2018-09-18 01:25:53');
+
+-- ----------------------------
+-- Table structure for questiondetail
+-- ----------------------------
+DROP TABLE IF EXISTS `questiondetail`;
+CREATE TABLE `questiondetail` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `questionid` bigint(11) DEFAULT NULL,
+  `imgname` varchar(200) DEFAULT '' COMMENT '图片名称，高级提问图片',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of question
+-- Records of questiondetail
 -- ----------------------------
 
 -- ----------------------------
@@ -153,14 +197,15 @@ CREATE TABLE `userinfo` (
   `weixinhao` varchar(100) DEFAULT '' COMMENT '微信号',
   `mykernel` int(11) DEFAULT '0' COMMENT '我的麦粒数',
   `address` varchar(255) DEFAULT '',
+  `rmbbalance` float(255,0) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of userinfo
 -- ----------------------------
-INSERT INTO `userinfo` VALUES ('1', 'artname', '姓名', '公司', '部门', '微信', '0', null);
-INSERT INTO `userinfo` VALUES ('2', '13585958130', 'testname', 'artname', '部门1', 'yishicom', '0', null);
-INSERT INTO `userinfo` VALUES ('3', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null);
-INSERT INTO `userinfo` VALUES ('4', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null);
-INSERT INTO `userinfo` VALUES ('5', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null);
+INSERT INTO `userinfo` VALUES ('1', 'artname', '姓名', '公司', '部门', '微信', '0', null, null);
+INSERT INTO `userinfo` VALUES ('2', '13585958130', 'testname', 'artname', '部门1', 'yishicom', '0', null, null);
+INSERT INTO `userinfo` VALUES ('3', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null);
+INSERT INTO `userinfo` VALUES ('4', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null);
+INSERT INTO `userinfo` VALUES ('5', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null);
