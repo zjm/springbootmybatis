@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
+import java.util.List;
+
 public interface QuestionMapper {
     @Delete({
         "delete from question",
@@ -21,10 +23,18 @@ public interface QuestionMapper {
     @Insert({
         "insert into question (id, userid, ",
         "content, type, realnamepublish, ",
-        "createtime, validityperiod)",
+        "validityperiod, status, ",
+        "viewnum, ansernum, ",
+        "giftimg, giftname, ",
+        "publishcompany, rewardbalance, ",
+        "createtime)",
         "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
         "#{content,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{realnamepublish,jdbcType=TINYINT}, ",
-        "#{createtime,jdbcType=TIMESTAMP}, #{validityperiod,jdbcType=INTEGER})"
+        "#{validityperiod,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, ",
+        "#{viewnum,jdbcType=INTEGER}, #{ansernum,jdbcType=INTEGER}, ",
+        "#{giftimg,jdbcType=VARCHAR}, #{giftname,jdbcType=VARCHAR}, ",
+        "#{publishcompany,jdbcType=VARCHAR}, #{rewardbalance,jdbcType=REAL}, ",
+        "#{createtime,jdbcType=TIMESTAMP})"
     })
     int insert(Question record);
 
@@ -33,7 +43,8 @@ public interface QuestionMapper {
 
     @Select({
         "select",
-        "id, userid, content, type, realnamepublish, createtime, validityperiod",
+        "id, userid, content, type, realnamepublish, validityperiod, status, viewnum, ",
+        "ansernum, giftimg, giftname, publishcompany, rewardbalance, createtime",
         "from question",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -43,10 +54,42 @@ public interface QuestionMapper {
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
         @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT),
-        @Result(column="createtime", property="createtime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="validityperiod", property="validityperiod", jdbcType=JdbcType.INTEGER)
+        @Result(column="validityperiod", property="validityperiod", jdbcType=JdbcType.INTEGER),
+        @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
+        @Result(column="viewnum", property="viewnum", jdbcType=JdbcType.INTEGER),
+        @Result(column="ansernum", property="ansernum", jdbcType=JdbcType.INTEGER),
+        @Result(column="giftimg", property="giftimg", jdbcType=JdbcType.VARCHAR),
+        @Result(column="giftname", property="giftname", jdbcType=JdbcType.VARCHAR),
+        @Result(column="publishcompany", property="publishcompany", jdbcType=JdbcType.VARCHAR),
+        @Result(column="rewardbalance", property="rewardbalance", jdbcType=JdbcType.REAL),
+        @Result(column="createtime", property="createtime", jdbcType=JdbcType.TIMESTAMP)
     })
     Question selectByPrimaryKey(Long id);
+
+    @Select({
+            "select",
+            "id, userid, content, type, realnamepublish, validityperiod, status, viewnum, ",
+            "ansernum, giftimg, giftname, publishcompany, rewardbalance, createtime",
+            "from question",
+            "where type = #{type,jdbcType=BIGINT}"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+            @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+            @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
+            @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
+            @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT),
+            @Result(column="validityperiod", property="validityperiod", jdbcType=JdbcType.INTEGER),
+            @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
+            @Result(column="viewnum", property="viewnum", jdbcType=JdbcType.INTEGER),
+            @Result(column="ansernum", property="ansernum", jdbcType=JdbcType.INTEGER),
+            @Result(column="giftimg", property="giftimg", jdbcType=JdbcType.VARCHAR),
+            @Result(column="giftname", property="giftname", jdbcType=JdbcType.VARCHAR),
+            @Result(column="publishcompany", property="publishcompany", jdbcType=JdbcType.VARCHAR),
+            @Result(column="rewardbalance", property="rewardbalance", jdbcType=JdbcType.REAL),
+            @Result(column="createtime", property="createtime", jdbcType=JdbcType.TIMESTAMP)
+    })
+    List<Question> selectQuestionsByType(Byte type);
 
     @UpdateProvider(type=QuestionSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Question record);
@@ -57,8 +100,15 @@ public interface QuestionMapper {
           "content = #{content,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=TINYINT},",
           "realnamepublish = #{realnamepublish,jdbcType=TINYINT},",
-          "createtime = #{createtime,jdbcType=TIMESTAMP},",
-          "validityperiod = #{validityperiod,jdbcType=INTEGER}",
+          "validityperiod = #{validityperiod,jdbcType=INTEGER},",
+          "status = #{status,jdbcType=TINYINT},",
+          "viewnum = #{viewnum,jdbcType=INTEGER},",
+          "ansernum = #{ansernum,jdbcType=INTEGER},",
+          "giftimg = #{giftimg,jdbcType=VARCHAR},",
+          "giftname = #{giftname,jdbcType=VARCHAR},",
+          "publishcompany = #{publishcompany,jdbcType=VARCHAR},",
+          "rewardbalance = #{rewardbalance,jdbcType=REAL},",
+          "createtime = #{createtime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Question record);

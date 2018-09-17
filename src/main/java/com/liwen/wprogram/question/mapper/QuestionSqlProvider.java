@@ -36,12 +36,40 @@ public class QuestionSqlProvider {
             VALUES("realnamepublish", "#{realnamepublish,jdbcType=TINYINT}");
         }
         
-        if (record.getCreatetime() != null) {
-            VALUES("createtime", "#{createtime,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.getValidityperiod() != null) {
             VALUES("validityperiod", "#{validityperiod,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            VALUES("status", "#{status,jdbcType=TINYINT}");
+        }
+        
+        if (record.getViewnum() != null) {
+            VALUES("viewnum", "#{viewnum,jdbcType=INTEGER}");
+        }
+        
+        if (record.getAnsernum() != null) {
+            VALUES("ansernum", "#{ansernum,jdbcType=INTEGER}");
+        }
+        
+        if (record.getGiftimg() != null) {
+            VALUES("giftimg", "#{giftimg,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getGiftname() != null) {
+            VALUES("giftname", "#{giftname,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPublishcompany() != null) {
+            VALUES("publishcompany", "#{publishcompany,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRewardbalance() != null) {
+            VALUES("rewardbalance", "#{rewardbalance,jdbcType=REAL}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            VALUES("createtime", "#{createtime,jdbcType=TIMESTAMP}");
         }
         
         return SQL();
@@ -67,12 +95,40 @@ public class QuestionSqlProvider {
             SET("realnamepublish = #{realnamepublish,jdbcType=TINYINT}");
         }
         
-        if (record.getCreatetime() != null) {
-            SET("createtime = #{createtime,jdbcType=TIMESTAMP}");
-        }
-        
         if (record.getValidityperiod() != null) {
             SET("validityperiod = #{validityperiod,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{status,jdbcType=TINYINT}");
+        }
+        
+        if (record.getViewnum() != null) {
+            SET("viewnum = #{viewnum,jdbcType=INTEGER}");
+        }
+        
+        if (record.getAnsernum() != null) {
+            SET("ansernum = #{ansernum,jdbcType=INTEGER}");
+        }
+        
+        if (record.getGiftimg() != null) {
+            SET("giftimg = #{giftimg,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getGiftname() != null) {
+            SET("giftname = #{giftname,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPublishcompany() != null) {
+            SET("publishcompany = #{publishcompany,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRewardbalance() != null) {
+            SET("rewardbalance = #{rewardbalance,jdbcType=REAL}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            SET("createtime = #{createtime,jdbcType=TIMESTAMP}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

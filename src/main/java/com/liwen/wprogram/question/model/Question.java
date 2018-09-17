@@ -13,9 +13,23 @@ public class Question {
 
     private Byte realnamepublish;
 
-    private Date createtime;
-
     private Integer validityperiod;
+
+    private Byte status;
+
+    private Integer viewnum;
+
+    private Integer ansernum;
+
+    private String giftimg;
+
+    private String giftname;
+
+    private String publishcompany;
+
+    private Float rewardbalance;
+
+    private Date createtime;
 
     public Long getId() {
         return id;
@@ -57,19 +71,75 @@ public class Question {
         this.realnamepublish = realnamepublish;
     }
 
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
     public Integer getValidityperiod() {
         return validityperiod;
     }
 
     public void setValidityperiod(Integer validityperiod) {
         this.validityperiod = validityperiod;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    public Integer getViewnum() {
+        return viewnum;
+    }
+
+    public void setViewnum(Integer viewnum) {
+        this.viewnum = viewnum;
+    }
+
+    public Integer getAnsernum() {
+        return ansernum;
+    }
+
+    public void setAnsernum(Integer ansernum) {
+        this.ansernum = ansernum;
+    }
+
+    public String getGiftimg() {
+        return giftimg;
+    }
+
+    public void setGiftimg(String giftimg) {
+        this.giftimg = giftimg == null ? null : giftimg.trim();
+    }
+
+    public String getGiftname() {
+        return giftname;
+    }
+
+    public void setGiftname(String giftname) {
+        this.giftname = giftname == null ? null : giftname.trim();
+    }
+
+    public String getPublishcompany() {
+        return publishcompany;
+    }
+
+    public void setPublishcompany(String publishcompany) {
+        this.publishcompany = publishcompany == null ? null : publishcompany.trim();
+    }
+
+    public Float getRewardbalance() {
+        return rewardbalance;
+    }
+
+    public void setRewardbalance(Float rewardbalance) {
+        this.rewardbalance = rewardbalance;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 }
