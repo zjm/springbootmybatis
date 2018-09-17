@@ -5,6 +5,8 @@ import com.liwen.wprogram.sellproduct.model.SellProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SellProductService {
     @Autowired
@@ -15,9 +17,13 @@ public class SellProductService {
         return sellProductMapper.selectByPrimaryKey(id);
     }
 
-    public void  saveSellProduct(SellProduct sellProduct)
+    public int  saveSellProduct(SellProduct sellProduct)
     {
-        sellProductMapper.insert(sellProduct);
+      return  sellProductMapper.insert(sellProduct);
+    }
+
+    public List<SellProduct> getAllProduct(){
+     return sellProductMapper.selectAll();
     }
 
 }

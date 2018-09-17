@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -31,6 +32,13 @@ public class SellProductController {
     public SellProduct getProduct(long id)
     {
         return sellProductService.getSellProduct(id);
+    }
+
+    @RequestMapping(value = "/allproduct")
+    @ResponseBody
+    public List<SellProduct> getAllProduct()
+    {
+        return  sellProductService.getAllProduct();
     }
 
     @RequestMapping(value="/savproduct", method=RequestMethod.POST)
@@ -51,7 +59,7 @@ public class SellProductController {
         int kernel = Integer.valueOf(requestMap.get("kernel").toString());
         String thum = requestMap.get("thumbnail").toString();
         String detailimg = requestMap.get("detailimg").toString();
-        int remainingnum = Integer.valueOf(requestMap.get("remainingnum").toString());
+        int remainingnums = Integer.valueOf(requestMap.get("remainingnum").toString());
         int totalnum = Integer.valueOf(requestMap.get("totalnum").toString());
         SellProduct sellProduct = new SellProduct();
         sellProduct.setProductname(productName);
@@ -59,7 +67,7 @@ public class SellProductController {
         sellProduct.setKernel(kernel);
         sellProduct.setThumbnail(thum);
         sellProduct.setDetailimg(detailimg);
-        sellProduct.setRemainingnum(remainingnum);
+        sellProduct.setRemainingnum(remainingnums);
         sellProduct.setTotalnum(totalnum);
         BaseResult br = new BaseResult();
         br.setCode(BaseConstant.SUCCESS_CODE);
@@ -130,6 +138,13 @@ public class SellProductController {
 
         String param;
     }
+
+    /**
+     * 单文件上传
+     * @param file
+     * @param name
+     * @return
+     */
     @RequestMapping(value="/fileUpload",method=RequestMethod.POST)
     @ResponseBody
     public ResultUpload fileUpload(@RequestParam("fileName")MultipartFile file, @RequestParam(value = "name", required = true) String name)

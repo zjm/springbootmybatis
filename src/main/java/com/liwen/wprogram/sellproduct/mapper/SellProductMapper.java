@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
+import java.util.List;
+
 public interface SellProductMapper {
     @Delete({
         "delete from sellproduct",
@@ -50,6 +52,23 @@ public interface SellProductMapper {
         @Result(column="totalnum", property="totalnum", jdbcType=JdbcType.INTEGER)
     })
     SellProduct selectByPrimaryKey(Long id);
+
+    @Select({
+            "select",
+            "id, productname, price, kernel, thumbnail, detailimg, remainingnum, totalnum",
+            "from sellproduct"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+            @Result(column="productname", property="productname", jdbcType=JdbcType.VARCHAR),
+            @Result(column="price", property="price", jdbcType=JdbcType.REAL),
+            @Result(column="kernel", property="kernel", jdbcType=JdbcType.INTEGER),
+            @Result(column="thumbnail", property="thumbnail", jdbcType=JdbcType.VARCHAR),
+            @Result(column="detailimg", property="detailimg", jdbcType=JdbcType.VARCHAR),
+            @Result(column="remainingnum", property="remainingnum", jdbcType=JdbcType.INTEGER),
+            @Result(column="totalnum", property="totalnum", jdbcType=JdbcType.INTEGER)
+    })
+    List<SellProduct>  selectAll();
 
     @UpdateProvider(type=SellProductSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SellProduct record);
