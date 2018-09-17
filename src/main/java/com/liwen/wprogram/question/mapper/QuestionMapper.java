@@ -20,9 +20,11 @@ public interface QuestionMapper {
 
     @Insert({
         "insert into question (id, userid, ",
-        "content, type, realnamepublish)",
+        "content, type, realnamepublish, ",
+        "createtime, validityperiod)",
         "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
-        "#{content,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{realnamepublish,jdbcType=TINYINT})"
+        "#{content,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{realnamepublish,jdbcType=TINYINT}, ",
+        "#{createtime,jdbcType=TIMESTAMP}, #{validityperiod,jdbcType=INTEGER})"
     })
     int insert(Question record);
 
@@ -31,7 +33,7 @@ public interface QuestionMapper {
 
     @Select({
         "select",
-        "id, userid, content, type, realnamepublish",
+        "id, userid, content, type, realnamepublish, createtime, validityperiod",
         "from question",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -40,7 +42,9 @@ public interface QuestionMapper {
         @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
-        @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT)
+        @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT),
+        @Result(column="createtime", property="createtime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="validityperiod", property="validityperiod", jdbcType=JdbcType.INTEGER)
     })
     Question selectByPrimaryKey(Long id);
 
@@ -52,7 +56,9 @@ public interface QuestionMapper {
         "set userid = #{userid,jdbcType=BIGINT},",
           "content = #{content,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=TINYINT},",
-          "realnamepublish = #{realnamepublish,jdbcType=TINYINT}",
+          "realnamepublish = #{realnamepublish,jdbcType=TINYINT},",
+          "createtime = #{createtime,jdbcType=TIMESTAMP},",
+          "validityperiod = #{validityperiod,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Question record);

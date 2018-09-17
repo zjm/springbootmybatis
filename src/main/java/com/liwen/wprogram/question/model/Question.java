@@ -1,5 +1,7 @@
 package com.liwen.wprogram.question.model;
 
+import java.util.Date;
+
 public class Question {
     private Long id;
 
@@ -10,6 +12,10 @@ public class Question {
     private Byte type;
 
     private Byte realnamepublish;
+
+    private Date createtime;
+
+    private Integer validityperiod;
 
     public Long getId() {
         return id;
@@ -49,5 +55,21 @@ public class Question {
 
     public void setRealnamepublish(Byte realnamepublish) {
         this.realnamepublish = realnamepublish;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Integer getValidityperiod() {
+        return validityperiod;
+    }
+
+    public void setValidityperiod(Integer validityperiod) {
+        this.validityperiod = validityperiod;
     }
 }

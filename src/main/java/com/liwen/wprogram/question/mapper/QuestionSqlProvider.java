@@ -36,6 +36,14 @@ public class QuestionSqlProvider {
             VALUES("realnamepublish", "#{realnamepublish,jdbcType=TINYINT}");
         }
         
+        if (record.getCreatetime() != null) {
+            VALUES("createtime", "#{createtime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getValidityperiod() != null) {
+            VALUES("validityperiod", "#{validityperiod,jdbcType=INTEGER}");
+        }
+        
         return SQL();
     }
 
@@ -57,6 +65,14 @@ public class QuestionSqlProvider {
         
         if (record.getRealnamepublish() != null) {
             SET("realnamepublish = #{realnamepublish,jdbcType=TINYINT}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            SET("createtime = #{createtime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getValidityperiod() != null) {
+            SET("validityperiod = #{validityperiod,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");
