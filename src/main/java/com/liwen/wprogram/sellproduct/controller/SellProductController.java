@@ -12,9 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +101,12 @@ public class SellProductController {
     public String file(){
        // logger.info("aaaaaaaaaaa=====");
         return "file";
+    }
+
+    @RequestMapping("mutifile")
+    public String mutilfile(){
+        // logger.info("aaaaaaaaaaa=====");
+        return "mutifile";
     }
 
     class ResultUpload{
@@ -186,8 +198,70 @@ public class SellProductController {
             e.printStackTrace();
             return resUp;
         }
+    }
+
+
+
+    @RequestMapping(value="/batchupload", method=RequestMethod.POST)
+    @ResponseBody
+    public  BaseResult batcUploadFile(HttpServletRequest request)
+    {
+        BaseResult br = new BaseResult();
+
+        try {
+
+            String name = request.getParameter("name");
+            List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("filename");
+            MultipartFile file = null;
+            File destFile = null;
+            BufferedOutputStream stream = null;
+            String fileName=null;
+            String path = request.getSession().getServletContext().getRealPath("upload/");
+            logger.info(request.getServletPath()+",");
+            logger.info(",name:"+name+",:"+path+",request.getRequestURI():"
+                    +request.getRequestURI()+",urlbuffe:"+request.getRequestURL().toString());
+
+             //数据库中保存upload/fileName.png;访问：http://127.0.0.1.upload/fileName.png
+
+            for (int i = 0; i < files.size(); ++i) {
+                file = files.get(i);
+                if (!file.isEmpty())
+                {
+                    try{
+                        byte[] bytes = file.getBytes();
+                        fileName =path+ file.getOriginalFilename();
+                        destFile = new File(path+file.getOriginalFilename());
+                        if (!destFile.getParentFile().exists()){
+                            destFile.getParentFile().mkdir();
+                        }
+                        stream = new BufferedOutputStream(new FileOutputStream(destFile));
+                        stream.write(bytes);
+                        stream.close();
+                        //保存库
+
+                    }catch (Exception e)
+                    {
+                        stream =null;
+                        br.setResult(BaseConstant.FAIL_INFO+"-->"+e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setResult(BaseConstant.SUCCESS_INFO);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            br.setResult(BaseConstant.PARAM_ERROR_INFO+"-->"+e.getMessage());
+        }
+
+
+        return  br;
 
     }
+
 
     public  String getExtensionName(String filename) {
         if ((filename != null) && (filename.length() > 0)) {

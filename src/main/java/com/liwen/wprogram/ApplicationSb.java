@@ -13,10 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 @EnableAutoConfiguration
 @SpringBootApplication
@@ -24,6 +26,7 @@ import java.util.Date;
 //@MapperScan("cn.no7player.mapper")
 //com.example.sb2
 @MapperScan("com.liwen.wprogram")
+@EnableTransactionManagement
 public class ApplicationSb {
     private static Logger logger = Logger.getLogger(ApplicationSb.class);
 
@@ -62,6 +65,9 @@ public class ApplicationSb {
         //从前端或者自己模拟一个日期格式，转为String即可
         String dateStr = format.format(date);
         logger.info("SpringBoot Start Success:"+dateStr);
+
+
+
     }
 
 }

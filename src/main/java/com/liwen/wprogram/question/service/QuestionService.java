@@ -4,6 +4,9 @@ import com.liwen.wprogram.question.mapper.QuestionMapper;
 import com.liwen.wprogram.question.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,9 +29,15 @@ public class QuestionService {
         return questionMapper.selectByTypeKey(userid,type);
     }
 
+
     public int saveQuestion(Question question)
     {
         return  questionMapper.insert(question);
+    }
+
+    public void delQuestion(long id)
+    {
+        questionMapper.deleteByPrimaryKey(id);
     }
 
 
