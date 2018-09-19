@@ -1,7 +1,5 @@
 package com.liwen.wprogram.question.model;
 
-import java.util.Date;
-
 public class Question {
     private Long id;
 
@@ -29,7 +27,7 @@ public class Question {
 
     private Float rewardbalance;
 
-    private Date createtime;
+    private String createtime;
 
     public Long getId() {
         return id;
@@ -135,11 +133,11 @@ public class Question {
         this.rewardbalance = rewardbalance;
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
     }
 }

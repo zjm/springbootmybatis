@@ -34,7 +34,7 @@ public interface QuestionMapper {
         "#{viewnum,jdbcType=INTEGER}, #{ansernum,jdbcType=INTEGER}, ",
         "#{giftimg,jdbcType=VARCHAR}, #{giftname,jdbcType=VARCHAR}, ",
         "#{publishcompany,jdbcType=VARCHAR}, #{rewardbalance,jdbcType=REAL}, ",
-        "#{createtime,jdbcType=TIMESTAMP})"
+        "#{createtime,jdbcType=VARCHAR})"
     })
     int insert(Question record);
 
@@ -62,7 +62,7 @@ public interface QuestionMapper {
         @Result(column="giftname", property="giftname", jdbcType=JdbcType.VARCHAR),
         @Result(column="publishcompany", property="publishcompany", jdbcType=JdbcType.VARCHAR),
         @Result(column="rewardbalance", property="rewardbalance", jdbcType=JdbcType.REAL),
-        @Result(column="createtime", property="createtime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     Question selectByPrimaryKey(Long id);
 
@@ -71,7 +71,7 @@ public interface QuestionMapper {
             "id, userid, content, type, realnamepublish, validityperiod, status, viewnum, ",
             "ansernum, giftimg, giftname, publishcompany, rewardbalance, createtime",
             "from question",
-            "where type = #{type,jdbcType=BIGINT}"
+            "where  userid = #{0} and type = #{1}"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
@@ -87,9 +87,9 @@ public interface QuestionMapper {
             @Result(column="giftname", property="giftname", jdbcType=JdbcType.VARCHAR),
             @Result(column="publishcompany", property="publishcompany", jdbcType=JdbcType.VARCHAR),
             @Result(column="rewardbalance", property="rewardbalance", jdbcType=JdbcType.REAL),
-            @Result(column="createtime", property="createtime", jdbcType=JdbcType.TIMESTAMP)
+            @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    List<Question> selectByTypeKey(byte type);
+    List<Question> selectByTypeKey(long userid, byte type);
 
     @UpdateProvider(type=QuestionSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Question record);
@@ -108,7 +108,7 @@ public interface QuestionMapper {
           "giftname = #{giftname,jdbcType=VARCHAR},",
           "publishcompany = #{publishcompany,jdbcType=VARCHAR},",
           "rewardbalance = #{rewardbalance,jdbcType=REAL},",
-          "createtime = #{createtime,jdbcType=TIMESTAMP}",
+          "createtime = #{createtime,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Question record);

@@ -21,9 +21,9 @@ public class QuestionService {
      * @param type 0.我发起的，1.我参与的
      * @return 数据列表
      */
-    public List<Question> getQuestions(byte type)
+    public List<Question> getQuestions(long userid,byte type)
     {
-        return questionMapper.selectByTypeKey(type);
+        return questionMapper.selectByTypeKey(userid,type);
     }
 
     public int saveQuestion(Question question)

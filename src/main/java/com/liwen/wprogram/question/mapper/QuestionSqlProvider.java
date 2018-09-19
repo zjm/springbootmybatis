@@ -69,7 +69,7 @@ public class QuestionSqlProvider {
         }
         
         if (record.getCreatetime() != null) {
-            VALUES("createtime", "#{createtime,jdbcType=TIMESTAMP}");
+            VALUES("createtime", "#{createtime,jdbcType=VARCHAR}");
         }
         
         return SQL();
@@ -128,7 +128,7 @@ public class QuestionSqlProvider {
         }
         
         if (record.getCreatetime() != null) {
-            SET("createtime = #{createtime,jdbcType=TIMESTAMP}");
+            SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");
