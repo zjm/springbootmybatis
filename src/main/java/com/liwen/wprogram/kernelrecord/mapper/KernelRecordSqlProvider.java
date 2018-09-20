@@ -17,7 +17,7 @@ public class KernelRecordSqlProvider {
         INSERT_INTO("kernelrecord");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=INTEGER}");
+            VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
         if (record.getTitle() != null) {
@@ -59,7 +59,7 @@ public class KernelRecordSqlProvider {
             SET("rewardtime = #{rewardtime,jdbcType=TIMESTAMP}");
         }
         
-        WHERE("id = #{id,jdbcType=INTEGER}");
+        WHERE("id = #{id,jdbcType=BIGINT}");
         
         return SQL();
     }

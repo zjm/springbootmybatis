@@ -14,15 +14,15 @@ import org.apache.ibatis.type.JdbcType;
 public interface KernelRecordMapper {
     @Delete({
         "delete from kernelrecord",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     @Insert({
         "insert into kernelrecord (id, title, ",
         "rewardnum, type, ",
         "rewardtime)",
-        "values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, ",
+        "values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, ",
         "#{rewardnum,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, ",
         "#{rewardtime,jdbcType=TIMESTAMP})"
     })
@@ -35,16 +35,16 @@ public interface KernelRecordMapper {
         "select",
         "id, title, rewardnum, type, rewardtime",
         "from kernelrecord",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="rewardnum", property="rewardnum", jdbcType=JdbcType.INTEGER),
         @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
         @Result(column="rewardtime", property="rewardtime", jdbcType=JdbcType.TIMESTAMP)
     })
-    KernelRecord selectByPrimaryKey(Integer id);
+    KernelRecord selectByPrimaryKey(Long id);
 
     @UpdateProvider(type=KernelRecordSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(KernelRecord record);
@@ -55,7 +55,7 @@ public interface KernelRecordMapper {
           "rewardnum = #{rewardnum,jdbcType=INTEGER},",
           "type = #{type,jdbcType=TINYINT},",
           "rewardtime = #{rewardtime,jdbcType=TIMESTAMP}",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(KernelRecord record);
 }

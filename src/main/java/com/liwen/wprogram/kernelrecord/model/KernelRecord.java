@@ -3,7 +3,7 @@ package com.liwen.wprogram.kernelrecord.model;
 import java.util.Date;
 
 public class KernelRecord {
-    private Integer id;
+    private Long id;
 
     private String title;
 
@@ -13,11 +13,11 @@ public class KernelRecord {
 
     private Date rewardtime;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
