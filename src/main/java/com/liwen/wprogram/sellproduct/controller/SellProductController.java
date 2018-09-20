@@ -33,12 +33,12 @@ public class SellProductController {
     @Autowired
     SellProductService sellProductService;
 
-    @RequestMapping(value = "/productinfo")
-    @ResponseBody
-    public SellProduct getProduct(long id)
-    {
-        return sellProductService.getSellProduct(id);
-    }
+//    @RequestMapping(value = "/productinfo")
+//    @ResponseBody
+//    public SellProduct getProduct(long id)
+//    {
+//        return sellProductService.getSellProduct(id);
+//    }
 
     /**
      * 商品列表
