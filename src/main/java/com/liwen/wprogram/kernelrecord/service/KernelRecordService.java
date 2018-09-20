@@ -5,6 +5,8 @@ import com.liwen.wprogram.kernelrecord.model.KernelRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class KernelRecordService {
     @Autowired
@@ -13,6 +15,11 @@ public class KernelRecordService {
     public KernelRecord getKernelRecord(long id)
     {
         return  kernelRecordMapper.selectByPrimaryKey(id);
+    }
+
+    public List<KernelRecord> getKernelRecords(long userId)
+    {
+        return  kernelRecordMapper.selectByUserIdyKey(userId);
     }
 
     public int saveKernelRecord(KernelRecord kernelRecord)

@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
+import java.util.List;
+
 public interface KernelRecordMapper {
     @Delete({
         "delete from kernelrecord",
@@ -19,12 +21,14 @@ public interface KernelRecordMapper {
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into kernelrecord (id, title, ",
-        "rewardnum, type, ",
-        "rewardtime)",
-        "values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, ",
-        "#{rewardnum,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, ",
-        "#{rewardtime,jdbcType=TIMESTAMP})"
+        "insert into kernelrecord (id, userid, ",
+        "title, rewardnum, ",
+        "type, rewardtime, ",
+        "createtime)",
+        "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
+        "#{title,jdbcType=VARCHAR}, #{rewardnum,jdbcType=INTEGER}, ",
+        "#{type,jdbcType=TINYINT}, #{rewardtime,jdbcType=VARCHAR}, ",
+        "#{createtime,jdbcType=VARCHAR})"
     })
     int insert(KernelRecord record);
 
@@ -33,28 +37,49 @@ public interface KernelRecordMapper {
 
     @Select({
         "select",
-        "id, title, rewardnum, type, rewardtime",
+        "id, userid, title, rewardnum, type, rewardtime, createtime",
         "from kernelrecord",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="rewardnum", property="rewardnum", jdbcType=JdbcType.INTEGER),
         @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
-        @Result(column="rewardtime", property="rewardtime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="rewardtime", property="rewardtime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     KernelRecord selectByPrimaryKey(Long id);
+
+    @Select({
+            "select",
+            "id, userid, title, rewardnum, type, rewardtime, createtime",
+            "from kernelrecord",
+            "where userid = #{userid,jdbcType=BIGINT}"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+            @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+            @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+            @Result(column="rewardnum", property="rewardnum", jdbcType=JdbcType.INTEGER),
+            @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
+            @Result(column="rewardtime", property="rewardtime", jdbcType=JdbcType.VARCHAR),
+            @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
+    })
+    List<KernelRecord> selectByUserIdyKey(Long id);
 
     @UpdateProvider(type=KernelRecordSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(KernelRecord record);
 
     @Update({
         "update kernelrecord",
-        "set title = #{title,jdbcType=VARCHAR},",
+        "set userid = #{userid,jdbcType=BIGINT},",
+          "title = #{title,jdbcType=VARCHAR},",
           "rewardnum = #{rewardnum,jdbcType=INTEGER},",
           "type = #{type,jdbcType=TINYINT},",
-          "rewardtime = #{rewardtime,jdbcType=TIMESTAMP}",
+          "rewardtime = #{rewardtime,jdbcType=VARCHAR},",
+          "createtime = #{createtime,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(KernelRecord record);

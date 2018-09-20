@@ -20,6 +20,10 @@ public class KernelRecordSqlProvider {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
+        if (record.getUserid() != null) {
+            VALUES("userid", "#{userid,jdbcType=BIGINT}");
+        }
+        
         if (record.getTitle() != null) {
             VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
@@ -33,7 +37,11 @@ public class KernelRecordSqlProvider {
         }
         
         if (record.getRewardtime() != null) {
-            VALUES("rewardtime", "#{rewardtime,jdbcType=TIMESTAMP}");
+            VALUES("rewardtime", "#{rewardtime,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            VALUES("createtime", "#{createtime,jdbcType=VARCHAR}");
         }
         
         return SQL();
@@ -42,6 +50,10 @@ public class KernelRecordSqlProvider {
     public String updateByPrimaryKeySelective(KernelRecord record) {
         BEGIN();
         UPDATE("kernelrecord");
+        
+        if (record.getUserid() != null) {
+            SET("userid = #{userid,jdbcType=BIGINT}");
+        }
         
         if (record.getTitle() != null) {
             SET("title = #{title,jdbcType=VARCHAR}");
@@ -56,7 +68,11 @@ public class KernelRecordSqlProvider {
         }
         
         if (record.getRewardtime() != null) {
-            SET("rewardtime = #{rewardtime,jdbcType=TIMESTAMP}");
+            SET("rewardtime = #{rewardtime,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

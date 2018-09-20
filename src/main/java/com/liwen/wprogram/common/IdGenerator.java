@@ -81,18 +81,18 @@ public class IdGenerator {
         return ts;
     }
 
-    public static void main(String[] args) throws Exception {
-        // TODO Auto-generated method stub
-        IdGenerator ig = new IdGenerator();
-        String str = "20170101";
-        System.out.println(new SimpleDateFormat("YYYYMMDD").parse(str).getTime());
-        Set<Long> set = new HashSet<Long>();
-        long begin = System.nanoTime();
-        for (int i = 0; i < 10000; i++) {
-            set.add(ig.nextId());
-        }
-        System.out.println("time=" + (System.nanoTime() - begin)/1000.0 + " us");
-        System.out.println(set.size());
-        System.out.println(set);
-    }
+//    public static void main(String[] args) throws Exception {
+//        // TODO Auto-generated method stub
+//        IdGenerator ig = new IdGenerator();
+//        String str = "20170101";
+//        System.out.println(new SimpleDateFormat("YYYYMMDD").parse(str).getTime());
+//        Set<Long> set = new HashSet<Long>();
+//        long begin = System.nanoTime();
+//        for (int i = 0; i < 10000; i++) {
+//            set.add(ig.nextId());
+//        }
+//        System.out.println("time=" + (System.nanoTime() - begin)/1000.0 + " us");
+//        System.out.println(set.size());
+//        System.out.println(set);
+//    }
 }

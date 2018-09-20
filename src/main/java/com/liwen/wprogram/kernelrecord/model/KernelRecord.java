@@ -1,9 +1,9 @@
 package com.liwen.wprogram.kernelrecord.model;
 
-import java.util.Date;
-
 public class KernelRecord {
     private Long id;
+
+    private Long userid;
 
     private String title;
 
@@ -11,7 +11,9 @@ public class KernelRecord {
 
     private Byte type;
 
-    private Date rewardtime;
+    private String rewardtime;
+
+    private String createtime;
 
     public Long getId() {
         return id;
@@ -19,6 +21,14 @@ public class KernelRecord {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
     public String getTitle() {
@@ -45,11 +55,19 @@ public class KernelRecord {
         this.type = type;
     }
 
-    public Date getRewardtime() {
+    public String getRewardtime() {
         return rewardtime;
     }
 
-    public void setRewardtime(Date rewardtime) {
-        this.rewardtime = rewardtime;
+    public void setRewardtime(String rewardtime) {
+        this.rewardtime = rewardtime == null ? null : rewardtime.trim();
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
     }
 }
