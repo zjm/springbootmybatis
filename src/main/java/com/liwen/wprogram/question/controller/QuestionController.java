@@ -198,5 +198,17 @@ public class QuestionController {
 
     }
 
+    /** 问题详情
+     * @param quid
+     * @return
+     */
+    @RequestMapping(value = "/questioninfo")
+    @ResponseBody
+    public Question getQuestions(@RequestParam("quid") long quid) {
+        logger.info("usrid:" + quid );
+        return questionService.getQuestion(quid);
+
+    }
+
 
 }

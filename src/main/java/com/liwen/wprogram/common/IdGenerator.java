@@ -5,17 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * ClassName:IdGenerator <br/>
- * Function: TODO ADD FUNCTION. <br/>
- * Reason: TODO ADD REASON. <br/>
- * Date: 2017年2月17日 下午3:08:34 <br/>
- *
- * @author chiwei
- * @version
- * @since JDK 1.6
- * @see
- */
+
 public class IdGenerator {
     /**
      * SnowFlake算法 64位Long类型生成唯一ID 第一位0，表明正数 2-42，41位，表示毫秒时间戳差值，起始值自定义

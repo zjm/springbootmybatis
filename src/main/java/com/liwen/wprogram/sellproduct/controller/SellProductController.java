@@ -40,22 +40,32 @@ public class SellProductController {
         return sellProductService.getSellProduct(id);
     }
 
-    @RequestMapping(value = "/allproduct")
+    /**
+     * 商品列表
+     * @return
+     */
+   @RequestMapping(value = "/productlis")
     @ResponseBody
     public List<SellProduct> getAllProduct()
     {
         return  sellProductService.getAllProduct();
     }
 
+    /**
+     *
+     * @param productid
+     * @return
+     */
+    @RequestMapping(value = "/productinfo")
+    @ResponseBody
+    public  SellProduct getProductInfo(@RequestParam("productid") long  productid)
+    {
+        return sellProductService.getSellProduct(productid);
+
+    }
+
     @RequestMapping(value="/savproduct", method=RequestMethod.POST)
     @ResponseBody
-//    "productname": "产品1",
-//            "price": "10.2",
-//            "kernel": "100",
-//            "thumbnail": "headimg",
-//            "detailimg": "long img",
-//            "remainingnum": "100",
-//            "totalnum":100
     public BaseResult saveProductMap(@RequestParam Map<String, Object> requestMap) {
 
         logger.info("requestmap:"+requestMap);

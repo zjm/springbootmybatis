@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/kernelrecord")
+@RequestMapping(value = "/kernel")
 public class KernelRecordController {
     private Logger logger = Logger.getLogger(KernelRecordController.class);
     @Autowired

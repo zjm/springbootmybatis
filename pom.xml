@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.liwen.wprogram</groupId>
-    <artifactId>wrenma</artifactId>
-    <version>i</version>
+    <artifactId>wrenmai</artifactId>
+    <version>1.0</version>
 
     <!--<parent>-->
     <!--<groupId>org.springframework.boot</groupId>-->
