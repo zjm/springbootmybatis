@@ -61,7 +61,6 @@ public interface UserInfoMapper {
         @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     UserInfo selectByPrimaryKey(Long id);
-
     @Select({
             "select",
             "id, headimg, nickname, phone, name, company, department, weixinhao, mykernel, ",
@@ -83,7 +82,6 @@ public interface UserInfoMapper {
             @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     List<UserInfo> selectAll();
-
     @UpdateProvider(type=UserInfoSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(UserInfo record);
 
