@@ -20,6 +20,14 @@ public class UserInfoSqlProvider {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
+        if (record.getHeadimg() != null) {
+            VALUES("headimg", "#{headimg,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getNickname() != null) {
+            VALUES("nickname", "#{nickname,jdbcType=VARCHAR}");
+        }
+        
         if (record.getPhone() != null) {
             VALUES("phone", "#{phone,jdbcType=VARCHAR}");
         }
@@ -48,12 +56,28 @@ public class UserInfoSqlProvider {
             VALUES("address", "#{address,jdbcType=VARCHAR}");
         }
         
+        if (record.getRmbbalance() != null) {
+            VALUES("rmbbalance", "#{rmbbalance,jdbcType=REAL}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            VALUES("createtime", "#{createtime,jdbcType=VARCHAR}");
+        }
+        
         return SQL();
     }
 
     public String updateByPrimaryKeySelective(UserInfo record) {
         BEGIN();
         UPDATE("userinfo");
+        
+        if (record.getHeadimg() != null) {
+            SET("headimg = #{headimg,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getNickname() != null) {
+            SET("nickname = #{nickname,jdbcType=VARCHAR}");
+        }
         
         if (record.getPhone() != null) {
             SET("phone = #{phone,jdbcType=VARCHAR}");
@@ -81,6 +105,14 @@ public class UserInfoSqlProvider {
         
         if (record.getAddress() != null) {
             SET("address = #{address,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRmbbalance() != null) {
+            SET("rmbbalance = #{rmbbalance,jdbcType=REAL}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

@@ -60,7 +60,7 @@ public class KernelRecordController {
             kernelRecord.setType(type);
             kernelRecord.setRewardnum(rewardnum);
             kernelRecord.setCreatetime(currentTime);
-            kernelRecord.setCreatetime(currentTime);
+            kernelRecord.setRewardtime(currentTime);
             kernelRecordService.saveKernelRecord(kernelRecord);
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setResult(BaseConstant.SUCCESS_INFO);
