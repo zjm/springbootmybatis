@@ -1,5 +1,6 @@
 package com.liwen.wprogram.sharertop.model;
 
+//人脉排行榜
 public class SharerTop {
     private Long id;
 
