@@ -1,4 +1,4 @@
-package com.liwen.wprogram.question.mapper;
+package com.liwen.wprogram.order.mapper;
 
 import static org.apache.ibatis.jdbc.SqlBuilder.BEGIN;
 import static org.apache.ibatis.jdbc.SqlBuilder.INSERT_INTO;
@@ -8,13 +8,13 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.liwen.wprogram.question.model.RollTitles;
+import com.liwen.wprogram.order.model.SellOrder;
 
-public class RollTitlesSqlProvider {
+public class SellOrderSqlProvider {
 
-    public String insertSelective(RollTitles record) {
+    public String insertSelective(SellOrder record) {
         BEGIN();
-        INSERT_INTO("rolltitles");
+        INSERT_INTO("sellorder");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
@@ -24,24 +24,24 @@ public class RollTitlesSqlProvider {
             VALUES("userid", "#{userid,jdbcType=BIGINT}");
         }
         
-        if (record.getNickname() != null) {
-            VALUES("nickname", "#{nickname,jdbcType=VARCHAR}");
+        if (record.getAddressid() != null) {
+            VALUES("addressid", "#{addressid,jdbcType=BIGINT}");
         }
         
-        if (record.getHeadimg() != null) {
-            VALUES("headimg", "#{headimg,jdbcType=VARCHAR}");
+        if (record.getProductid() != null) {
+            VALUES("productid", "#{productid,jdbcType=BIGINT}");
         }
         
-        if (record.getDimension() != null) {
-            VALUES("dimension", "#{dimension,jdbcType=INTEGER}");
-        }
-        
-        if (record.getMoney() != null) {
-            VALUES("money", "#{money,jdbcType=INTEGER}");
+        if (record.getBuynum() != null) {
+            VALUES("buynum", "#{buynum,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=TINYINT}");
+        }
+        
+        if (record.getSendtype() != null) {
+            VALUES("sendtype", "#{sendtype,jdbcType=TINYINT}");
         }
         
         if (record.getCreatetime() != null) {
@@ -51,32 +51,32 @@ public class RollTitlesSqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(RollTitles record) {
+    public String updateByPrimaryKeySelective(SellOrder record) {
         BEGIN();
-        UPDATE("rolltitles");
+        UPDATE("sellorder");
         
         if (record.getUserid() != null) {
             SET("userid = #{userid,jdbcType=BIGINT}");
         }
         
-        if (record.getNickname() != null) {
-            SET("nickname = #{nickname,jdbcType=VARCHAR}");
+        if (record.getAddressid() != null) {
+            SET("addressid = #{addressid,jdbcType=BIGINT}");
         }
         
-        if (record.getHeadimg() != null) {
-            SET("headimg = #{headimg,jdbcType=VARCHAR}");
+        if (record.getProductid() != null) {
+            SET("productid = #{productid,jdbcType=BIGINT}");
         }
         
-        if (record.getDimension() != null) {
-            SET("dimension = #{dimension,jdbcType=INTEGER}");
-        }
-        
-        if (record.getMoney() != null) {
-            SET("money = #{money,jdbcType=INTEGER}");
+        if (record.getBuynum() != null) {
+            SET("buynum = #{buynum,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {
             SET("status = #{status,jdbcType=TINYINT}");
+        }
+        
+        if (record.getSendtype() != null) {
+            SET("sendtype = #{sendtype,jdbcType=TINYINT}");
         }
         
         if (record.getCreatetime() != null) {

@@ -15,6 +15,8 @@ public class RollTitles {
 
     private Byte status;
 
+    private String createtime;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class RollTitles {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
     }
 }

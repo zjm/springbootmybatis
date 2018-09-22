@@ -2,12 +2,17 @@ package com.liwen.wprogram.sellproduct.controller;
 
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
+import com.liwen.wprogram.common.IdGenerator;
+import com.liwen.wprogram.common.Utils;
 import com.liwen.wprogram.sellproduct.model.SellProduct;
 import com.liwen.wprogram.sellproduct.service.SellProductService;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,9 +51,24 @@ public class SellProductController {
      */
    @RequestMapping(value = "/productlis")
     @ResponseBody
-    public List<SellProduct> getAllProduct()
+    public BaseResult getAllProduct()
     {
-        return  sellProductService.getAllProduct();
+
+      //  return  sellProductService.getAllProduct();
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            //0.不显示，1.显示，2.已解决
+            br.setData(sellProductService.getAllProduct());
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
     }
 
     /**
@@ -58,14 +78,28 @@ public class SellProductController {
      */
     @RequestMapping(value = "/productinfo")
     @ResponseBody
-    public  SellProduct getProductInfo(@RequestParam("productid") long  productid)
+    public  BaseResult getProductInfo(@RequestParam("productid") long  productid)
     {
-        return sellProductService.getSellProduct(productid);
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            //0.不显示，1.显示，2.已解决
+            br.setData(sellProductService.getSellProduct(productid));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
 
     }
 
     @RequestMapping(value="/savproduct", method=RequestMethod.POST)
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult saveProductMap(@RequestParam Map<String, Object> requestMap) {
 
         logger.info("requestmap:"+requestMap);
@@ -78,6 +112,8 @@ public class SellProductController {
         int remainingnums = Integer.valueOf(requestMap.get("remainingnum").toString());
         int totalnum = Integer.valueOf(requestMap.get("totalnum").toString());
         SellProduct sellProduct = new SellProduct();
+        IdGenerator idg= new IdGenerator();
+        sellProduct.setId(idg.nextId());
         sellProduct.setProductname(productName);
         sellProduct.setPrice(price);
         sellProduct.setKernel(kernel);
@@ -85,6 +121,7 @@ public class SellProductController {
         sellProduct.setDetailimg(detailimg);
         sellProduct.setRemainingnum(remainingnums);
         sellProduct.setTotalnum(totalnum);
+        sellProduct.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
         BaseResult br = new BaseResult();
         br.setCode(BaseConstant.SUCCESS_CODE);
         br.setResult(BaseConstant.SUCCESS_INFO);

@@ -3,6 +3,7 @@ package com.liwen.wprogram.question.controller;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.IdGenerator;
+import com.liwen.wprogram.common.Utils;
 import com.liwen.wprogram.question.model.Question;
 import com.liwen.wprogram.question.model.QuestionImgs;
 import com.liwen.wprogram.question.model.RollTitles;
@@ -50,23 +51,29 @@ public class QuestionController {
     }
     @RequestMapping(value = "/normalquestion", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult saveQuestionMap(@RequestParam Map<String, Object> requestMap) {
+    public BaseResult saveQuestionMap(HttpServletRequest requestMap) {
+        logger.info("normalquestion=======comin");
         BaseResult br = new BaseResult();
         br.setCode(BaseConstant.SUCCESS_CODE);
         br.setResult(BaseConstant.SUCCESS_INFO);
         try {
-            Long userid = Long.valueOf(requestMap.get("userid").toString());
-            String content = requestMap.get("content").toString();
-            //1.是实名发布；0.非实名发布
-            byte realnamepub = Byte.valueOf(requestMap.get("realnamepublish").toString());
-            Date date = new Date();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //从前端或者自己模拟一个日期格式，转为String即可
-            String dateStr = format.format(date);
-            int validaity = Integer.valueOf(requestMap.get("validityperiod").toString());
 
-            String publishCompy = requestMap.get("publishcompany").toString();
-            String imgId = requestMap.get("giftimg").toString();
+            String userids = requestMap.getParameter("userid").toString();
+            logger.info("userid:"+userids);
+            Long userid = Long.valueOf(userids);
+            logger.info("userid:"+userid);
+            String content = requestMap.getParameter("content").toString();
+            logger.info("content:"+content);
+            //1.是实名发布；0.非实名发布
+            byte realnamepub = Byte.valueOf(requestMap.getParameter("realnamepublish").toString());
+            logger.info("realnamepub:"+realnamepub);
+
+            int validaity = Integer.valueOf(requestMap.getParameter("validityperiod").toString());
+            logger.info("validaity:"+validaity);
+            String publishCompy = requestMap.getParameter("publishcompany").toString();
+            logger.info("publishCompy:"+publishCompy);
+            String imgId = requestMap.getParameter("giftimg").toString();
+            logger.info("imgId:"+imgId);
 
             Question question = new Question();
             IdGenerator ig = new IdGenerator();
@@ -75,19 +82,23 @@ public class QuestionController {
             question.setContent(content);
             question.setType((byte) 0);////0.我发起的；1.我参与的
             question.setRealnamepublish(realnamepub);
-            question.setCreatetime(dateStr);
+            question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             question.setValidityperiod(validaity);
             question.setGiftimg(imgId);
             question.setPublishcompany(publishCompy);
             question.setStatus((byte) 0);  //0.进行中，1.结束
             int ret = questionService.saveQuestion(question);
             logger.info("save ret:" + ret);
+            return br;
 
         } catch (Exception e) {
             br.setCode(BaseConstant.FAIL_CODE);
             br.setResult(BaseConstant.PARAM_ERROR_INFO + "," + e.getMessage());
+            logger.info("normalquestion:"+e.getMessage());
+            e.printStackTrace();
+            return br;
         }
-        return br;
+
 
     }
 
@@ -96,6 +107,7 @@ public class QuestionController {
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult adveQuestion(HttpServletRequest requestMap) {
+        logger.info("advancedquestion===comin===");
         BaseResult br = new BaseResult();
         long questionId=(long)0;
         try {
@@ -185,6 +197,7 @@ public class QuestionController {
             questionService.delQuestion(questionId);
             e.printStackTrace();
             br.setResult(BaseConstant.PARAM_ERROR_INFO + "-->" + e.getMessage());
+            e.printStackTrace();
             return br;
         }
 
@@ -278,6 +291,7 @@ public class QuestionController {
             rt.setHeadimg(headImg);
             rt.setDimension(dismens);
             rt.setMoney(money);
+            rt.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             //0.不显示，1.显示，2.已解决
             rt.setStatus((byte) 2);
             int ret = rollTitlesService.saveRollingTitles(rt);

@@ -1,4 +1,4 @@
-package com.liwen.wprogram.question.mapper;
+package com.liwen.wprogram.myaddress.mapper;
 
 import static org.apache.ibatis.jdbc.SqlBuilder.BEGIN;
 import static org.apache.ibatis.jdbc.SqlBuilder.INSERT_INTO;
@@ -8,13 +8,13 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.liwen.wprogram.question.model.RollTitles;
+import com.liwen.wprogram.myaddress.model.MyAddress;
 
-public class RollTitlesSqlProvider {
+public class MyAddressSqlProvider {
 
-    public String insertSelective(RollTitles record) {
+    public String insertSelective(MyAddress record) {
         BEGIN();
-        INSERT_INTO("rolltitles");
+        INSERT_INTO("myaddress");
         
         if (record.getId() != null) {
             VALUES("id", "#{id,jdbcType=BIGINT}");
@@ -24,24 +24,24 @@ public class RollTitlesSqlProvider {
             VALUES("userid", "#{userid,jdbcType=BIGINT}");
         }
         
-        if (record.getNickname() != null) {
-            VALUES("nickname", "#{nickname,jdbcType=VARCHAR}");
+        if (record.getName() != null) {
+            VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
-        if (record.getHeadimg() != null) {
-            VALUES("headimg", "#{headimg,jdbcType=VARCHAR}");
+        if (record.getPhone() != null) {
+            VALUES("phone", "#{phone,jdbcType=VARCHAR}");
         }
         
-        if (record.getDimension() != null) {
-            VALUES("dimension", "#{dimension,jdbcType=INTEGER}");
+        if (record.getArea() != null) {
+            VALUES("area", "#{area,jdbcType=VARCHAR}");
         }
         
-        if (record.getMoney() != null) {
-            VALUES("money", "#{money,jdbcType=INTEGER}");
+        if (record.getDetailaddress() != null) {
+            VALUES("detailaddress", "#{detailaddress,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            VALUES("status", "#{status,jdbcType=TINYINT}");
+        if (record.getPostcoe() != null) {
+            VALUES("postcoe", "#{postcoe,jdbcType=VARCHAR}");
         }
         
         if (record.getCreatetime() != null) {
@@ -51,32 +51,32 @@ public class RollTitlesSqlProvider {
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(RollTitles record) {
+    public String updateByPrimaryKeySelective(MyAddress record) {
         BEGIN();
-        UPDATE("rolltitles");
+        UPDATE("myaddress");
         
         if (record.getUserid() != null) {
             SET("userid = #{userid,jdbcType=BIGINT}");
         }
         
-        if (record.getNickname() != null) {
-            SET("nickname = #{nickname,jdbcType=VARCHAR}");
+        if (record.getName() != null) {
+            SET("name = #{name,jdbcType=VARCHAR}");
         }
         
-        if (record.getHeadimg() != null) {
-            SET("headimg = #{headimg,jdbcType=VARCHAR}");
+        if (record.getPhone() != null) {
+            SET("phone = #{phone,jdbcType=VARCHAR}");
         }
         
-        if (record.getDimension() != null) {
-            SET("dimension = #{dimension,jdbcType=INTEGER}");
+        if (record.getArea() != null) {
+            SET("area = #{area,jdbcType=VARCHAR}");
         }
         
-        if (record.getMoney() != null) {
-            SET("money = #{money,jdbcType=INTEGER}");
+        if (record.getDetailaddress() != null) {
+            SET("detailaddress = #{detailaddress,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            SET("status = #{status,jdbcType=TINYINT}");
+        if (record.getPostcoe() != null) {
+            SET("postcoe = #{postcoe,jdbcType=VARCHAR}");
         }
         
         if (record.getCreatetime() != null) {

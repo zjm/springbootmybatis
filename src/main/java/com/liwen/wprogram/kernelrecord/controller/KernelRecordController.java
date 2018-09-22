@@ -7,6 +7,8 @@ import com.liwen.wprogram.common.Utils;
 import com.liwen.wprogram.kernelrecord.model.KernelRecord;
 import com.liwen.wprogram.kernelrecord.service.KernelRecordService;
 import com.liwen.wprogram.question.model.Question;
+import com.liwen.wprogram.user.model.UserInfo;
+import com.liwen.wprogram.user.service.UserInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +29,29 @@ public class KernelRecordController {
     private Logger logger = Logger.getLogger(KernelRecordController.class);
     @Autowired
     KernelRecordService kernelRecordService;
+    @Autowired
+    UserInfoService userInfoService;
     @RequestMapping(value = "/getkernelinfos")
     @ResponseBody
-    public List<KernelRecord> getQuestions(@RequestParam("userid") long userid) {
+    public BaseResult getQuestions(@RequestParam("userid") long userid) {
         logger.info("usrid:" + userid + ",param:" );
-        return kernelRecordService.getKernelRecords(userid);
+      //  return kernelRecordService.getKernelRecords(userid);
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            //0.不显示，1.显示，2.已解决
+            br.setData(kernelRecordService.getKernelRecords(userid));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
+
+
     }
 
     /**
@@ -53,6 +73,21 @@ public class KernelRecordController {
             //0.减少麦粒，1.增加麦粒
             byte type = Byte.valueOf(request.getParameter("type").toString());
             int rewardnum = Integer.valueOf (request.getParameter("rewardnum").toString());
+            UserInfo userInfo = userInfoService.getUserInfo(userId);
+            int myKernels = userInfo.getMykernel();
+            if (type==0)
+            {
+                if(myKernels<rewardnum) {
+                    br.setCode(BaseConstant.FAIL_CODE);
+                    br.setResult("脉粒数量不够");
+                    return br;
+                }
+                myKernels =myKernels -rewardnum;
+            }else
+            {
+                myKernels = myKernels+rewardnum;
+            }
+            userInfo.setMykernel(myKernels);
             String currentTime = Utils.getTimeYYYYMMDDHHMMSS();
             KernelRecord kernelRecord = new KernelRecord();
             kernelRecord.setId(id);
@@ -62,6 +97,7 @@ public class KernelRecordController {
             kernelRecord.setCreatetime(currentTime);
             kernelRecord.setRewardtime(currentTime);
             kernelRecordService.saveKernelRecord(kernelRecord);
+            userInfoService.saveUserInfo(userInfo);
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setResult(BaseConstant.SUCCESS_INFO);
             return  br;

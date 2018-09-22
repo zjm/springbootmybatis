@@ -17,6 +17,8 @@ public class SellProduct {
 
     private Integer totalnum;
 
+    private String createtime;
+
     public Long getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class SellProduct {
 
     public void setTotalnum(Integer totalnum) {
         this.totalnum = totalnum;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
     }
 }

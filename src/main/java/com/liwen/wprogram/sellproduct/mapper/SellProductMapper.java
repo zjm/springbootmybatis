@@ -24,11 +24,11 @@ public interface SellProductMapper {
         "insert into sellproduct (id, productname, ",
         "price, kernel, thumbnail, ",
         "detailimg, remainingnum, ",
-        "totalnum)",
+        "totalnum, createtime)",
         "values (#{id,jdbcType=BIGINT}, #{productname,jdbcType=VARCHAR}, ",
         "#{price,jdbcType=REAL}, #{kernel,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR}, ",
         "#{detailimg,jdbcType=VARCHAR}, #{remainingnum,jdbcType=INTEGER}, ",
-        "#{totalnum,jdbcType=INTEGER})"
+        "#{totalnum,jdbcType=INTEGER}, #{createtime,jdbcType=VARCHAR})"
     })
     int insert(SellProduct record);
 
@@ -37,7 +37,8 @@ public interface SellProductMapper {
 
     @Select({
         "select",
-        "id, productname, price, kernel, thumbnail, detailimg, remainingnum, totalnum",
+        "id, productname, price, kernel, thumbnail, detailimg, remainingnum, totalnum, ",
+        "createtime",
         "from sellproduct",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -49,13 +50,14 @@ public interface SellProductMapper {
         @Result(column="thumbnail", property="thumbnail", jdbcType=JdbcType.VARCHAR),
         @Result(column="detailimg", property="detailimg", jdbcType=JdbcType.VARCHAR),
         @Result(column="remainingnum", property="remainingnum", jdbcType=JdbcType.INTEGER),
-        @Result(column="totalnum", property="totalnum", jdbcType=JdbcType.INTEGER)
+        @Result(column="totalnum", property="totalnum", jdbcType=JdbcType.INTEGER),
+        @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     SellProduct selectByPrimaryKey(Long id);
 
     @Select({
             "select",
-            "id, productname, price, kernel, thumbnail, detailimg, remainingnum, totalnum",
+            "id, productname, price, kernel, thumbnail, detailimg, remainingnum, totalnum,createtime",
             "from sellproduct"
     })
     @Results({
@@ -66,9 +68,10 @@ public interface SellProductMapper {
             @Result(column="thumbnail", property="thumbnail", jdbcType=JdbcType.VARCHAR),
             @Result(column="detailimg", property="detailimg", jdbcType=JdbcType.VARCHAR),
             @Result(column="remainingnum", property="remainingnum", jdbcType=JdbcType.INTEGER),
-            @Result(column="totalnum", property="totalnum", jdbcType=JdbcType.INTEGER)
+            @Result(column="totalnum", property="totalnum", jdbcType=JdbcType.INTEGER),
+            @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    List<SellProduct>  selectAll();
+    List<SellProduct> selectAll();
 
     @UpdateProvider(type=SellProductSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SellProduct record);
@@ -81,7 +84,8 @@ public interface SellProductMapper {
           "thumbnail = #{thumbnail,jdbcType=VARCHAR},",
           "detailimg = #{detailimg,jdbcType=VARCHAR},",
           "remainingnum = #{remainingnum,jdbcType=INTEGER},",
-          "totalnum = #{totalnum,jdbcType=INTEGER}",
+          "totalnum = #{totalnum,jdbcType=INTEGER},",
+          "createtime = #{createtime,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(SellProduct record);

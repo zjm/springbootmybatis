@@ -48,6 +48,10 @@ public class SellProductSqlProvider {
             VALUES("totalnum", "#{totalnum,jdbcType=INTEGER}");
         }
         
+        if (record.getCreatetime() != null) {
+            VALUES("createtime", "#{createtime,jdbcType=VARCHAR}");
+        }
+        
         return SQL();
     }
 
@@ -81,6 +85,10 @@ public class SellProductSqlProvider {
         
         if (record.getTotalnum() != null) {
             SET("totalnum = #{totalnum,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");
