@@ -5,6 +5,8 @@ public class Question {
 
     private Long userid;
 
+    private Long productid;
+
     private String content;
 
     private Byte type;
@@ -20,8 +22,6 @@ public class Question {
     private Integer ansernum;
 
     private String giftimg;
-
-    private String giftname;
 
     private String publishcompany;
 
@@ -43,6 +43,14 @@ public class Question {
 
     public void setUserid(Long userid) {
         this.userid = userid;
+    }
+
+    public Long getProductid() {
+        return productid;
+    }
+
+    public void setProductid(Long productid) {
+        this.productid = productid;
     }
 
     public String getContent() {
@@ -107,14 +115,6 @@ public class Question {
 
     public void setGiftimg(String giftimg) {
         this.giftimg = giftimg == null ? null : giftimg.trim();
-    }
-
-    public String getGiftname() {
-        return giftname;
-    }
-
-    public void setGiftname(String giftname) {
-        this.giftname = giftname == null ? null : giftname.trim();
     }
 
     public String getPublishcompany() {

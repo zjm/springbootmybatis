@@ -97,7 +97,7 @@ public class KernelRecordController {
             kernelRecord.setCreatetime(currentTime);
             kernelRecord.setRewardtime(currentTime);
             kernelRecordService.saveKernelRecord(kernelRecord);
-            userInfoService.saveUserInfo(userInfo);
+            userInfoService.updateUserInfo(userInfo);
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setResult(BaseConstant.SUCCESS_INFO);
             return  br;

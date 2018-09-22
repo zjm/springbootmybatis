@@ -22,19 +22,19 @@ public interface QuestionMapper {
 
     @Insert({
         "insert into question (id, userid, ",
-        "content, type, realnamepublish, ",
+        "productid, content, ",
+        "type, realnamepublish, ",
         "validityperiod, status, ",
         "viewnum, ansernum, ",
-        "giftimg, giftname, ",
-        "publishcompany, rewardbalance, ",
-        "createtime)",
+        "giftimg, publishcompany, ",
+        "rewardbalance, createtime)",
         "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
-        "#{content,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{realnamepublish,jdbcType=TINYINT}, ",
+        "#{productid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, ",
+        "#{type,jdbcType=TINYINT}, #{realnamepublish,jdbcType=TINYINT}, ",
         "#{validityperiod,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, ",
         "#{viewnum,jdbcType=INTEGER}, #{ansernum,jdbcType=INTEGER}, ",
-        "#{giftimg,jdbcType=VARCHAR}, #{giftname,jdbcType=VARCHAR}, ",
-        "#{publishcompany,jdbcType=VARCHAR}, #{rewardbalance,jdbcType=REAL}, ",
-        "#{createtime,jdbcType=VARCHAR})"
+        "#{giftimg,jdbcType=VARCHAR}, #{publishcompany,jdbcType=VARCHAR}, ",
+        "#{rewardbalance,jdbcType=REAL}, #{createtime,jdbcType=VARCHAR})"
     })
     int insert(Question record);
 
@@ -43,14 +43,15 @@ public interface QuestionMapper {
 
     @Select({
         "select",
-        "id, userid, content, type, realnamepublish, validityperiod, status, viewnum, ",
-        "ansernum, giftimg, giftname, publishcompany, rewardbalance, createtime",
+        "id, userid, productid, content, type, realnamepublish, validityperiod, status, ",
+        "viewnum, ansernum, giftimg, publishcompany, rewardbalance, createtime",
         "from question",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+        @Result(column="productid", property="productid", jdbcType=JdbcType.BIGINT),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
         @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT),
@@ -59,7 +60,6 @@ public interface QuestionMapper {
         @Result(column="viewnum", property="viewnum", jdbcType=JdbcType.INTEGER),
         @Result(column="ansernum", property="ansernum", jdbcType=JdbcType.INTEGER),
         @Result(column="giftimg", property="giftimg", jdbcType=JdbcType.VARCHAR),
-        @Result(column="giftname", property="giftname", jdbcType=JdbcType.VARCHAR),
         @Result(column="publishcompany", property="publishcompany", jdbcType=JdbcType.VARCHAR),
         @Result(column="rewardbalance", property="rewardbalance", jdbcType=JdbcType.REAL),
         @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
@@ -68,14 +68,15 @@ public interface QuestionMapper {
 
     @Select({
             "select",
-            "id, userid, content, type, realnamepublish, validityperiod, status, viewnum, ",
-            "ansernum, giftimg, giftname, publishcompany, rewardbalance, createtime",
+            "id, userid, productid, content, type, realnamepublish, validityperiod, status, ",
+            "viewnum, ansernum, giftimg, publishcompany, rewardbalance, createtime",
             "from question",
             "where  userid = #{0} and type = #{1}"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
             @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+            @Result(column="productid", property="productid", jdbcType=JdbcType.BIGINT),
             @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
             @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
             @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT),
@@ -84,14 +85,11 @@ public interface QuestionMapper {
             @Result(column="viewnum", property="viewnum", jdbcType=JdbcType.INTEGER),
             @Result(column="ansernum", property="ansernum", jdbcType=JdbcType.INTEGER),
             @Result(column="giftimg", property="giftimg", jdbcType=JdbcType.VARCHAR),
-            @Result(column="giftname", property="giftname", jdbcType=JdbcType.VARCHAR),
             @Result(column="publishcompany", property="publishcompany", jdbcType=JdbcType.VARCHAR),
             @Result(column="rewardbalance", property="rewardbalance", jdbcType=JdbcType.REAL),
             @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     List<Question> selectByTypeKey(long userid, byte type);
-
-
 
     @UpdateProvider(type=QuestionSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Question record);
@@ -99,6 +97,7 @@ public interface QuestionMapper {
     @Update({
         "update question",
         "set userid = #{userid,jdbcType=BIGINT},",
+          "productid = #{productid,jdbcType=BIGINT},",
           "content = #{content,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=TINYINT},",
           "realnamepublish = #{realnamepublish,jdbcType=TINYINT},",
@@ -107,7 +106,6 @@ public interface QuestionMapper {
           "viewnum = #{viewnum,jdbcType=INTEGER},",
           "ansernum = #{ansernum,jdbcType=INTEGER},",
           "giftimg = #{giftimg,jdbcType=VARCHAR},",
-          "giftname = #{giftname,jdbcType=VARCHAR},",
           "publishcompany = #{publishcompany,jdbcType=VARCHAR},",
           "rewardbalance = #{rewardbalance,jdbcType=REAL},",
           "createtime = #{createtime,jdbcType=VARCHAR}",

@@ -24,6 +24,10 @@ public class QuestionSqlProvider {
             VALUES("userid", "#{userid,jdbcType=BIGINT}");
         }
         
+        if (record.getProductid() != null) {
+            VALUES("productid", "#{productid,jdbcType=BIGINT}");
+        }
+        
         if (record.getContent() != null) {
             VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
@@ -56,10 +60,6 @@ public class QuestionSqlProvider {
             VALUES("giftimg", "#{giftimg,jdbcType=VARCHAR}");
         }
         
-        if (record.getGiftname() != null) {
-            VALUES("giftname", "#{giftname,jdbcType=VARCHAR}");
-        }
-        
         if (record.getPublishcompany() != null) {
             VALUES("publishcompany", "#{publishcompany,jdbcType=VARCHAR}");
         }
@@ -81,6 +81,10 @@ public class QuestionSqlProvider {
         
         if (record.getUserid() != null) {
             SET("userid = #{userid,jdbcType=BIGINT}");
+        }
+        
+        if (record.getProductid() != null) {
+            SET("productid = #{productid,jdbcType=BIGINT}");
         }
         
         if (record.getContent() != null) {
@@ -113,10 +117,6 @@ public class QuestionSqlProvider {
         
         if (record.getGiftimg() != null) {
             SET("giftimg = #{giftimg,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getGiftname() != null) {
-            SET("giftname = #{giftname,jdbcType=VARCHAR}");
         }
         
         if (record.getPublishcompany() != null) {

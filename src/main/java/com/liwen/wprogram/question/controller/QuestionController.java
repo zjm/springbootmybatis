@@ -6,10 +6,15 @@ import com.liwen.wprogram.common.IdGenerator;
 import com.liwen.wprogram.common.Utils;
 import com.liwen.wprogram.question.model.Question;
 import com.liwen.wprogram.question.model.QuestionImgs;
+import com.liwen.wprogram.question.model.QuestionInfo;
 import com.liwen.wprogram.question.model.RollTitles;
 import com.liwen.wprogram.question.service.QuestionImgsService;
 import com.liwen.wprogram.question.service.QuestionService;
 import com.liwen.wprogram.question.service.RollTitlesService;
+import com.liwen.wprogram.sellproduct.model.SellProduct;
+import com.liwen.wprogram.sellproduct.service.SellProductService;
+import com.liwen.wprogram.user.model.UserInfo;
+import com.liwen.wprogram.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Isolation;
@@ -29,6 +34,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +46,10 @@ public class QuestionController {
     private Logger logger = Logger.getLogger(QuestionController.class);
     @Autowired
     QuestionService questionService;
+    @Autowired
+    SellProductService sellProductService;
+    @Autowired
+    UserInfoService userInfoService;
     @Autowired
     QuestionImgsService questionImgsService;
     @Autowired
@@ -72,8 +82,9 @@ public class QuestionController {
             logger.info("validaity:"+validaity);
             String publishCompy = requestMap.getParameter("publishcompany").toString();
             logger.info("publishCompy:"+publishCompy);
-            String imgId = requestMap.getParameter("giftimg").toString();
-            logger.info("imgId:"+imgId);
+            String productid = requestMap.getParameter("productid").toString();
+            String rewardbalance = requestMap.getParameter("rewardbalance").toString();
+            logger.info("productid:"+productid);
 
             Question question = new Question();
             IdGenerator ig = new IdGenerator();
@@ -84,8 +95,11 @@ public class QuestionController {
             question.setRealnamepublish(realnamepub);
             question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             question.setValidityperiod(validaity);
-            question.setGiftimg(imgId);
+            question.setProductid(Long.valueOf(productid));
             question.setPublishcompany(publishCompy);
+            question.setViewnum(0);
+            question.setAnsernum(0);
+            question.setRewardbalance(Float.valueOf(rewardbalance));
             question.setStatus((byte) 0);  //0.进行中，1.结束
             int ret = questionService.saveQuestion(question);
             logger.info("save ret:" + ret);
@@ -113,32 +127,38 @@ public class QuestionController {
         try {
 
             ////////////保存问题主表////////////
-            Long userid = Long.valueOf(requestMap.getParameter("userid").toString());
+            String userids = requestMap.getParameter("userid").toString();
+            logger.info("userid:"+userids);
+            Long userid = Long.valueOf(userids);
+            logger.info("userid:"+userid);
             String content = requestMap.getParameter("content").toString();
+            logger.info("content:"+content);
             //1.是实名发布；0.非实名发布
             byte realnamepub = Byte.valueOf(requestMap.getParameter("realnamepublish").toString());
-            Date date = new Date();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //从前端或者自己模拟一个日期格式，转为String即可
-            String dateStr = format.format(date);
-            int validaity = Integer.valueOf(requestMap.getParameter("validityperiod").toString());
+            logger.info("realnamepub:"+realnamepub);
 
+            int validaity = Integer.valueOf(requestMap.getParameter("validityperiod").toString());
+            logger.info("validaity:"+validaity);
             String publishCompy = requestMap.getParameter("publishcompany").toString();
-            String imgId = requestMap.getParameter("giftimg").toString();
-            IdGenerator ig = new IdGenerator();
+            logger.info("publishCompy:"+publishCompy);
+            String productid = requestMap.getParameter("productid").toString();
+            String rewardbalance = requestMap.getParameter("rewardbalance").toString();
+            logger.info("productid:"+productid);
 
             Question question = new Question();
-            questionId = ig.nextId();
-            logger.info("id=======:"+questionId);
-            question.setId(questionId);
+            IdGenerator ig = new IdGenerator();
+            question.setId(ig.nextId());
             question.setUserid(userid);
             question.setContent(content);
             question.setType((byte) 0);////0.我发起的；1.我参与的
             question.setRealnamepublish(realnamepub);
-            question.setCreatetime(dateStr);
+            question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             question.setValidityperiod(validaity);
-            question.setGiftimg(imgId);
+            question.setProductid(Long.valueOf(productid));
             question.setPublishcompany(publishCompy);
+            question.setViewnum(0);
+            question.setAnsernum(0);
+            question.setRewardbalance(Float.valueOf(rewardbalance));
             question.setStatus((byte) 0);  //0.进行中，1.结束
             int ret = questionService.saveQuestion(question);
             logger.info("save ret:" + ret);
@@ -216,13 +236,33 @@ public class QuestionController {
         try {
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
-            br.setData(questionService.getQuestions(Long.valueOf(userid), Byte.valueOf(type)));
+            List<Question> questionList = questionService.getQuestions(Long.valueOf(userid), Byte.valueOf(type));
+            logger.info("Question->size:"+questionList.size());
+            List<QuestionInfo> questionInfoList = new ArrayList<>();
+            UserInfo userInfo = null;
+            SellProduct sellProduct =null;
+            QuestionInfo questionInfo = null;
+            for(Question question :questionList)
+            {
+                questionInfo = new QuestionInfo();
+                questionInfo.setQuestion(question);
+                userInfo = userInfoService.getUserInfo(question.getUserid());
+                sellProduct = sellProductService.getSellProduct(question.getProductid());
+               // logger.info("sellProduct->getThumbnail:"+sellProduct.getThumbnail());
+                if (userInfo!=null || sellProduct!=null) {
+                    questionInfo.setSellProduct(sellProduct);
+                    questionInfo.setUserInfo(userInfo);
+                    questionInfoList.add(questionInfo);
+                }
+            }
+            br.setData(questionInfoList);
             return br;
         }catch (Exception e)
         {
             br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
             br.setCode(BaseConstant.FAIL_CODE);
             br.setData(null);
+            e.printStackTrace();
             return br;
         }
 
