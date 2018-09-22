@@ -5,8 +5,10 @@ import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.IdGenerator;
 import com.liwen.wprogram.question.model.Question;
 import com.liwen.wprogram.question.model.QuestionImgs;
+import com.liwen.wprogram.question.model.RollTitles;
 import com.liwen.wprogram.question.service.QuestionImgsService;
 import com.liwen.wprogram.question.service.QuestionService;
+import com.liwen.wprogram.question.service.RollTitlesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Isolation;
@@ -39,6 +41,8 @@ public class QuestionController {
     QuestionService questionService;
     @Autowired
     QuestionImgsService questionImgsService;
+    @Autowired
+    RollTitlesService rollTitlesService;
 
     @RequestMapping("mutifile")
     public String mutilfile(){
@@ -192,9 +196,22 @@ public class QuestionController {
      */
     @RequestMapping(value = "/getnormalquestion")
     @ResponseBody
-    public List<Question> getQuestions(@RequestParam("userid") long userid, @RequestParam("type") byte type) {
-        logger.info("usrid:" + userid + ",param:" + type);
-        return questionService.getQuestions(Long.valueOf(userid), Byte.valueOf(type));
+    public BaseResult getQuestions(@RequestParam("userid") long userid, @RequestParam("type") byte type) {
+//        logger.info("usrid:" + userid + ",param:" + type);
+//        return questionService.getQuestions(Long.valueOf(userid), Byte.valueOf(type));
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setData(questionService.getQuestions(Long.valueOf(userid), Byte.valueOf(type)));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
 
     }
 
@@ -204,9 +221,75 @@ public class QuestionController {
      */
     @RequestMapping(value = "/questioninfo")
     @ResponseBody
-    public Question getQuestions(@RequestParam("quid") long quid) {
-        logger.info("usrid:" + quid );
-        return questionService.getQuestion(quid);
+    public BaseResult getQuestions(@RequestParam("quid") long quid) {
+
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setData(questionService.getQuestion(quid));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
+
+    }
+
+    @RequestMapping(value = "/rollingquestion")
+    @ResponseBody
+    public BaseResult getQuestions() {
+
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            //0.不显示，1.显示，2.已解决
+            br.setData(rollTitlesService.getRollingTitiles((byte) 2));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
+
+    }
+
+    @RequestMapping(value = "/solvequestion", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public BaseResult solveQuestion(HttpServletRequest request) {
+        BaseResult br = new BaseResult();
+        try {
+            IdGenerator idGenerator = new IdGenerator();
+            long userId = Long.valueOf(request.getParameter("userid").toString());
+            String nickename = request.getParameter("nickname").toString();
+            String headImg = request.getParameter("headimg").toString();
+            int dismens = Integer.valueOf(request.getParameter("dismens").toString());
+            int money = Integer.valueOf(request.getParameter("money").toString());
+            RollTitles rt = new RollTitles();
+            rt.setId(idGenerator.nextId());
+            rt.setNickname(nickename);
+            rt.setHeadimg(headImg);
+            rt.setDimension(dismens);
+            rt.setMoney(money);
+            //0.不显示，1.显示，2.已解决
+            rt.setStatus((byte) 2);
+            int ret = rollTitlesService.saveRollingTitles(rt);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            return br;
+        }catch (Exception e)
+        {
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setResult(BaseConstant.PARAM_ERROR_INFO+"->:"+e.getMessage());
+            return  br;
+        }
 
     }
 

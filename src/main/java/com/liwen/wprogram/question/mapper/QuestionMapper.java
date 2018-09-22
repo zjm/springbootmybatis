@@ -91,6 +91,8 @@ public interface QuestionMapper {
     })
     List<Question> selectByTypeKey(long userid, byte type);
 
+
+
     @UpdateProvider(type=QuestionSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(Question record);
 

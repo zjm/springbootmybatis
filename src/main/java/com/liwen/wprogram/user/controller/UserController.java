@@ -61,7 +61,7 @@ public class UserController {
                                    @RequestParam(value = "nickname", required = false) String nickname,
 //                                   @RequestParam(value = "company", required = true) String company,
 //                                   @RequestParam(value = "department", required = true) String department,
-                                   @RequestParam(value = "weixinhao", required = true) String weixinhao,
+                                   @RequestParam(value = "weixinhao", required = false) String weixinhao,
                                    @RequestParam(value = "mykernel", required = true) String mykernel) {
         BaseResult br = new BaseResult();
         try {
