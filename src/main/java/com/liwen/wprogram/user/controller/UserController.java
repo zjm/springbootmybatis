@@ -5,6 +5,7 @@ import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.IdGenerator;
 import com.liwen.wprogram.common.Utils;
+import com.liwen.wprogram.common.weixin.WXAppletUserInfo;
 import com.liwen.wprogram.user.model.UserInfo;
 import com.liwen.wprogram.user.service.UserInfoService;
 import org.apache.log4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -56,7 +58,8 @@ public class UserController {
     @RequestMapping(value = "/createuser", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
-    public BaseResult saveUserInfo(@RequestParam(value = "headimg", required = true) String headimg,
+    public BaseResult saveUserInfo(@RequestParam(value = "openid", required = true) String openid,
+                                   @RequestParam(value = "headimg", required = true) String headimg,
 //                                   @RequestParam(value = "name", required = true) String name,
                                    @RequestParam(value = "nickname", required = false) String nickname,
 //                                   @RequestParam(value = "company", required = true) String company,
@@ -90,7 +93,9 @@ public class UserController {
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
-    public BaseResult updateUserInfo(@RequestParam(value = "userid", required = true) long userid,
+    public BaseResult updateUserInfo(
+                                 @RequestParam(value = "openid", required = false) String openid,
+                                 @RequestParam(value = "userid", required = true) long userid,
                                 // @RequestParam(value = "phone", required = true) String phone,
                                  @RequestParam(value = "name", required = true) String name,
                                  @RequestParam(value = "company", required = true) String company,
@@ -116,6 +121,34 @@ public class UserController {
             e.printStackTrace();
             return br;
         }
+    }
+
+    @RequestMapping(value = "/createopenid", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public BaseResult getOpenid(HttpServletRequest request) {
+
+       logger.info("==========createopenid=========");
+        BaseResult br = new BaseResult();
+        try {
+            String code =request.getParameter("code").toString();
+            logger.info("==========createopenid======code===:"+code);
+            String retStr =   WXAppletUserInfo.getSessionKeyOropenid(code).toJSONString();
+            logger.info("==========createopenid===retStr======:"+retStr);
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setData(retStr);
+            logger.info("==========createopenid=======br==:"+br.toString());
+            return br;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setResult(BaseConstant.PARAM_ERROR_INFO+"->:"+e.getMessage());
+            return br;
+        }
+
+
     }
 
 

@@ -3,6 +3,8 @@ package com.liwen.wprogram.user.model;
 public class UserInfo {
     private Long id;
 
+    private String openid;
+
     private String headimg;
 
     private String nickname;
@@ -31,6 +33,14 @@ public class UserInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
     }
 
     public String getHeadimg() {

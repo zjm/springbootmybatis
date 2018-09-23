@@ -20,6 +20,10 @@ public class UserInfoSqlProvider {
             VALUES("id", "#{id,jdbcType=BIGINT}");
         }
         
+        if (record.getOpenid() != null) {
+            VALUES("openid", "#{openid,jdbcType=VARCHAR}");
+        }
+        
         if (record.getHeadimg() != null) {
             VALUES("headimg", "#{headimg,jdbcType=VARCHAR}");
         }
@@ -70,6 +74,10 @@ public class UserInfoSqlProvider {
     public String updateByPrimaryKeySelective(UserInfo record) {
         BEGIN();
         UPDATE("userinfo");
+        
+        if (record.getOpenid() != null) {
+            SET("openid = #{openid,jdbcType=VARCHAR}");
+        }
         
         if (record.getHeadimg() != null) {
             SET("headimg = #{headimg,jdbcType=VARCHAR}");
