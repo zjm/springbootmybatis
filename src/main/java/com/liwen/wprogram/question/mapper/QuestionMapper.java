@@ -22,19 +22,21 @@ public interface QuestionMapper {
 
     @Insert({
         "insert into question (id, userid, ",
-        "productid, content, ",
-        "type, realnamepublish, ",
+        "productid, title, ",
+        "content, type, realnamepublish, ",
         "validityperiod, status, ",
-        "viewnum, ansernum, ",
-        "giftimg, publishcompany, ",
-        "rewardbalance, createtime)",
+        "questiontype, viewnum, ",
+        "ansernum, giftimg, ",
+        "publishcompany, rewardbalance, ",
+        "createtime)",
         "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
-        "#{productid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, ",
-        "#{type,jdbcType=TINYINT}, #{realnamepublish,jdbcType=TINYINT}, ",
+        "#{productid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, ",
+        "#{content,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{realnamepublish,jdbcType=TINYINT}, ",
         "#{validityperiod,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, ",
-        "#{viewnum,jdbcType=INTEGER}, #{ansernum,jdbcType=INTEGER}, ",
-        "#{giftimg,jdbcType=VARCHAR}, #{publishcompany,jdbcType=VARCHAR}, ",
-        "#{rewardbalance,jdbcType=REAL}, #{createtime,jdbcType=VARCHAR})"
+        "#{questiontype,jdbcType=TINYINT}, #{viewnum,jdbcType=INTEGER}, ",
+        "#{ansernum,jdbcType=INTEGER}, #{giftimg,jdbcType=VARCHAR}, ",
+        "#{publishcompany,jdbcType=VARCHAR}, #{rewardbalance,jdbcType=REAL}, ",
+        "#{createtime,jdbcType=VARCHAR})"
     })
     int insert(Question record);
 
@@ -43,8 +45,9 @@ public interface QuestionMapper {
 
     @Select({
         "select",
-        "id, userid, productid, content, type, realnamepublish, validityperiod, status, ",
-        "viewnum, ansernum, giftimg, publishcompany, rewardbalance, createtime",
+        "id, userid, productid, title, content, type, realnamepublish, validityperiod, ",
+        "status, questiontype, viewnum, ansernum, giftimg, publishcompany, rewardbalance, ",
+        "createtime",
         "from question",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -52,11 +55,13 @@ public interface QuestionMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
         @Result(column="productid", property="productid", jdbcType=JdbcType.BIGINT),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
         @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT),
         @Result(column="validityperiod", property="validityperiod", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
+        @Result(column="questiontype", property="questiontype", jdbcType=JdbcType.TINYINT),
         @Result(column="viewnum", property="viewnum", jdbcType=JdbcType.INTEGER),
         @Result(column="ansernum", property="ansernum", jdbcType=JdbcType.INTEGER),
         @Result(column="giftimg", property="giftimg", jdbcType=JdbcType.VARCHAR),
@@ -68,8 +73,9 @@ public interface QuestionMapper {
 
     @Select({
             "select",
-            "id, userid, productid, content, type, realnamepublish, validityperiod, status, ",
-            "viewnum, ansernum, giftimg, publishcompany, rewardbalance, createtime",
+            "id, userid, productid, title, content, type, realnamepublish, validityperiod, ",
+            "status, questiontype, viewnum, ansernum, giftimg, publishcompany, rewardbalance, ",
+            "createtime",
             "from question",
             "where  userid = #{0} and type = #{1}"
     })
@@ -77,11 +83,13 @@ public interface QuestionMapper {
             @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
             @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
             @Result(column="productid", property="productid", jdbcType=JdbcType.BIGINT),
+            @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
             @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
             @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
             @Result(column="realnamepublish", property="realnamepublish", jdbcType=JdbcType.TINYINT),
             @Result(column="validityperiod", property="validityperiod", jdbcType=JdbcType.INTEGER),
             @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
+            @Result(column="questiontype", property="questiontype", jdbcType=JdbcType.TINYINT),
             @Result(column="viewnum", property="viewnum", jdbcType=JdbcType.INTEGER),
             @Result(column="ansernum", property="ansernum", jdbcType=JdbcType.INTEGER),
             @Result(column="giftimg", property="giftimg", jdbcType=JdbcType.VARCHAR),
@@ -98,11 +106,13 @@ public interface QuestionMapper {
         "update question",
         "set userid = #{userid,jdbcType=BIGINT},",
           "productid = #{productid,jdbcType=BIGINT},",
+          "title = #{title,jdbcType=VARCHAR},",
           "content = #{content,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=TINYINT},",
           "realnamepublish = #{realnamepublish,jdbcType=TINYINT},",
           "validityperiod = #{validityperiod,jdbcType=INTEGER},",
           "status = #{status,jdbcType=TINYINT},",
+          "questiontype = #{questiontype,jdbcType=TINYINT},",
           "viewnum = #{viewnum,jdbcType=INTEGER},",
           "ansernum = #{ansernum,jdbcType=INTEGER},",
           "giftimg = #{giftimg,jdbcType=VARCHAR},",

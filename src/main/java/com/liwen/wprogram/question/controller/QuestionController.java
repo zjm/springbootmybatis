@@ -34,10 +34,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/question")
@@ -99,6 +96,8 @@ public class QuestionController {
             question.setPublishcompany(publishCompy);
             question.setViewnum(0);
             question.setAnsernum(0);
+            //0.普通问题，1.高级问题
+            question.setQuestiontype((byte)0);
             question.setRewardbalance(Float.valueOf(rewardbalance));
             question.setStatus((byte) 0);  //0.进行中，1.结束
             int ret = questionService.saveQuestion(question);
@@ -121,6 +120,11 @@ public class QuestionController {
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult adveQuestion(HttpServletRequest requestMap) {
+        Properties props = System.getProperties();
+     //   String ossys = props.getProperty("os.name").toLowerCase();
+        boolean win = props.getProperty("os.name").toLowerCase().contains("windows");
+        //if (win)
+
         logger.info("advancedquestion===comin===");
         BaseResult br = new BaseResult();
         long questionId=(long)0;
@@ -128,9 +132,9 @@ public class QuestionController {
 
             ////////////保存问题主表////////////
             String userids = requestMap.getParameter("userid").toString();
-            logger.info("userid:"+userids);
             Long userid = Long.valueOf(userids);
             logger.info("userid:"+userid);
+            String title = requestMap.getParameter("title").toString();
             String content = requestMap.getParameter("content").toString();
             logger.info("content:"+content);
             //1.是实名发布；0.非实名发布
@@ -147,8 +151,10 @@ public class QuestionController {
 
             Question question = new Question();
             IdGenerator ig = new IdGenerator();
-            question.setId(ig.nextId());
+            questionId = ig.nextId();
+            question.setId(questionId);
             question.setUserid(userid);
+            question.setTitle(title);
             question.setContent(content);
             question.setType((byte) 0);////0.我发起的；1.我参与的
             question.setRealnamepublish(realnamepub);
@@ -160,6 +166,8 @@ public class QuestionController {
             question.setAnsernum(0);
             question.setRewardbalance(Float.valueOf(rewardbalance));
             question.setStatus((byte) 0);  //0.进行中，1.结束
+            //0.普通问题，1.高级问题
+            question.setQuestiontype((byte)0);
             int ret = questionService.saveQuestion(question);
             logger.info("save ret:" + ret);
             ///////////结束保存问题主表////////
@@ -171,21 +179,26 @@ public class QuestionController {
             MultipartFile file = null;
             File destFile = null;
             BufferedOutputStream stream = null;
-            String savePath ="/upload/";
+            String savePath_temp ="/questionimags/"+userids+"/";
+            String savePath="";
             String path = requestMap.getSession().getServletContext().getRealPath(savePath);
+            if (!win)
+            {
+                path="/var/www/html"+savePath;
+            }
 
             logger.info("path:" + path + ",request.getRequestURI():"
                     + requestMap.getRequestURI() + ",urlbuffe:" + requestMap.getRequestURL().toString());
 
             //数据库中保存upload/fileName.png;访问：http://127.0.0.1.upload/fileName.png
-
+            String urlStr="";
             for (int i = 0; i < files.size(); ++i) {
                 file = files.get(i);
                 if (!file.isEmpty()) {
                     try {
 
                         byte[] bytes = file.getBytes();
-                        savePath = "upload/"+file.getOriginalFilename();
+                        savePath = savePath_temp+file.getOriginalFilename();
                         destFile = new File(path + file.getOriginalFilename());
                         if (!destFile.getParentFile().exists()) {
                             destFile.getParentFile().mkdir();
@@ -196,9 +209,12 @@ public class QuestionController {
 
                         QuestionImgs questionImgs = new QuestionImgs();
                         questionImgs.setQuestionid(questionId);
-                        questionImgs.setImgname(savePath);
+                        urlStr = "http://ubestchain.com"+savePath;
+                        questionImgs.setImgname(urlStr);
+                        question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
                         questionImgsService.saveQuestionImags(questionImgs);
-                        logger.info("save ==========:"+savePath);
+                        logger.info("url:"+urlStr);
+                        logger.info("save ==========savePath:"+savePath+"--====-destFile-:"+destFile);
                         //保存库
 
                     } catch (Exception e) {
@@ -292,6 +308,30 @@ public class QuestionController {
 
     }
 
+    /** 问题详情
+     * @param quid
+     * @return
+     */
+    @RequestMapping(value = "/questionimages")
+    @ResponseBody
+    public BaseResult getQuestionimages(@RequestParam("quid") long quid) {
+
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setData(questionImgsService.getQuestionImagses(quid));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
+
+    }
+
     @RequestMapping(value = "/rollingquestion")
     @ResponseBody
     public BaseResult getQuestions() {
@@ -327,6 +367,7 @@ public class QuestionController {
             int money = Integer.valueOf(request.getParameter("money").toString());
             RollTitles rt = new RollTitles();
             rt.setId(idGenerator.nextId());
+            rt.setUserid(userId);
             rt.setNickname(nickename);
             rt.setHeadimg(headImg);
             rt.setDimension(dismens);

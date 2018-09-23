@@ -22,9 +22,9 @@ public interface QuestionImgsMapper {
 
     @Insert({
         "insert into questionimgs (id, questionid, ",
-        "imgname)",
+        "imgname, createtime)",
         "values (#{id,jdbcType=BIGINT}, #{questionid,jdbcType=BIGINT}, ",
-        "#{imgname,jdbcType=VARCHAR})"
+        "#{imgname,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR})"
     })
     int insert(QuestionImgs record);
 
@@ -32,30 +32,35 @@ public interface QuestionImgsMapper {
     int insertSelective(QuestionImgs record);
 
     @Select({
+        "select",
+        "id, questionid, imgname, createtime",
+        "from questionimgs",
+        "where id = #{id,jdbcType=BIGINT}"
+    })
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="questionid", property="questionid", jdbcType=JdbcType.BIGINT),
+        @Result(column="imgname", property="imgname", jdbcType=JdbcType.VARCHAR),
+        @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
+    })
+    QuestionImgs selectByPrimaryKey(Long id);
+
+    @Select({
             "select",
-            "id, questionid, imgname",
+            "id, questionid, imgname, createtime",
             "from questionimgs",
             "where questionid = #{questionid,jdbcType=BIGINT}"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
             @Result(column="questionid", property="questionid", jdbcType=JdbcType.BIGINT),
-            @Result(column="imgname", property="imgname", jdbcType=JdbcType.VARCHAR)
+            @Result(column="imgname", property="imgname", jdbcType=JdbcType.VARCHAR),
+            @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     List<QuestionImgs> selectByQuestionidKey(Long qid);
 
-    @Select({
-            "select",
-            "id, questionid, imgname",
-            "from questionimgs",
-            "where id = #{id,jdbcType=BIGINT}"
-    })
-    @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-            @Result(column="questionid", property="questionid", jdbcType=JdbcType.BIGINT),
-            @Result(column="imgname", property="imgname", jdbcType=JdbcType.VARCHAR)
-    })
-    QuestionImgs selectByPrimaryKey(Long id);
+
+
 
     @UpdateProvider(type=QuestionImgsSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(QuestionImgs record);
@@ -63,7 +68,8 @@ public interface QuestionImgsMapper {
     @Update({
         "update questionimgs",
         "set questionid = #{questionid,jdbcType=BIGINT},",
-          "imgname = #{imgname,jdbcType=VARCHAR}",
+          "imgname = #{imgname,jdbcType=VARCHAR},",
+          "createtime = #{createtime,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(QuestionImgs record);

@@ -28,6 +28,10 @@ public class QuestionSqlProvider {
             VALUES("productid", "#{productid,jdbcType=BIGINT}");
         }
         
+        if (record.getTitle() != null) {
+            VALUES("title", "#{title,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContent() != null) {
             VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
@@ -46,6 +50,10 @@ public class QuestionSqlProvider {
         
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=TINYINT}");
+        }
+        
+        if (record.getQuestiontype() != null) {
+            VALUES("questiontype", "#{questiontype,jdbcType=TINYINT}");
         }
         
         if (record.getViewnum() != null) {
@@ -87,6 +95,10 @@ public class QuestionSqlProvider {
             SET("productid = #{productid,jdbcType=BIGINT}");
         }
         
+        if (record.getTitle() != null) {
+            SET("title = #{title,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContent() != null) {
             SET("content = #{content,jdbcType=VARCHAR}");
         }
@@ -105,6 +117,10 @@ public class QuestionSqlProvider {
         
         if (record.getStatus() != null) {
             SET("status = #{status,jdbcType=TINYINT}");
+        }
+        
+        if (record.getQuestiontype() != null) {
+            SET("questiontype = #{questiontype,jdbcType=TINYINT}");
         }
         
         if (record.getViewnum() != null) {

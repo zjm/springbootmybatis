@@ -30,9 +30,15 @@ public class WXAppletUserInfo  {
     private static final String AppId="wxe8a8a6ab55249f60";
     private  static  final String SECRET="2f76a178582cf88fa174c8c79553dcfc";
 
+    private static final String AppId_Test="wx2f57278b4016320e";
+    private static final String SECRET_Test="890abfb77fe26fc45e4205a54abaf518";
+
+    private static final  Boolean SEND_DEBUG = true;
+
+
 
 //    public static void main(String[] args){
-//        String code = "011rBzBe1FJUes0eZuAe1ctzBe1rBzBO";
+//        String code = "033D3g5J0iw7Sg2yA48J0Gfl5J0D3g5m";
 //        String ret = getSessionKeyOropenid(code).toJSONString();
 //        System.out.println("ret:"+ret);
 //
@@ -53,8 +59,14 @@ public class WXAppletUserInfo  {
 //        ResourceBundle resource = ResourceBundle.getBundle("weixin");	//读取属性文件
         String requestUrl = "https://api.weixin.qq.com/sns/jscode2session";
         Map<String,String> requestUrlParam = new HashMap<String,String>();
-        requestUrlParam.put("appid", AppId);	//开发者设置中的appId
-        requestUrlParam.put("secret", SECRET);	//开发者设置中的appSecret
+        if (SEND_DEBUG) {
+            requestUrlParam.put("appid", AppId);    //开发者设置中的appId
+            requestUrlParam.put("secret", SECRET);    //开发者设置中的appSecret
+        }else
+        {
+            requestUrlParam.put("appid", AppId_Test);
+            requestUrlParam.put("secret", SECRET_Test);
+        }
         requestUrlParam.put("js_code", wxCode);	//小程序调用wx.login返回的code
         requestUrlParam.put("grant_type", "authorization_code");	//默认参数
 

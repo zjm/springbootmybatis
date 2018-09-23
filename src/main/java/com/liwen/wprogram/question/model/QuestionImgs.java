@@ -7,6 +7,8 @@ public class QuestionImgs {
 
     private String imgname;
 
+    private String createtime;
+
     public Long getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class QuestionImgs {
 
     public void setImgname(String imgname) {
         this.imgname = imgname == null ? null : imgname.trim();
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
     }
 }

@@ -7,6 +7,8 @@ public class Question {
 
     private Long productid;
 
+    private String title;
+
     private String content;
 
     private Byte type;
@@ -16,6 +18,8 @@ public class Question {
     private Integer validityperiod;
 
     private Byte status;
+
+    private Byte questiontype;
 
     private Integer viewnum;
 
@@ -51,6 +55,14 @@ public class Question {
 
     public void setProductid(Long productid) {
         this.productid = productid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public String getContent() {
@@ -91,6 +103,14 @@ public class Question {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public Byte getQuestiontype() {
+        return questiontype;
+    }
+
+    public void setQuestiontype(Byte questiontype) {
+        this.questiontype = questiontype;
     }
 
     public Integer getViewnum() {

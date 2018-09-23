@@ -28,6 +28,10 @@ public class QuestionImgsSqlProvider {
             VALUES("imgname", "#{imgname,jdbcType=VARCHAR}");
         }
         
+        if (record.getCreatetime() != null) {
+            VALUES("createtime", "#{createtime,jdbcType=VARCHAR}");
+        }
+        
         return SQL();
     }
 
@@ -41,6 +45,10 @@ public class QuestionImgsSqlProvider {
         
         if (record.getImgname() != null) {
             SET("imgname = #{imgname,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCreatetime() != null) {
+            SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

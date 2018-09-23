@@ -1,6 +1,7 @@
 package com.liwen.wprogram.user.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.IdGenerator;
@@ -133,7 +134,7 @@ public class UserController {
         try {
             String code =request.getParameter("code").toString();
             logger.info("==========createopenid======code===:"+code);
-            String retStr =   WXAppletUserInfo.getSessionKeyOropenid(code).toJSONString();
+            JSONObject retStr =   WXAppletUserInfo.getSessionKeyOropenid(code);
             logger.info("==========createopenid===retStr======:"+retStr);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
