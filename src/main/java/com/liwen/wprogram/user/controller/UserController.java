@@ -8,6 +8,7 @@ import com.liwen.wprogram.common.IdGenerator;
 import com.liwen.wprogram.common.Utils;
 import com.liwen.wprogram.common.weixin.WXAppletUserInfo;
 import com.liwen.wprogram.user.model.UserInfo;
+import com.liwen.wprogram.user.model.UserInforResult;
 import com.liwen.wprogram.user.service.UserInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,15 +148,34 @@ public class UserController {
     @RequestMapping(value = "/createopenid", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
-    public BaseResult getOpenid(HttpServletRequest request) {
-        BaseResult br = new BaseResult();
+    public UserInforResult getOpenid(HttpServletRequest request) {
+        UserInforResult br = new UserInforResult();
+        br.setReged(0);
         try {
             String code =request.getParameter("code").toString();
             logger.info("==========createopenid======code===:"+code);
-            JSONObject retStr =   WXAppletUserInfo.getSessionKeyOropenid(code);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
-            br.setData(retStr);
+            JSONObject jsonObject =   WXAppletUserInfo.getSessionKeyOropenid(code);
+            String openId = jsonObject.getString("openid");
+            if (jsonObject.getString("openid")!=null && !jsonObject.getString("openid").isEmpty())
+            {
+                logger.info("========not==isEmpty======openid===:"+jsonObject.getString("openid"));
+                UserInfo userInfo = userInfoService.getUserInfoByOpenid(openId);
+
+                if (userInfo!=null && userInfo.getId()>0)
+                {
+                    br.setReged(1);
+                }else {
+                    br.setReged(0);
+                }
+            }else
+            {
+                br.setResult(BaseConstant.FAIL_INFO);
+                br.setCode(BaseConstant.FAIL_CODE);
+            }
+
+            br.setData(jsonObject);
             logger.info("ret:"+br.toString());
             return br;
         }catch (Exception e)
