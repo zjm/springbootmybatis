@@ -1,21 +1,21 @@
 package com.liwen.wprogram.common;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import javax.servlet.http.HttpServletRequest;
 
-public  class Utils {
+public class Utils {
 
-    public static String getTimeYYYYMMDDHHMMSS()
-    {
+    public static String getTimeYYYYMMDDHHMMSS() {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //从前端或者自己模拟一个日期格式，转为String即可
@@ -26,7 +26,7 @@ public  class Utils {
     /**
      * 向指定 URL 发送POST方法的请求
      *
-     * @param url 发送请求的 URL
+     * @param url      发送请求的 URL
      * @param paramMap 请求参数
      * @return 所代表远程资源的响应结果
      */
@@ -38,7 +38,7 @@ public  class Utils {
         String param = "";
         Iterator<String> it = paramMap.keySet().iterator();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             String key = it.next();
             param += key + "=" + paramMap.get(key) + "&";
         }
@@ -71,16 +71,15 @@ public  class Utils {
             e.printStackTrace();
         }
         //使用finally块来关闭输出流、输入流
-        finally{
-            try{
-                if(out!=null){
+        finally {
+            try {
+                if (out != null) {
                     out.close();
                 }
-                if(in!=null){
+                if (in != null) {
                     in.close();
                 }
-            }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
@@ -98,6 +97,219 @@ public  class Utils {
         return sb.toString();
     }
 
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip != null && !"unKnown".equalsIgnoreCase(ip)) {
+            //多次反向代理后会有多个ip值，第一个ip才是真实ip
+            int index = ip.indexOf(",");
+            if (index != -1) {
+                return ip.substring(0, index);
+            } else {
+                return ip;
+            }
+        }
+        ip = request.getHeader("X-Real-IP");
+        if (ip != null && !"unKnown".equalsIgnoreCase(ip)) {
+            return ip;
+        }
+        return request.getRemoteAddr();
+
+    }
+
+    public static String createLinkString(Map<String, String> params) {
+        List<String> keys = new ArrayList<String>(params.keySet());
+        Collections.sort(keys);
+        String prestr = "";
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i);
+            String value = params.get(key);
+            if (i == keys.size() - 1) {// 拼接时，不包括最后一个&字符
+                prestr = prestr + key + "=" + value;
+            } else {
+                prestr = prestr + key + "=" + value + "&";
+            }
+        }
+        return prestr;
+    }
+
+
+    /**
+     * 签名字符串
+     *
+     * @param text          需要签名的字符串
+     * @param key           密钥
+     * @param input_charset 编码格式
+     * @return 签名结果
+     */
+    public static String sign(String text, String key, String input_charset) {
+        text = text + "&key=" + key;
+        return DigestUtils.md5Hex(getContentBytes(text, input_charset));
+    }
+
+
+    /**
+     * @param text          需要签名的字符串
+     * @param sign          签名结果
+     * @param key           密钥
+     * @param input_charset 编码格式
+     * @return 编码格式
+     */
+    public static boolean verify(String text, String sign, String key, String input_charset) {
+        text = text + key;
+        String mysign = DigestUtils.md5Hex(getContentBytes(text, input_charset));
+        if (mysign.equals(sign)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param content
+     * @param charset
+     * @return
+     */
+    public static byte[] getContentBytes(String content, String charset) {
+        if (charset == null || "".equals(charset)) {
+            return content.getBytes();
+        }
+        try {
+            return content.getBytes(charset);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("MD5签名过程中出现错误,指定的编码集不对,您目前指定的编码集是:" + charset);
+        }
+    }
+
+    private static boolean isValidChar(char ch) {
+        if ((ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
+            return true;
+        if ((ch >= 0x4e00 && ch <= 0x7fff) || (ch >= 0x8000 && ch <= 0x952f))
+            return true;// 简体中文汉字编码
+        return false;
+    }
+
+    /**
+     * 除去数组中的空值和签名参数
+     *
+     * @param sArray 签名参数组
+     * @return 去掉空值与签名参数后的新签名参数组
+     */
+    public static Map<String, String> paraFilter(Map<String, String> sArray) {
+        Map<String, String> result = new HashMap<String, String>();
+        if (sArray == null || sArray.size() <= 0) {
+            return result;
+        }
+        for (String key : sArray.keySet()) {
+            String value = sArray.get(key);
+            if (value == null || value.equals("") || key.equalsIgnoreCase("sign")
+                    || key.equalsIgnoreCase("sign_type")) {
+                continue;
+            }
+            result.put(key, value);
+        }
+        return result;
+    }
+
+    public static Map doXMLParse(String strxml) throws Exception {
+        if (null == strxml || "".equals(strxml)) {
+            return null;
+        }
+
+        Map m = new HashMap();
+        InputStream in = String2Inputstream(strxml);
+        SAXBuilder builder = new SAXBuilder();
+        Document doc = builder.build(in);
+        Element root = doc.getRootElement();
+        List list = root.getChildren();
+        Iterator it = list.iterator();
+        while (it.hasNext()) {
+            Element e = (Element) it.next();
+            String k = e.getName();
+            String v = "";
+            List children = e.getChildren();
+            if (children.isEmpty()) {
+                v = e.getTextNormalize();
+            } else {
+                v = getChildrenText(children);
+            }
+
+            m.put(k, v);
+        }
+
+        //关闭流
+        in.close();
+
+        return m;
+    }
+
+    public static InputStream String2Inputstream(String str) {
+        return new ByteArrayInputStream(str.getBytes());
+    }
+
+
+    public static String getChildrenText(List children) {
+        StringBuffer sb = new StringBuffer();
+        if (!children.isEmpty()) {
+            Iterator it = children.iterator();
+            while (it.hasNext()) {
+                Element e = (Element) it.next();
+                String name = e.getName();
+                String value = e.getTextNormalize();
+                List list = e.getChildren();
+                sb.append("<" + name + ">");
+                if (!list.isEmpty()) {
+                    sb.append(getChildrenText(list));
+                }
+                sb.append(value);
+                sb.append("</" + name + ">");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static String httpRequest(String requestUrl, String requestMethod, String outputStr) {
+        // 创建SSLContext
+        StringBuffer buffer = null;
+        try {
+            URL url = new URL(requestUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(requestMethod);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.connect();
+            //往服务器端写内容
+            if (null != outputStr) {
+                OutputStream os = conn.getOutputStream();
+                os.write(outputStr.getBytes("utf-8"));
+                os.close();
+            }
+            // 读取服务器端返回的内容
+            InputStream is = conn.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is, "utf-8");
+            BufferedReader br = new BufferedReader(isr);
+            buffer = new StringBuffer();
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                buffer.append(line);
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return buffer.toString();
+    }
+
+    public static String urlEncodeUTF8(String source) {
+        String result = source;
+        try {
+            result = java.net.URLEncoder.encode(source, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 
 }
