@@ -63,6 +63,11 @@ public class OrderController extends BaseConroller {
                 myAddress = myAddressService.getMyAddress(oder.getAddressid());
                 userInfo = userInfoService.getUserInfo(oder.getUserid());
                 sellProduct  = sellProductService.getSellProduct(oder.getProductid());
+                orderInfo.setOrderid(oder.getId());
+                orderInfo.setBuyNum(oder.getBuynum());
+                orderInfo.setStatus(oder.getStatus());
+                orderInfo.setSendType(oder.getSendtype());
+                orderInfo.setCreateTime(oder.getCreatetime());
                 orderInfo.setUserInfo(userInfo);
                 orderInfo.setMyAddress(myAddress);
                 orderInfo.setSellProduct(sellProduct);
@@ -95,6 +100,10 @@ public class OrderController extends BaseConroller {
             UserInfo userInfo = userInfoService.getUserInfo(order.getUserid());
             SellProduct sellProduct = sellProductService.getSellProduct(order.getProductid());
             OrderInfo orderInfo = new OrderInfo();
+            orderInfo.setBuyNum(order.getBuynum());
+            orderInfo.setSendType(order.getSendtype());
+            orderInfo.setStatus(order.getStatus());
+            orderInfo.setCreateTime(order.getCreatetime());
             orderInfo.setUserInfo(userInfo);
             orderInfo.setMyAddress(myAddress);
             orderInfo.setSellProduct(sellProduct);

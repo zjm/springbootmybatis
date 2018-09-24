@@ -3,6 +3,7 @@ package com.liwen.wprogram.myaddress.controller;
 import com.liwen.wprogram.common.BaseConroller;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
+import com.liwen.wprogram.common.Utils;
 import com.liwen.wprogram.kernelrecord.controller.KernelRecordController;
 import com.liwen.wprogram.myaddress.model.MyAddress;
 import com.liwen.wprogram.myaddress.service.MyAddressService;
@@ -68,6 +69,7 @@ public class MyAddressController extends BaseConroller {
             myAddress.setArea(area);
             myAddress.setDetailaddress(detailArea);
             myAddress.setPostcoe(postcode);
+            myAddress.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
 
             myAddressService.saveMyAddress(myAddress);
             br.setCode(BaseConstant.SUCCESS_CODE);
@@ -120,7 +122,7 @@ public class MyAddressController extends BaseConroller {
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult deleMyAddress(HttpServletRequest request) {
 
-        logger.info("updateMyAddress==="  );
+        logger.info("delmyaddress==="  );
         BaseResult br = new BaseResult();
         try {
             long id = Long.valueOf(request.getParameter("id").toString());

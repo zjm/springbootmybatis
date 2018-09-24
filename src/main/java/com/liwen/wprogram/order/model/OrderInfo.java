@@ -34,4 +34,52 @@ public class OrderInfo {
     private UserInfo userInfo;
     private SellProduct sellProduct;
 
+    public long getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(long orderid) {
+        this.orderid = orderid;
+    }
+
+    private long orderid ;
+
+    public int getBuyNum() {
+        return buyNum;
+    }
+
+    public void setBuyNum(int buyNum) {
+        this.buyNum = buyNum;
+    }
+
+    public byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(byte status) {
+        this.status = status;
+    }
+
+    public byte getSendType() {
+        return sendType;
+    }
+
+    public void setSendType(byte sendType) {
+        this.sendType = sendType;
+    }
+
+    private int buyNum;
+    private byte status;
+    private byte sendType;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    private String createTime;
+
 }

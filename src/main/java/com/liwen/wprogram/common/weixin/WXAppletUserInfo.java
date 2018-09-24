@@ -11,6 +11,7 @@ import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
 import java.security.AlgorithmParameters;
 import java.security.Security;
 import java.security.spec.InvalidParameterSpecException;
@@ -118,6 +119,20 @@ public class WXAppletUserInfo  {
             //.error(e.getMessage(), e);
         }
         return null;
+    }
+
+
+    public JSON wxPay(String openid, HttpServletRequest request){
+        JSON json=null;
+        try{
+            String nonce_str = Utils.getRandomStringByLength(32);
+
+
+        }catch (Exception e)
+        {
+
+        }
+        return json;
     }
 }
 
