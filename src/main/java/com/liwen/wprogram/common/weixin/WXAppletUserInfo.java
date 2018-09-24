@@ -16,11 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * 微信小程序信息获取
- *
- * @author zhy
- */
+
 public class WXAppletUserInfo  {
   //  private static Logger log = Logger.getLogger(WXAppletUserInfo.class);
 
