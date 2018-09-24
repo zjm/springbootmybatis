@@ -50,6 +50,26 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/getuserinfobyopenid")
+    @ResponseBody
+    public BaseResult getUserInfoByOpenId(String openid) {
+
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setData(userInfoService.getUserInfoByOpenid(openid));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
+
+    }
+
     @RequestMapping(value = "/alluserInfo")
     @ResponseBody
     public List<UserInfo> getUserInfos() {
@@ -128,18 +148,15 @@ public class UserController {
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult getOpenid(HttpServletRequest request) {
-
-       logger.info("==========createopenid=========");
         BaseResult br = new BaseResult();
         try {
             String code =request.getParameter("code").toString();
             logger.info("==========createopenid======code===:"+code);
             JSONObject retStr =   WXAppletUserInfo.getSessionKeyOropenid(code);
-            logger.info("==========createopenid===retStr======:"+retStr);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setData(retStr);
-            logger.info("==========createopenid=======br==:"+br.toString());
+            logger.info("ret:"+br.toString());
             return br;
         }catch (Exception e)
         {

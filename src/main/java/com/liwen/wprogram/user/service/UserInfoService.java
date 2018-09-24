@@ -16,6 +16,10 @@ public class UserInfoService {
         return userInfoMapper.selectByPrimaryKey(id);
     }
 
+    public UserInfo getUserInfoByOpenid(String openid) {
+        return userInfoMapper.selectByOpenid(openid);
+    }
+
     public  void saveUserInfo(UserInfo userInfo)
     {
         userInfoMapper.insert(userInfo);

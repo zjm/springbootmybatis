@@ -67,6 +67,30 @@ public interface UserInfoMapper {
             "select",
             "id, openid, headimg, nickname, phone, name, company, department, weixinhao, ",
             "mykernel, address, rmbbalance, createtime",
+            "from userinfo",
+            "where openid = #{openid,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+            @Result(column="openid", property="openid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="headimg", property="headimg", jdbcType=JdbcType.VARCHAR),
+            @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
+            @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="company", property="company", jdbcType=JdbcType.VARCHAR),
+            @Result(column="department", property="department", jdbcType=JdbcType.VARCHAR),
+            @Result(column="weixinhao", property="weixinhao", jdbcType=JdbcType.VARCHAR),
+            @Result(column="mykernel", property="mykernel", jdbcType=JdbcType.INTEGER),
+            @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
+            @Result(column="rmbbalance", property="rmbbalance", jdbcType=JdbcType.REAL),
+            @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
+    })
+    UserInfo selectByOpenid(String openid);
+
+    @Select({
+            "select",
+            "id, openid, headimg, nickname, phone, name, company, department, weixinhao, ",
+            "mykernel, address, rmbbalance, createtime",
             "from userinfo"
     })
     @Results({
