@@ -4,9 +4,11 @@ import com.liwen.wprogram.common.BaseConroller;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.Utils;
+import com.liwen.wprogram.customservice.model.CustomMsg;
 import com.liwen.wprogram.customservice.model.CustomService;
 import com.liwen.wprogram.customservice.service.CustomServiceService;
 import com.liwen.wprogram.question.model.QuestionImgs;
+import com.liwen.wprogram.user.model.UserInfo;
 import com.liwen.wprogram.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -41,7 +44,29 @@ public class CustomServiceController extends BaseConroller {
         try {
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
-            br.setData(customServiceService.getMsgs(userid));
+            List<CustomService> customList = customServiceService.getMsgs(userid);
+            CustomMsg customMsg = null;
+            UserInfo userInfo = null;
+            List<CustomMsg> msgList = new ArrayList<>();
+            for (CustomService cs:customList)
+            {
+                customMsg= new CustomMsg();
+                customMsg.setId(cs.getId());
+                customMsg.setSenduserid(cs.getSenduserid());
+                userInfo = userInfoService.getUserInfo(cs.getSenduserid());
+                customMsg.setSendnickname(userInfo.getNickname());
+                customMsg.setSendimghead(userInfo.getHeadimg());
+                userInfo = userInfoService.getUserInfo(cs.getRecuserid());
+                customMsg.setRecuserid(cs.getRecuserid());
+                customMsg.setRecnickname(userInfo.getNickname());
+                customMsg.setRecimghead(userInfo.getHeadimg());
+                customMsg.setContent(cs.getContent());
+                customMsg.setImgurl(cs.getImgurl());
+                customMsg.setCreatetime(cs.getCreatetime());
+                msgList.add(customMsg);
+            }
+            br.setData(msgList);
+
             return br;
         }catch (Exception e)
         {
@@ -54,8 +79,9 @@ public class CustomServiceController extends BaseConroller {
     @RequestMapping(value = "/savemsg", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 36000, rollbackFor = Exception.class)
-    public BaseResult solveQuestion(HttpServletRequest request) {
+    public BaseResult saveMsg(HttpServletRequest request) {
 
+        logger.info("===saveMsg===");
         BaseResult br = new BaseResult();
         try {
             long senduserid = Long.valueOf(request.getParameter("senduserid").toString());
@@ -98,7 +124,6 @@ public class CustomServiceController extends BaseConroller {
                     stream = new BufferedOutputStream(new FileOutputStream(destFile));
                     stream.write(bytes);
                     stream.close();
-
                     QuestionImgs questionImgs = new QuestionImgs();
                     urlStr = "http://ubestchain.com" + savePath;
                     customService.setImgurl(urlStr);
