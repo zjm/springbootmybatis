@@ -32,6 +32,18 @@ public class SellOrderSqlProvider {
             VALUES("productid", "#{productid,jdbcType=BIGINT}");
         }
         
+        if (record.getPrice() != null) {
+            VALUES("price", "#{price,jdbcType=REAL}");
+        }
+        
+        if (record.getTotalcost() != null) {
+            VALUES("totalcost", "#{totalcost,jdbcType=REAL}");
+        }
+        
+        if (record.getRealcost() != null) {
+            VALUES("realcost", "#{realcost,jdbcType=REAL}");
+        }
+        
         if (record.getBuynum() != null) {
             VALUES("buynum", "#{buynum,jdbcType=INTEGER}");
         }
@@ -46,6 +58,14 @@ public class SellOrderSqlProvider {
         
         if (record.getCreatetime() != null) {
             VALUES("createtime", "#{createtime,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPaytime() != null) {
+            VALUES("paytime", "#{paytime,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPaysuccesstime() != null) {
+            VALUES("paysuccesstime", "#{paysuccesstime,jdbcType=VARCHAR}");
         }
         
         return SQL();
@@ -67,6 +87,18 @@ public class SellOrderSqlProvider {
             SET("productid = #{productid,jdbcType=BIGINT}");
         }
         
+        if (record.getPrice() != null) {
+            SET("price = #{price,jdbcType=REAL}");
+        }
+        
+        if (record.getTotalcost() != null) {
+            SET("totalcost = #{totalcost,jdbcType=REAL}");
+        }
+        
+        if (record.getRealcost() != null) {
+            SET("realcost = #{realcost,jdbcType=REAL}");
+        }
+        
         if (record.getBuynum() != null) {
             SET("buynum = #{buynum,jdbcType=INTEGER}");
         }
@@ -81,6 +113,14 @@ public class SellOrderSqlProvider {
         
         if (record.getCreatetime() != null) {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPaytime() != null) {
+            SET("paytime = #{paytime,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPaysuccesstime() != null) {
+            SET("paysuccesstime = #{paysuccesstime,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

@@ -150,6 +150,14 @@ public class SellProductController {
         return "file";
     }
 
+    @RequestMapping("filetwo")
+
+    public String filetwo(){
+        // logger.info("aaaaaaaaaaa=====");
+        return "filetwo";
+    }
+
+
     @RequestMapping("mutifile")
     public String mutilfile(){
         // logger.info("aaaaaaaaaaa=====");
@@ -206,7 +214,57 @@ public class SellProductController {
      */
     @RequestMapping(value="/fileUpload",method=RequestMethod.POST)
     @ResponseBody
-    public ResultUpload fileUpload(@RequestParam("fileName")MultipartFile file, @RequestParam(value = "name", required = true) String name)
+    public ResultUpload fileUpload(@RequestParam("filePath")MultipartFile file, @RequestParam(value = "name", required = true) String name)
+    {
+        ResultUpload resUp = new ResultUpload();
+        resUp.setParam(name);
+        resUp.setResult("fail");
+        resUp.setCode(-1);
+        if(file.isEmpty())       {
+
+            return resUp;
+        }
+        String fileNames = file.getOriginalFilename();
+        int size = (int)file.getSize();
+        String extName = getExtensionName(fileNames);
+        String path=System.getProperty("user.dir")+"/uploadFiles";
+        if (!"pngjpgjpegbmp".contains(extName.toLowerCase()))
+        {
+            resUp.setResult("图片格式不正确,请上传png或jpg格式图片！");
+            return resUp;
+        }
+
+        logger.info(fileNames+"--->"+size+",path:"+path+",name:"+name+",extName:"+extName);
+        File dest = new File(path+"/"+fileNames);
+        if (!dest.getParentFile().exists()){
+            dest.getParentFile().mkdir();
+        }
+        try{
+            file.transferTo(dest);
+            resUp.setCode(0);
+            resUp.setResult("success");
+            return resUp;
+        }catch (IllegalStateException e)
+        {
+            e.printStackTrace();
+            return resUp;
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+            return resUp;
+        }
+    }
+
+
+    /**
+     * 单文件上传
+     * @param file
+     * @param name
+     * @return
+     */
+    @RequestMapping(value="/fileUploadt",method=RequestMethod.POST)
+    @ResponseBody
+    public ResultUpload fileUploadt(@RequestParam("filename")MultipartFile file, @RequestParam(value = "name", required = true) String name)
     {
         ResultUpload resUp = new ResultUpload();
         resUp.setParam(name);

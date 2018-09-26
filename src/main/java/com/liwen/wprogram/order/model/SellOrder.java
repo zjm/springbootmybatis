@@ -9,6 +9,12 @@ public class SellOrder {
 
     private Long productid;
 
+    private Float price;
+
+    private Float totalcost;
+
+    private Float realcost;
+
     private Integer buynum;
 
     private Byte status;
@@ -16,6 +22,10 @@ public class SellOrder {
     private Byte sendtype;
 
     private String createtime;
+
+    private String paytime;
+
+    private String paysuccesstime;
 
     public Long getId() {
         return id;
@@ -49,6 +59,30 @@ public class SellOrder {
         this.productid = productid;
     }
 
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public Float getTotalcost() {
+        return totalcost;
+    }
+
+    public void setTotalcost(Float totalcost) {
+        this.totalcost = totalcost;
+    }
+
+    public Float getRealcost() {
+        return realcost;
+    }
+
+    public void setRealcost(Float realcost) {
+        this.realcost = realcost;
+    }
+
     public Integer getBuynum() {
         return buynum;
     }
@@ -79,5 +113,21 @@ public class SellOrder {
 
     public void setCreatetime(String createtime) {
         this.createtime = createtime == null ? null : createtime.trim();
+    }
+
+    public String getPaytime() {
+        return paytime;
+    }
+
+    public void setPaytime(String paytime) {
+        this.paytime = paytime == null ? null : paytime.trim();
+    }
+
+    public String getPaysuccesstime() {
+        return paysuccesstime;
+    }
+
+    public void setPaysuccesstime(String paysuccesstime) {
+        this.paysuccesstime = paysuccesstime == null ? null : paysuccesstime.trim();
     }
 }

@@ -180,7 +180,7 @@ public class QuestionController {
             File destFile = null;
             BufferedOutputStream stream = null;
             String savePath_temp ="/questionimags/"+userids+"/";
-            String savePath="";
+            String savePath=savePath_temp;
             String path = requestMap.getSession().getServletContext().getRealPath(savePath);
             if (!win)
             {

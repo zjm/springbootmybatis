@@ -13,7 +13,7 @@ public class WxPayConfig {
     public static final String AppId_Test="wx2f57278b4016320e";
     public static final String SECRET_Test="890abfb77fe26fc45e4205a54abaf518";
     //微信支付的商户id
-    public static final String mch_id = "";
+    public static final String mch_id = "1515594131";
 
     public static  final String mch_key="k8y9w0b7";
 

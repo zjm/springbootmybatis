@@ -111,7 +111,7 @@ public class WXAppletUserInfo  {
      * @param request
      * @return
      */
-    public  Map<String, Object> wxPay(String openid, HttpServletRequest request){
+    public static Map<String, Object> wxPay(String openid, HttpServletRequest request){
 
         try{
             //生成随机字符串

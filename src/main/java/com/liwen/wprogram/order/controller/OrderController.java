@@ -4,6 +4,7 @@ import com.liwen.wprogram.common.BaseConroller;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.Utils;
+import com.liwen.wprogram.common.weixin.WXAppletUserInfo;
 import com.liwen.wprogram.common.weixin.WxPayConfig;
 import com.liwen.wprogram.myaddress.model.MyAddress;
 import com.liwen.wprogram.myaddress.service.MyAddressService;
@@ -156,6 +157,11 @@ public class OrderController extends BaseConroller {
             order.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
 
             orderService.saveOrder(order);
+
+            UserInfo userInfo = userInfoService.getUserInfo(userid);
+
+            Map<String, Object> response = WXAppletUserInfo.wxPay(userInfo.getOpenid(),request);
+            br.setData(response);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setData(id);
