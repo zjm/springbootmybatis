@@ -18,7 +18,7 @@ public class WxPayConfig {
     public static  final String mch_key="k8y9w0b7";
 
     //支付成功后的服务器回调url
-    public static final String NOTIFY_URL = "http://182.61.37.82:9090/order/wxNotify";
+    public static final String NOTIFY_URL = "https://renmai.manmengtv.com/order/wxNotify";
     //签名方式，固定值
     public static final String SIGNTYPE = "MD5";
     //交易类型，小程序支付的固定值为JSAPI

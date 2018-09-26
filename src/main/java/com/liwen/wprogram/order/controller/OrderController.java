@@ -209,6 +209,7 @@ public class OrderController extends BaseConroller {
     @RequestMapping(value="/wxNotify")
     @ResponseBody
     public void wxNotify(HttpServletRequest request,HttpServletResponse response) throws Exception {
+        logger.info("=========wxNotify=====>:");
         BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream()));
         String line = null;
         StringBuilder sb = new StringBuilder();
