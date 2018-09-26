@@ -111,7 +111,7 @@ public class WXAppletUserInfo  {
      * @param request
      * @return
      */
-    public static Map<String, Object> wxPay(String openid, HttpServletRequest request){
+    public static Map<String, Object> wxPay(String openid,String orderNo, HttpServletRequest request){
 
         try{
             //生成随机字符串
@@ -125,8 +125,8 @@ public class WXAppletUserInfo  {
             packageParams.put("mch_id",WxPayConfig.mch_id);
             packageParams.put("nonce_str",nonce_str);
             packageParams.put("body",body);
-            packageParams.put("out_trade_no","852357159463");
-            packageParams.put("total_fee","1");//支付金额，这边需要转成字符串类型，否则后面的签名会失败
+            packageParams.put("out_trade_no",orderNo);
+            packageParams.put("total_fee","0.1");//支付金额，这边需要转成字符串类型，否则后面的签名会失败
             packageParams.put("spbill_create_ip",spbill_create_ip);
             packageParams.put("notify_url",WxPayConfig.NOTIFY_URL);
             packageParams.put("trade_type",WxPayConfig.TRADETYPE);

@@ -142,6 +142,7 @@ public class OrderController extends BaseConroller {
             long addressid = Long.valueOf(request.getParameter("addressid").toString());
             long productid = Long.valueOf(request.getParameter("productid").toString());
             int buynum = Integer.valueOf(request.getParameter("buynum").toString());
+
             //订单状态：0.正常，1.撤单,2.完成
             byte status = (byte)0;
             //配送方式：0.免费，1.收费
@@ -155,12 +156,18 @@ public class OrderController extends BaseConroller {
             order.setStatus(status);
             order.setSendtype(sendType);
             order.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
+            SellProduct sellProduct  = sellProductService.getSellProduct(productid);
+            order.setPrice(sellProduct.getPrice());
+            order.setTotalcost(sellProduct.getPrice()*buynum);
+            order.setRealcost(sellProduct.getPrice()*buynum);
+            order.setPaytime(Utils.getTimeYYYYMMDDHHMMSS());
+
 
             orderService.saveOrder(order);
 
             UserInfo userInfo = userInfoService.getUserInfo(userid);
 
-            Map<String, Object> response = WXAppletUserInfo.wxPay(userInfo.getOpenid(),request);
+            Map<String, Object> response = WXAppletUserInfo.wxPay(userInfo.getOpenid(),String.valueOf(id),request);
             br.setData(response);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
@@ -223,6 +230,7 @@ public class OrderController extends BaseConroller {
             String validStr = Utils.createLinkString(validParams);//把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
             String sign = Utils.sign(validStr, WxPayConfig.mch_key, "utf-8").toUpperCase();//拼装生成服务器端验证的签名
             //根据微信官网的介绍，此处不仅对回调的参数进行验签，还需要对返回的金额与系统订单的金额进行比对等
+            logger.info("=========out_trade_no=====>:"+validParams.get("out_trade_no"));
             if (sign.equals(map.get("sign"))) {
                 /**此处添加自己的业务逻辑代码start**/
 
