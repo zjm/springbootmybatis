@@ -175,7 +175,6 @@ public class OrderController extends BaseConroller {
             br.setData(response);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
-            br.setData(id);
             return br;
         }catch (Exception e)
         {
