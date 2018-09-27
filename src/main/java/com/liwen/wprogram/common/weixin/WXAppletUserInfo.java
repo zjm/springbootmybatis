@@ -113,6 +113,7 @@ public class WXAppletUserInfo  {
      */
     public static Map<String, Object> wxPay(String openid,String orderNo, HttpServletRequest request){
 
+        logger.info("wxPay===" +orderNo );
         try{
             //生成随机字符串
            // String openid = request.getParameter("openid").toString();

@@ -162,12 +162,16 @@ public class OrderController extends BaseConroller {
             order.setRealcost(sellProduct.getPrice()*buynum);
             order.setPaytime(Utils.getTimeYYYYMMDDHHMMSS());
 
+            UserInfo userInfo = userInfoService.getUserInfo(userid);
+            String tradNo = String.valueOf(id);
+
+            Map<String, Object> response = WXAppletUserInfo.wxPay(userInfo.getOpenid(),tradNo,request);
 
             orderService.saveOrder(order);
 
-            UserInfo userInfo = userInfoService.getUserInfo(userid);
 
-            Map<String, Object> response = WXAppletUserInfo.wxPay(userInfo.getOpenid(),String.valueOf(id),request);
+
+
             br.setData(response);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
@@ -221,8 +225,10 @@ public class OrderController extends BaseConroller {
         String notityXml = sb.toString();
         String resXml = "";
         System.out.println("接收到的报文：" + notityXml);
+        logger.info("接收到的报文2：" + notityXml);
 
         Map map = Utils.doXMLParse(notityXml);
+        logger.info("接收到的报文3：" + map.toString());
 
         String returnCode = (String) map.get("return_code");
         if ("SUCCESS".equals(returnCode)) {
