@@ -3,6 +3,7 @@ package com.liwen.wprogram.common.weixin;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.liwen.wprogram.common.Utils;
+import org.apache.log4j.Logger;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
 import javax.crypto.Cipher;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 
 public class WXAppletUserInfo  {
-  //  private static Logger log = Logger.getLogger(WXAppletUserInfo.class);
+   private static Logger logger = Logger.getLogger(WXAppletUserInfo.class);
 
     private static final  Boolean SEND_DEBUG = true;
 
@@ -118,8 +119,9 @@ public class WXAppletUserInfo  {
             //生成随机字符串
            // String openid = request.getParameter("openid").toString();
             String nonce_str = Utils.getRandomStringByLength(32);
+            String price = "0.1";
             //商品名称
-            String body="测试商品名称";
+            String body="火聘测试商品名称";
             String spbill_create_ip = Utils.getIpAddr(request);
             Map<String,String> packageParams = new HashMap<>();
             packageParams.put("appid",WxPayConfig.AppID);
@@ -127,7 +129,7 @@ public class WXAppletUserInfo  {
             packageParams.put("nonce_str",nonce_str);
             packageParams.put("body",body);
             packageParams.put("out_trade_no",orderNo);
-            packageParams.put("total_fee","0.1");//支付金额，这边需要转成字符串类型，否则后面的签名会失败
+            packageParams.put("total_fee",price);//支付金额，这边需要转成字符串类型，否则后面的签名会失败
             packageParams.put("spbill_create_ip",spbill_create_ip);
             packageParams.put("notify_url",WxPayConfig.NOTIFY_URL);
             packageParams.put("trade_type",WxPayConfig.TRADETYPE);
@@ -143,9 +145,9 @@ public class WXAppletUserInfo  {
                     + "<nonce_str>" + nonce_str + "</nonce_str>"
                     + "<notify_url>" + WxPayConfig.NOTIFY_URL + "</notify_url>"
                     + "<openid>" + openid + "</openid>"
-                    + "<out_trade_no>" + "123456789" + "</out_trade_no>"
+                    + "<out_trade_no>" +orderNo + "</out_trade_no>"
                     + "<spbill_create_ip>" + spbill_create_ip + "</spbill_create_ip>"
-                    + "<total_fee>" + "1" + "</total_fee>"
+                    + "<total_fee>" +price + "</total_fee>"
                     + "<trade_type>" + WxPayConfig.TRADETYPE + "</trade_type>"
                     + "<sign>" + mysign + "</sign>"
                     + "</xml>";
