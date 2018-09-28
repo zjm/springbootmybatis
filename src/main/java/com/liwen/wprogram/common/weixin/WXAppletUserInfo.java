@@ -171,7 +171,7 @@ public class WXAppletUserInfo  {
                 Long timeStamp = System.currentTimeMillis() / 1000;
                 response.put("timeStamp", timeStamp + "");//这边要将返回的时间戳转化成字符串，不然小程序端调用wx.requestPayment方法会报签名错误
                 //拼接签名需要的参数
-                String stringSignTemp = "appId=" + WxPayConfig.AppID + "&nonceStr=" + nonce_str + "&package=prepay_id=" + prepay_id+ "&signType=MD5&timeStamp=" + timeStamp;
+                String stringSignTemp = "appId=" + WxPayConfig.AppID + "&nonceStr=" + nonce_str + "&package=prepay_id=" + prepay_id+ "&signType="+WxPayConfig.SIGNTYPE+"&timeStamp=" + timeStamp;
                 //再次签名，这个签名用于小程序端调用wx.requesetPayment方法
                 String paySign = Utils.sign(stringSignTemp, WxPayConfig.mch_key, "utf-8").toUpperCase();
 
