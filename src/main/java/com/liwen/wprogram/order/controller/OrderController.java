@@ -69,7 +69,7 @@ public class OrderController extends BaseConroller {
             {
                 orderInfo = new OrderInfo();
                 myAddress = myAddressService.getMyAddress(oder.getAddressid());
-                userInfo = userInfoService.getUserInfo(oder.getUserid());
+                userInfo = userInfoService.getUserInfo(oder.getUserid().toString());
                 sellProduct  = sellProductService.getSellProduct(oder.getProductid());
                 orderInfo.setOrderid(oder.getId());
                 orderInfo.setBuyNum(oder.getBuynum());
@@ -105,7 +105,7 @@ public class OrderController extends BaseConroller {
             br.setCode(BaseConstant.SUCCESS_CODE);
             SellOrder order = orderService.getOrder(orderid);
             MyAddress myAddress = myAddressService.getMyAddress(order.getAddressid());
-            UserInfo userInfo = userInfoService.getUserInfo(order.getUserid());
+            UserInfo userInfo = userInfoService.getUserInfo(order.getUserid().toString());
             SellProduct sellProduct = sellProductService.getSellProduct(order.getProductid());
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setBuyNum(order.getBuynum());
@@ -162,7 +162,7 @@ public class OrderController extends BaseConroller {
             order.setRealcost(sellProduct.getPrice()*buynum);
             order.setPaytime(Utils.getTimeYYYYMMDDHHMMSS());
 
-            UserInfo userInfo = userInfoService.getUserInfo(userid);
+            UserInfo userInfo = userInfoService.getUserInfo(String.valueOf(userid));
             String tradNo = String.valueOf(id);
 
             Map<String, Object> response = WXAppletUserInfo.wxPay(userInfo.getOpenid(),tradNo,request);

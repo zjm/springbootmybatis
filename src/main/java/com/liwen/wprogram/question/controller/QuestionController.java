@@ -65,10 +65,9 @@ public class QuestionController {
         br.setResult(BaseConstant.SUCCESS_INFO);
         try {
 
-            String userids = requestMap.getParameter("userid").toString();
-            logger.info("userid:"+userids);
-            Long userid = Long.valueOf(userids);
+            String userid = requestMap.getParameter("userid").toString();
             logger.info("userid:"+userid);
+
             String content = requestMap.getParameter("content").toString();
             logger.info("content:"+content);
             //1.是实名发布；0.非实名发布
@@ -85,14 +84,14 @@ public class QuestionController {
 
             Question question = new Question();
             IdGenerator ig = new IdGenerator();
-            question.setId(ig.nextId());
+            question.setId(String.valueOf(ig.nextId()));
             question.setUserid(userid);
             question.setContent(content);
             question.setType((byte) 0);////0.我发起的；1.我参与的
             question.setRealnamepublish(realnamepub);
             question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             question.setValidityperiod(validaity);
-            question.setProductid(Long.valueOf(productid));
+            question.setProductid(productid);
             question.setPublishcompany(publishCompy);
             question.setViewnum(0);
             question.setAnsernum(0);
@@ -131,9 +130,8 @@ public class QuestionController {
         try {
 
             ////////////保存问题主表////////////
-            String userids = requestMap.getParameter("userid").toString();
-            Long userid = Long.valueOf(userids);
-            logger.info("userid:"+userid);
+            String userid = requestMap.getParameter("userid").toString();
+
             String title = requestMap.getParameter("title").toString();
             String content = requestMap.getParameter("content").toString();
             logger.info("content:"+content);
@@ -152,7 +150,7 @@ public class QuestionController {
             Question question = new Question();
             IdGenerator ig = new IdGenerator();
             questionId = ig.nextId();
-            question.setId(questionId);
+            question.setId(String.valueOf(questionId));
             question.setUserid(userid);
             question.setTitle(title);
             question.setContent(content);
@@ -160,7 +158,7 @@ public class QuestionController {
             question.setRealnamepublish(realnamepub);
             question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             question.setValidityperiod(validaity);
-            question.setProductid(Long.valueOf(productid));
+            question.setProductid(productid);
             question.setPublishcompany(publishCompy);
             question.setViewnum(0);
             question.setAnsernum(0);
@@ -179,7 +177,7 @@ public class QuestionController {
             MultipartFile file = null;
             File destFile = null;
             BufferedOutputStream stream = null;
-            String savePath_temp ="/questionimags/"+userids+"/";
+            String savePath_temp ="/questionimags/"+userid+"/";
             String savePath=savePath_temp;
             String path = requestMap.getSession().getServletContext().getRealPath(savePath);
             if (!win)
@@ -219,7 +217,7 @@ public class QuestionController {
 
                     } catch (Exception e) {
                         stream = null;
-                        questionService.delQuestion(questionId);
+                        questionService.delQuestion(String.valueOf(questionId));
                         br.setResult(BaseConstant.FAIL_INFO + "-->" + e.getMessage());
                         e.printStackTrace();
                         return  br;
@@ -230,7 +228,7 @@ public class QuestionController {
             br.setResult(BaseConstant.SUCCESS_INFO);
             return br;
         } catch (Exception e) {
-            questionService.delQuestion(questionId);
+            questionService.delQuestion(String.valueOf(questionId));
             e.printStackTrace();
             br.setResult(BaseConstant.PARAM_ERROR_INFO + "-->" + e.getMessage());
             e.printStackTrace();
@@ -245,14 +243,14 @@ public class QuestionController {
      */
     @RequestMapping(value = "/getnormalquestion")
     @ResponseBody
-    public BaseResult getQuestions(@RequestParam("userid") long userid, @RequestParam("type") byte type) {
+    public BaseResult getQuestions(@RequestParam("userid") String userid, @RequestParam("type") byte type) {
 //        logger.info("usrid:" + userid + ",param:" + type);
 //        return questionService.getQuestions(Long.valueOf(userid), Byte.valueOf(type));
         BaseResult br = new BaseResult();
         try {
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
-            List<Question> questionList = questionService.getQuestions(Long.valueOf(userid), Byte.valueOf(type));
+            List<Question> questionList = questionService.getQuestions(userid, Byte.valueOf(type));
             logger.info("Question->size:"+questionList.size());
             List<QuestionInfo> questionInfoList = new ArrayList<>();
             UserInfo userInfo = null;
@@ -263,7 +261,7 @@ public class QuestionController {
                 questionInfo = new QuestionInfo();
                 questionInfo.setQuestion(question);
                 userInfo = userInfoService.getUserInfo(question.getUserid());
-                sellProduct = sellProductService.getSellProduct(question.getProductid());
+                sellProduct = sellProductService.getSellProduct(Long.valueOf(question.getProductid()));
                // logger.info("sellProduct->getThumbnail:"+sellProduct.getThumbnail());
                 if (userInfo!=null || sellProduct!=null) {
                     questionInfo.setSellProduct(sellProduct);
@@ -290,7 +288,7 @@ public class QuestionController {
      */
     @RequestMapping(value = "/questioninfo")
     @ResponseBody
-    public BaseResult getQuestions(@RequestParam("quid") long quid) {
+    public BaseResult getQuestions(@RequestParam("quid") String quid) {
 
         BaseResult br = new BaseResult();
         try {

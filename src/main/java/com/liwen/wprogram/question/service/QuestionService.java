@@ -12,7 +12,7 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public Question getQuestion(Long id){
+    public Question getQuestion(String id){
         return questionMapper.selectByPrimaryKey(id);
     }
 
@@ -21,7 +21,7 @@ public class QuestionService {
      * @param type 0.我发起的，1.我参与的
      * @return 数据列表
      */
-    public List<Question> getQuestions(long userid,byte type)
+    public List<Question> getQuestions(String userid,byte type)
     {
         return questionMapper.selectByTypeKey(userid,type);
     }
@@ -32,7 +32,7 @@ public class QuestionService {
         return  questionMapper.insert(question);
     }
 
-    public void delQuestion(long id)
+    public void delQuestion(String id)
     {
         questionMapper.deleteByPrimaryKey(id);
     }

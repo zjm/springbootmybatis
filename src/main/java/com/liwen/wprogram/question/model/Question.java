@@ -1,11 +1,11 @@
 package com.liwen.wprogram.question.model;
 
 public class Question {
-    private Long id;
+    private String id;
 
-    private Long userid;
+    private String userid;
 
-    private Long productid;
+    private String productid;
 
     private String title;
 
@@ -33,28 +33,28 @@ public class Question {
 
     private String createtime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
-    public Long getProductid() {
+    public String getProductid() {
         return productid;
     }
 
-    public void setProductid(Long productid) {
-        this.productid = productid;
+    public void setProductid(String productid) {
+        this.productid = productid == null ? null : productid.trim();
     }
 
     public String getTitle() {

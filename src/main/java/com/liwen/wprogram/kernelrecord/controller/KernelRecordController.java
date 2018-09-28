@@ -68,7 +68,7 @@ public class KernelRecordController {
         {
             IdGenerator idGenerator = new IdGenerator();
             long id = idGenerator.nextId();
-            long userId = Long.valueOf(request.getParameter("userid").toString());
+            String userId = request.getParameter("userid").toString();
             String title = request.getParameter("title").toString();
             //0.减少麦粒，1.增加麦粒
             byte type = Byte.valueOf(request.getParameter("type").toString());

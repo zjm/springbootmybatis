@@ -17,15 +17,15 @@ public class QuestionSqlProvider {
         INSERT_INTO("question");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getUserid() != null) {
-            VALUES("userid", "#{userid,jdbcType=BIGINT}");
+            VALUES("userid", "#{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getProductid() != null) {
-            VALUES("productid", "#{productid,jdbcType=BIGINT}");
+            VALUES("productid", "#{productid,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
@@ -88,11 +88,11 @@ public class QuestionSqlProvider {
         UPDATE("question");
         
         if (record.getUserid() != null) {
-            SET("userid = #{userid,jdbcType=BIGINT}");
+            SET("userid = #{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getProductid() != null) {
-            SET("productid = #{productid,jdbcType=BIGINT}");
+            SET("productid = #{productid,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
@@ -147,7 +147,7 @@ public class QuestionSqlProvider {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }
