@@ -12,7 +12,7 @@ public class UserInfoService {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
-    public UserInfo getUserInfo(long id) {
+    public UserInfo getUserInfo(String id) {
         return userInfoMapper.selectByPrimaryKey(id);
     }
 
@@ -25,7 +25,7 @@ public class UserInfoService {
         userInfoMapper.insert(userInfo);
     }
 
-    public  void delUserInfo(long id)
+    public  void delUserInfo(String id)
     {
         userInfoMapper.deleteByPrimaryKey(id);
 

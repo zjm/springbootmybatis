@@ -17,19 +17,19 @@ public class AppealSqlProvider {
         INSERT_INTO("appeal");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getSenduserid() != null) {
-            VALUES("senduserid", "#{senduserid,jdbcType=BIGINT}");
+            VALUES("senduserid", "#{senduserid,jdbcType=VARCHAR}");
         }
         
         if (record.getRecuserid() != null) {
-            VALUES("recuserid", "#{recuserid,jdbcType=BIGINT}");
+            VALUES("recuserid", "#{recuserid,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderid() != null) {
-            VALUES("orderid", "#{orderid,jdbcType=BIGINT}");
+            VALUES("orderid", "#{orderid,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
@@ -52,15 +52,15 @@ public class AppealSqlProvider {
         UPDATE("appeal");
         
         if (record.getSenduserid() != null) {
-            SET("senduserid = #{senduserid,jdbcType=BIGINT}");
+            SET("senduserid = #{senduserid,jdbcType=VARCHAR}");
         }
         
         if (record.getRecuserid() != null) {
-            SET("recuserid = #{recuserid,jdbcType=BIGINT}");
+            SET("recuserid = #{recuserid,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderid() != null) {
-            SET("orderid = #{orderid,jdbcType=BIGINT}");
+            SET("orderid = #{orderid,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
@@ -75,7 +75,7 @@ public class AppealSqlProvider {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }

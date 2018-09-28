@@ -1,14 +1,13 @@
 package com.liwen.wprogram.appeal.model;
 
-//申诉投诉
 public class Appeal {
-    private Long id;
+    private String id;
 
-    private Long senduserid;
+    private String senduserid;
 
-    private Long recuserid;
+    private String recuserid;
 
-    private Long orderid;
+    private String orderid;
 
     private String title;
 
@@ -16,36 +15,36 @@ public class Appeal {
 
     private String createtime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Long getSenduserid() {
+    public String getSenduserid() {
         return senduserid;
     }
 
-    public void setSenduserid(Long senduserid) {
-        this.senduserid = senduserid;
+    public void setSenduserid(String senduserid) {
+        this.senduserid = senduserid == null ? null : senduserid.trim();
     }
 
-    public Long getRecuserid() {
+    public String getRecuserid() {
         return recuserid;
     }
 
-    public void setRecuserid(Long recuserid) {
-        this.recuserid = recuserid;
+    public void setRecuserid(String recuserid) {
+        this.recuserid = recuserid == null ? null : recuserid.trim();
     }
 
-    public Long getOrderid() {
+    public String getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Long orderid) {
-        this.orderid = orderid;
+    public void setOrderid(String orderid) {
+        this.orderid = orderid == null ? null : orderid.trim();
     }
 
     public String getTitle() {

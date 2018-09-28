@@ -33,7 +33,7 @@ public class UserController {
 
     @RequestMapping(value = "/userinfo")
     @ResponseBody
-    public BaseResult getUserInfo(long userid) {
+    public BaseResult getUserInfo(String userid) {
 
         BaseResult br = new BaseResult();
         try {
@@ -55,11 +55,14 @@ public class UserController {
     @ResponseBody
     public BaseResult getUserInfoByOpenId(String openid) {
 
+        logger.info("openid=======:"+openid);
+
         BaseResult br = new BaseResult();
         try {
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
-            br.setData(userInfoService.getUserInfoByOpenid(openid));
+            UserInfo userInfo = userInfoService.getUserInfoByOpenid(openid);
+            br.setData(userInfo);
             return br;
         }catch (Exception e)
         {
@@ -92,7 +95,7 @@ public class UserController {
         try {
             UserInfo userInfo = new UserInfo();
             IdGenerator idg =new IdGenerator();
-            userInfo.setId(idg.nextId());
+            userInfo.setId(String.valueOf(idg.nextId()));
             userInfo.setHeadimg(headimg);
             userInfo.setNickname(nickname);
             userInfo.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
@@ -117,7 +120,7 @@ public class UserController {
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult updateUserInfo(
                                  @RequestParam(value = "openid", required = false) String openid,
-                                 @RequestParam(value = "userid", required = true) long userid,
+                                 @RequestParam(value = "userid", required = true) String userid,
                                 // @RequestParam(value = "phone", required = true) String phone,
                                  @RequestParam(value = "name", required = true) String name,
                                  @RequestParam(value = "company", required = true) String company,
@@ -163,7 +166,7 @@ public class UserController {
                 logger.info("========not==isEmpty======openid===:"+jsonObject.getString("openid"));
                 UserInfo userInfo = userInfoService.getUserInfoByOpenid(openId);
 
-                if (userInfo!=null && userInfo.getId()>0)
+                if (userInfo!=null && userInfo.getId().length()>0)
                 {
                     br.setReged(1);
                 }else {

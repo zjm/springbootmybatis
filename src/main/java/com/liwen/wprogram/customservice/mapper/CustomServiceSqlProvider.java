@@ -17,15 +17,15 @@ public class CustomServiceSqlProvider {
         INSERT_INTO("customservice");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getSenduserid() != null) {
-            VALUES("senduserid", "#{senduserid,jdbcType=BIGINT}");
+            VALUES("senduserid", "#{senduserid,jdbcType=VARCHAR}");
         }
         
         if (record.getRecuserid() != null) {
-            VALUES("recuserid", "#{recuserid,jdbcType=BIGINT}");
+            VALUES("recuserid", "#{recuserid,jdbcType=VARCHAR}");
         }
         
         if (record.getSendnickname() != null) {
@@ -56,11 +56,11 @@ public class CustomServiceSqlProvider {
         UPDATE("customservice");
         
         if (record.getSenduserid() != null) {
-            SET("senduserid = #{senduserid,jdbcType=BIGINT}");
+            SET("senduserid = #{senduserid,jdbcType=VARCHAR}");
         }
         
         if (record.getRecuserid() != null) {
-            SET("recuserid = #{recuserid,jdbcType=BIGINT}");
+            SET("recuserid = #{recuserid,jdbcType=VARCHAR}");
         }
         
         if (record.getSendnickname() != null) {
@@ -83,7 +83,7 @@ public class CustomServiceSqlProvider {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }

@@ -16,9 +16,9 @@ import java.util.List;
 public interface UserInfoMapper {
     @Delete({
         "delete from userinfo",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
         "insert into userinfo (id, openid, ",
@@ -27,7 +27,7 @@ public interface UserInfoMapper {
         "department, weixinhao, ",
         "mykernel, address, ",
         "rmbbalance, createtime)",
-        "values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, ",
         "#{headimg,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, ",
         "#{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, ",
         "#{department,jdbcType=VARCHAR}, #{weixinhao,jdbcType=VARCHAR}, ",
@@ -44,10 +44,10 @@ public interface UserInfoMapper {
         "id, openid, headimg, nickname, phone, name, company, department, weixinhao, ",
         "mykernel, address, rmbbalance, createtime",
         "from userinfo",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
         @Result(column="openid", property="openid", jdbcType=JdbcType.VARCHAR),
         @Result(column="headimg", property="headimg", jdbcType=JdbcType.VARCHAR),
         @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
@@ -61,7 +61,7 @@ public interface UserInfoMapper {
         @Result(column="rmbbalance", property="rmbbalance", jdbcType=JdbcType.REAL),
         @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    UserInfo selectByPrimaryKey(Long id);
+    UserInfo selectByPrimaryKey(String id);
 
     @Select({
             "select",
@@ -71,7 +71,7 @@ public interface UserInfoMapper {
             "where openid = #{openid,jdbcType=VARCHAR}"
     })
     @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
             @Result(column="openid", property="openid", jdbcType=JdbcType.VARCHAR),
             @Result(column="headimg", property="headimg", jdbcType=JdbcType.VARCHAR),
             @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
@@ -94,7 +94,7 @@ public interface UserInfoMapper {
             "from userinfo"
     })
     @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
             @Result(column="openid", property="openid", jdbcType=JdbcType.VARCHAR),
             @Result(column="headimg", property="headimg", jdbcType=JdbcType.VARCHAR),
             @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
@@ -109,6 +109,7 @@ public interface UserInfoMapper {
             @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
     List<UserInfo> selectAll();
+
 
     @UpdateProvider(type=UserInfoSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(UserInfo record);
@@ -127,7 +128,7 @@ public interface UserInfoMapper {
           "address = #{address,jdbcType=VARCHAR},",
           "rmbbalance = #{rmbbalance,jdbcType=REAL},",
           "createtime = #{createtime,jdbcType=VARCHAR}",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(UserInfo record);
 }

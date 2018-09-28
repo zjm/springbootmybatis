@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/appeal")
@@ -36,7 +37,7 @@ public class AppealController extends BaseConroller {
      */
     @RequestMapping(value = "/getsendappeallist")
     @ResponseBody
-    public AppealInfoResult getMySendAppealList(long userid) {
+    public AppealInfoResult getMySendAppealList(String userid) {
         AppealInfoResult br = new AppealInfoResult();
         try {
             logger.info("==========getMySendAppealList=============");
@@ -44,7 +45,8 @@ public class AppealController extends BaseConroller {
             br.setCode(BaseConstant.SUCCESS_CODE);
             UserInfo userInfo = userInfoService.getUserInfo(userid);
             br.setHeadimg(userInfo.getHeadimg());
-            br.setData(appealService.getMySendAppealList(userid));
+            List<Appeal> list = appealService.getMySendAppealList(userid);
+            br.setData(list);
             return br;
         }catch (Exception e)
         {
@@ -62,7 +64,7 @@ public class AppealController extends BaseConroller {
      */
     @RequestMapping(value = "/getrecappeallist")
     @ResponseBody
-    public AppealInfoResult getMyRecAppealList(long userid) {
+    public AppealInfoResult getMyRecAppealList(String userid) {
         logger.info("==========getMyRecAppealList=============");
         AppealInfoResult br = new AppealInfoResult();
         try {
@@ -94,15 +96,15 @@ public class AppealController extends BaseConroller {
         BaseResult br = new BaseResult();
         try
         {
-            long id = getId();
-            long senduserid = Long.valueOf(request.getParameter("senduserid").toString());
-            long recuserid = Long.valueOf(request.getParameter("recuserid").toString());
-            long orderid =0;// Long.valueOf(request.getParameter("orderid").toString());
+            long id =  getId();
+            String senduserid =request.getParameter("senduserid").toString();
+            String recuserid = request.getParameter("recuserid").toString();
+            String orderid ="0";// Long.valueOf(request.getParameter("orderid").toString());
             String title = request.getParameter("title").toString();
             String content = request.getParameter("content").toString();
             String createtime = Utils.getTimeYYYYMMDDHHMMSS();
             Appeal appeal = new Appeal();
-            appeal.setId(id);
+            appeal.setId(String.valueOf(id));
             appeal.setSenduserid(senduserid);
             appeal.setRecuserid(recuserid);
             appeal.setOrderid(orderid);
@@ -135,7 +137,7 @@ public class AppealController extends BaseConroller {
         BaseResult br = new BaseResult();
         try
         {
-            long id = Long.valueOf(request.getParameter("id").toString());
+            String id = request.getParameter("id").toString();
             appealService.deleAppeal(id);
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setResult(BaseConstant.SUCCESS_INFO);

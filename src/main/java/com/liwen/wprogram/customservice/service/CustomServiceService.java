@@ -11,7 +11,7 @@ import java.util.List;
 public class CustomServiceService {
     @Autowired
     private CustomServiceMapper customServiceMapper;
-    public List<CustomService> getMsgs(long userid)
+    public List<CustomService> getMsgs(String userid)
     {
         return customServiceMapper.selectByUserid(userid);
     }

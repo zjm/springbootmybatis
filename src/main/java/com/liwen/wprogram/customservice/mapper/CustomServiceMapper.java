@@ -16,17 +16,17 @@ import java.util.List;
 public interface CustomServiceMapper {
     @Delete({
         "delete from customservice",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
         "insert into customservice (id, senduserid, ",
         "recuserid, sendnickname, ",
         "recnickname, content, ",
         "imgurl, createtime)",
-        "values (#{id,jdbcType=BIGINT}, #{senduserid,jdbcType=BIGINT}, ",
-        "#{recuserid,jdbcType=BIGINT}, #{sendnickname,jdbcType=VARCHAR}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{senduserid,jdbcType=VARCHAR}, ",
+        "#{recuserid,jdbcType=VARCHAR}, #{sendnickname,jdbcType=VARCHAR}, ",
         "#{recnickname,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, ",
         "#{imgurl,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR})"
     })
@@ -39,19 +39,20 @@ public interface CustomServiceMapper {
         "select",
         "id, senduserid, recuserid, sendnickname, recnickname, content, imgurl, createtime",
         "from customservice",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="senduserid", property="senduserid", jdbcType=JdbcType.BIGINT),
-        @Result(column="recuserid", property="recuserid", jdbcType=JdbcType.BIGINT),
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="senduserid", property="senduserid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="recuserid", property="recuserid", jdbcType=JdbcType.VARCHAR),
         @Result(column="sendnickname", property="sendnickname", jdbcType=JdbcType.VARCHAR),
         @Result(column="recnickname", property="recnickname", jdbcType=JdbcType.VARCHAR),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="imgurl", property="imgurl", jdbcType=JdbcType.VARCHAR),
         @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    CustomService selectByPrimaryKey(Long id);
+    CustomService selectByPrimaryKey(String id);
+
 
     @Select({
             "select",
@@ -60,30 +61,31 @@ public interface CustomServiceMapper {
             "where senduserid = #{id,jdbcType=BIGINT} or recuserid = #{id,jdbcType=BIGINT}"
     })
     @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-            @Result(column="senduserid", property="senduserid", jdbcType=JdbcType.BIGINT),
-            @Result(column="recuserid", property="recuserid", jdbcType=JdbcType.BIGINT),
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="senduserid", property="senduserid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="recuserid", property="recuserid", jdbcType=JdbcType.VARCHAR),
             @Result(column="sendnickname", property="sendnickname", jdbcType=JdbcType.VARCHAR),
             @Result(column="recnickname", property="recnickname", jdbcType=JdbcType.VARCHAR),
             @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
             @Result(column="imgurl", property="imgurl", jdbcType=JdbcType.VARCHAR),
             @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    List<CustomService> selectByUserid(Long id);
+    List<CustomService> selectByUserid(String senduserid);
+
 
     @UpdateProvider(type=CustomServiceSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(CustomService record);
 
     @Update({
         "update customservice",
-        "set senduserid = #{senduserid,jdbcType=BIGINT},",
-          "recuserid = #{recuserid,jdbcType=BIGINT},",
+        "set senduserid = #{senduserid,jdbcType=VARCHAR},",
+          "recuserid = #{recuserid,jdbcType=VARCHAR},",
           "sendnickname = #{sendnickname,jdbcType=VARCHAR},",
           "recnickname = #{recnickname,jdbcType=VARCHAR},",
           "content = #{content,jdbcType=VARCHAR},",
           "imgurl = #{imgurl,jdbcType=VARCHAR},",
           "createtime = #{createtime,jdbcType=VARCHAR}",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(CustomService record);
 }

@@ -4,8 +4,6 @@ import com.liwen.wprogram.common.BaseConroller;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.Utils;
-import com.liwen.wprogram.customservice.model.CustomMsg;
-import com.liwen.wprogram.customservice.model.CustomService;
 import com.liwen.wprogram.customservice.service.CustomServiceService;
 import com.liwen.wprogram.question.model.QuestionImgs;
 import com.liwen.wprogram.user.model.UserInfo;
@@ -39,7 +37,7 @@ public class CustomServiceController extends BaseConroller {
 
     @RequestMapping(value = "/getmsglist")
     @ResponseBody
-    public BaseResult getMsgList(long userid) {
+    public BaseResult getMsgList(String userid) {
         BaseResult br = new BaseResult();
         try {
             br.setResult(BaseConstant.SUCCESS_INFO);
@@ -84,14 +82,14 @@ public class CustomServiceController extends BaseConroller {
         logger.info("===saveMsg===");
         BaseResult br = new BaseResult();
         try {
-            long senduserid = Long.valueOf(request.getParameter("senduserid").toString());
-            long recuserid = Long.valueOf(request.getParameter("recuserid").toString());
+            String senduserid = request.getParameter("senduserid").toString();
+            String recuserid = request.getParameter("recuserid").toString();
             String content = request.getParameter("content").toString();
             String sendNicName = userInfoService.getUserInfo(senduserid).getNickname();
             String recnickname = userInfoService.getUserInfo(recuserid).getNickname();
             long id = getId();
             CustomService customService = new CustomService();
-            customService.setId(id);
+            customService.setId(String.valueOf(id));
             customService.setContent(content);
             customService.setSenduserid(senduserid);
             customService.setRecuserid(recuserid);

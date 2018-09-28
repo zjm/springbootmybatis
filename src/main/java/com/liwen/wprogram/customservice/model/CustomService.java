@@ -1,11 +1,11 @@
 package com.liwen.wprogram.customservice.model;
 
 public class CustomService {
-    private Long id;
+    private String id;
 
-    private Long senduserid;
+    private String senduserid;
 
-    private Long recuserid;
+    private String recuserid;
 
     private String sendnickname;
 
@@ -17,28 +17,28 @@ public class CustomService {
 
     private String createtime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Long getSenduserid() {
+    public String getSenduserid() {
         return senduserid;
     }
 
-    public void setSenduserid(Long senduserid) {
-        this.senduserid = senduserid;
+    public void setSenduserid(String senduserid) {
+        this.senduserid = senduserid == null ? null : senduserid.trim();
     }
 
-    public Long getRecuserid() {
+    public String getRecuserid() {
         return recuserid;
     }
 
-    public void setRecuserid(Long recuserid) {
-        this.recuserid = recuserid;
+    public void setRecuserid(String recuserid) {
+        this.recuserid = recuserid == null ? null : recuserid.trim();
     }
 
     public String getSendnickname() {

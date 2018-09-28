@@ -17,7 +17,7 @@ public class UserInfoSqlProvider {
         INSERT_INTO("userinfo");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getOpenid() != null) {
@@ -123,7 +123,7 @@ public class UserInfoSqlProvider {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }

@@ -11,12 +11,12 @@ import java.util.List;
 public class AppealService {
     @Autowired
     AppealMapper appealMapper;
-    public List<Appeal> getMySendAppealList(long senderid)
+    public List<Appeal> getMySendAppealList(String senderid)
     {
        return appealMapper.selectBySenduserid(senderid);
     }
 
-    public List<Appeal> getMyRecAppealList(long recid)
+    public List<Appeal> getMyRecAppealList(String recid)
     {
         return appealMapper.selectByRecuserid (recid);
     }
@@ -26,7 +26,7 @@ public class AppealService {
         return appealMapper.insert(appeal);
     }
 
-    public int deleAppeal(long appealid)
+    public int deleAppeal(String appealid)
     {
         return appealMapper.deleteByPrimaryKey(appealid);
     }
