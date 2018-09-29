@@ -261,7 +261,7 @@ public class QuestionController {
                 questionInfo = new QuestionInfo();
                 questionInfo.setQuestion(question);
                 userInfo = userInfoService.getUserInfo(question.getUserid());
-                sellProduct = sellProductService.getSellProduct(Long.valueOf(question.getProductid()));
+                sellProduct = sellProductService.getSellProduct(question.getProductid());
                // logger.info("sellProduct->getThumbnail:"+sellProduct.getThumbnail());
                 if (userInfo!=null || sellProduct!=null) {
                     questionInfo.setSellProduct(sellProduct);

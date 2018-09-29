@@ -15,7 +15,7 @@ public class WxPayConfig {
     //微信支付的商户id
     public static final String mch_id = "1515594131";
 
-    public static  final String mch_key="zhangzhangzhangzhangzhangzhang12";
+    public static  final String mch_key="zhangzhangzhangzhangzhangzhang23";
 
     public static  final String MSG_TOKEN="h1b1o8";
     public static final String NOTIFY_MSG_URL = "https://renmai.manmengtv.com/custom/wxmsg";
