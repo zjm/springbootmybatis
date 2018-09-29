@@ -27,6 +27,28 @@ public class MyAddressController extends BaseConroller {
 
     @Autowired
     MyAddressService myAddressService;
+
+    @RequestMapping(value = "/getaddress")
+    @ResponseBody
+    public BaseResult getAddress(long id)
+    {
+        logger.info("getMyAddressList:" + id );
+        //  return kernelRecordService.getKernelRecords(id);
+        BaseResult br = new BaseResult();
+        try {
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setData(myAddressService.getMyAddress(id));
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.FAIL_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setData(null);
+            return br;
+        }
+    }
+
     @RequestMapping(value = "/addresses")
     @ResponseBody
     public BaseResult getMyAddressList(long userid)

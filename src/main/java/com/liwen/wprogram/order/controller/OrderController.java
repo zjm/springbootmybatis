@@ -1,5 +1,6 @@
 package com.liwen.wprogram.order.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.liwen.wprogram.common.BaseConroller;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
@@ -165,12 +166,9 @@ public class OrderController extends BaseConroller {
             UserInfo userInfo = userInfoService.getUserInfo(String.valueOf(userid));
             String tradNo = String.valueOf(id);
 
-            Map<String, Object> response = WXAppletUserInfo.wxPay(userInfo.getOpenid(),tradNo,request);
+            JSONObject response = WXAppletUserInfo.wxPayNew(userInfo.getOpenid(),tradNo,request);
 
             orderService.saveOrder(order);
-
-
-
 
             br.setData(response);
             br.setResult(BaseConstant.SUCCESS_INFO);
