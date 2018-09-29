@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mybaidu
+Source Server         : bbbddd
 Source Server Version : 50723
 Source Host           : 182.61.37.82:3306
 Source Database       : wrenmai
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2018-09-29 00:37:23
+Date: 2018-09-29 11:56:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -327,7 +327,7 @@ CREATE TABLE `sellorder` (
   KEY `order_user_index` (`userid`),
   KEY `order_add_index` (`addressid`),
   KEY `order_product_index` (`productid`)
-) ENGINE=InnoDB AUTO_INCREMENT=230372071153070081 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=230640207278370817 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sellorder
@@ -357,6 +357,14 @@ INSERT INTO `sellorder` VALUES ('230091577869987840', '227939210462490624', '228
 INSERT INTO `sellorder` VALUES ('230270523412574208', '227939210462490624', '228689365608427520', '78', '10', '10', '10', '1', '0', '0', '2018-09-28 10:12:51', '2018-09-28 10:12:51', null);
 INSERT INTO `sellorder` VALUES ('230348112504287232', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-28 15:21:09', '2018-09-28 15:21:09', null);
 INSERT INTO `sellorder` VALUES ('230372071153070080', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-28 16:56:21', '2018-09-28 16:56:22', null);
+INSERT INTO `sellorder` VALUES ('230572877198389248', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 06:14:17', '2018-09-29 06:14:17', null);
+INSERT INTO `sellorder` VALUES ('230574583990710272', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 06:21:04', '2018-09-29 06:21:04', null);
+INSERT INTO `sellorder` VALUES ('230574703285104640', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 06:21:33', '2018-09-29 06:21:33', null);
+INSERT INTO `sellorder` VALUES ('230575661675180032', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 06:25:21', '2018-09-29 06:25:21', null);
+INSERT INTO `sellorder` VALUES ('230576277944266752', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 06:27:48', '2018-09-29 06:27:48', null);
+INSERT INTO `sellorder` VALUES ('230580644994871296', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 06:45:09', '2018-09-29 06:45:09', null);
+INSERT INTO `sellorder` VALUES ('230638213943783424', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 10:33:55', '2018-09-29 10:33:55', null);
+INSERT INTO `sellorder` VALUES ('230640207278370816', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 10:41:50', '2018-09-29 10:41:50', null);
 
 -- ----------------------------
 -- Table structure for sellproduct
@@ -399,6 +407,22 @@ CREATE TABLE `sharertop` (
 
 -- ----------------------------
 -- Records of sharertop
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for signin
+-- ----------------------------
+DROP TABLE IF EXISTS `signin`;
+CREATE TABLE `signin` (
+  `id` varchar(30) NOT NULL,
+  `userid` varchar(30) DEFAULT NULL,
+  `signintime` varchar(30) DEFAULT NULL COMMENT '签到时间,查询是否已经包含当天',
+  `type` tinyint(4) DEFAULT '0' COMMENT '暂时不用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of signin
 -- ----------------------------
 
 -- ----------------------------
@@ -629,6 +653,7 @@ INSERT INTO `userinfo` VALUES ('230474274039656448', null, 'https://wx.qlogo.cn/
 INSERT INTO `userinfo` VALUES ('230474698280923136', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-28 23:44:10');
 INSERT INTO `userinfo` VALUES ('230474944964718592', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-28 23:45:08');
 INSERT INTO `userinfo` VALUES ('230487194060451840', null, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKyBXRBiafNdSx7b4nMTObjIRFAF66t4FJcAT0VAKFdwhaZJHwZtglrtKdbKc5OgP2QsDU2duvEwxg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 00:33:49');
+INSERT INTO `userinfo` VALUES ('230567290251243520', null, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKyBXRBiafNdSx7b4nMTObjIRFAF66t4FJcAT0VAKFdwhaZJHwZtglrtKdbKc5OgP2QsDU2duvEwxg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 05:52:05');
 INSERT INTO `userinfo` VALUES ('3', null, 'http://ubestchain.com/images/333.png', '0', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null, null);
 INSERT INTO `userinfo` VALUES ('4', null, 'http://ubestchain.com/images/333.png', '1', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null, null);
 INSERT INTO `userinfo` VALUES ('5', null, 'http://ubestchain.com/images/333.png', '2', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null, null);
