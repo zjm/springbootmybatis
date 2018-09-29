@@ -3,11 +3,13 @@ package com.liwen.wprogram.common.weixin;
 public class OrderReturnInfo {
     private String return_code;
     private String return_msg;
-    private String result_code;
+
     private String appid;
     private String mch_id;
+	private String device_info;
     private String nonce_str;
     private String sign;
+	private String result_code;
     private String prepay_id;
     private String trade_type;
 	public String getReturn_code() {
@@ -64,5 +66,12 @@ public class OrderReturnInfo {
 	public void setTrade_type(String trade_type) {
 		this.trade_type = trade_type;
 	}
-    
+
+	public String getDevice_info() {
+		return device_info;
+	}
+
+	public void setDevice_info(String device_info) {
+		this.device_info = device_info;
+	}
 }

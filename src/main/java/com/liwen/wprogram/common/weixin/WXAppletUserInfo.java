@@ -126,18 +126,16 @@ public class WXAppletUserInfo  {
             wxOrderInfo.setOpenid(openid);
             wxOrderInfo.setSign_type(WxPayConfig.SIGNTYPE);
             String sign = Signature.getSign(wxOrderInfo);
-            logger.info("---------signData-------:"+sign);
+           // logger.info("---------signData-------:"+sign);
             wxOrderInfo.setSign(sign);
 
             String result = HttpRequestWx.sendPost(WxPayConfig.pay_url, wxOrderInfo);
             System.out.println(result);
-            logger.info("---------orderret:"+result);
-            XStream xStream = new XStream();
-            xStream.alias("xml", OrderReturnInfo.class);
-
-            OrderReturnInfo returnInfo = (OrderReturnInfo)xStream.fromXML(result);
             JSONObject json = new JSONObject();
-            json.put("prepay_id", returnInfo.getPrepay_id());
+            Utils.doXMLParse(result);
+            //json.put("prepay_id", json.getPrepay_id());
+            Map<String,String> map= Utils.doXMLParse(result);
+            json.put("prepay_id", map.get("prepay_id"));
             return json;
 
 

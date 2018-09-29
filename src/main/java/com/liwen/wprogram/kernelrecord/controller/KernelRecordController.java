@@ -33,7 +33,7 @@ public class KernelRecordController {
     UserInfoService userInfoService;
     @RequestMapping(value = "/getkernelinfos")
     @ResponseBody
-    public BaseResult getQuestions(@RequestParam("userid") long userid) {
+    public BaseResult getQuestions(@RequestParam("userid") String userid) {
         logger.info("usrid:" + userid + ",param:" );
       //  return kernelRecordService.getKernelRecords(userid);
         BaseResult br = new BaseResult();
@@ -90,7 +90,7 @@ public class KernelRecordController {
             userInfo.setMykernel(myKernels);
             String currentTime = Utils.getTimeYYYYMMDDHHMMSS();
             KernelRecord kernelRecord = new KernelRecord();
-            kernelRecord.setId(id);
+            kernelRecord.setId(String.valueOf(id));
             kernelRecord.setTitle(title);
             kernelRecord.setType(type);
             kernelRecord.setRewardnum(rewardnum);

@@ -5,8 +5,7 @@ import com.liwen.wprogram.common.BaseConroller;
 import com.liwen.wprogram.common.BaseConstant;
 import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.Utils;
-import com.liwen.wprogram.common.weixin.WXAppletUserInfo;
-import com.liwen.wprogram.common.weixin.WxPayConfig;
+import com.liwen.wprogram.common.weixin.*;
 import com.liwen.wprogram.myaddress.model.MyAddress;
 import com.liwen.wprogram.myaddress.service.MyAddressService;
 import com.liwen.wprogram.order.model.OrderInfo;
@@ -182,6 +181,52 @@ public class OrderController extends BaseConroller {
             return br;
         }
     }
+
+
+    @RequestMapping(value = "/sign", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public  BaseResult signWpay(HttpServletRequest request)
+    {
+
+        logger.info("sign==="  );
+        BaseResult br = new BaseResult();
+        try {
+            SellOrder order = new SellOrder();
+            String repay_id = request.getParameter("repay_id").toString();
+            SignInfo signInfo = new SignInfo();
+            signInfo.setAppId(WxPayConfig.AppID);
+            Long time = System.currentTimeMillis()/1000;
+            signInfo.setTimeStamp(String.valueOf(time));
+            signInfo.setNonceStr(RandomStringGenerator.getRandomStringByLength(32));
+            signInfo.setRepay_id("prepay_id="+repay_id);
+            signInfo.setSignType("MD5");
+            //gen sgin
+            String sign = Signature.getSign(signInfo);
+
+            JSONObject json = new JSONObject();
+            json.put("timeStamp", signInfo.getTimeStamp());
+            json.put("nonceStr", signInfo.getNonceStr());
+            json.put("package", signInfo.getRepay_id());
+            json.put("signType", signInfo.getSignType());
+            json.put("paySign", sign);
+            logger.info("-------再签名:"+json.toJSONString());
+
+            br.setData(json);
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            return br;
+        }catch (Exception e)
+        {
+            br.setResult(BaseConstant.PARAM_ERROR_INFO+"->:"+e.getMessage());
+            br.setCode(BaseConstant.FAIL_CODE);
+            e.printStackTrace();
+            return br;
+        }
+    }
+
+
+
 
     @RequestMapping(value = "/delorder", method = RequestMethod.POST)
     @ResponseBody

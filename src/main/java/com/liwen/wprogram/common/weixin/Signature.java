@@ -46,7 +46,7 @@ public class Signature {
         }
         String result = sb.toString();
         result += "key=" + WxPayConfig.mch_key;
-        System.out.println("签名数据："+result);
+        //System.out.println("签名数据："+result);
         result = MD5.MD5Encode(result,"UTF-8").toUpperCase();
         return result;
     }

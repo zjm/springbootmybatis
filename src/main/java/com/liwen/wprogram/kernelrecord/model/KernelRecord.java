@@ -1,9 +1,9 @@
 package com.liwen.wprogram.kernelrecord.model;
 
 public class KernelRecord {
-    private Long id;
+    private String id;
 
-    private Long userid;
+    private String userid;
 
     private String title;
 
@@ -15,20 +15,20 @@ public class KernelRecord {
 
     private String createtime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
     public String getTitle() {

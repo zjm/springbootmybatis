@@ -17,11 +17,11 @@ public class KernelRecordSqlProvider {
         INSERT_INTO("kernelrecord");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getUserid() != null) {
-            VALUES("userid", "#{userid,jdbcType=BIGINT}");
+            VALUES("userid", "#{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
@@ -52,7 +52,7 @@ public class KernelRecordSqlProvider {
         UPDATE("kernelrecord");
         
         if (record.getUserid() != null) {
-            SET("userid = #{userid,jdbcType=BIGINT}");
+            SET("userid = #{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
@@ -75,7 +75,7 @@ public class KernelRecordSqlProvider {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }

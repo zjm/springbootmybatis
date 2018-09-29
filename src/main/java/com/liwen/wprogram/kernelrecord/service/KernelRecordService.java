@@ -12,14 +12,14 @@ public class KernelRecordService {
     @Autowired
     private KernelRecordMapper  kernelRecordMapper;
 
-    public KernelRecord getKernelRecord(long id)
+    public KernelRecord getKernelRecord(String id)
     {
         return  kernelRecordMapper.selectByPrimaryKey(id);
     }
 
-    public List<KernelRecord> getKernelRecords(long userId)
+    public List<KernelRecord> getKernelRecords(String userId)
     {
-        return  kernelRecordMapper.selectByUserIdyKey(userId);
+        return  kernelRecordMapper.selectByUseridKey(userId);
     }
 
     public int saveKernelRecord(KernelRecord kernelRecord)
