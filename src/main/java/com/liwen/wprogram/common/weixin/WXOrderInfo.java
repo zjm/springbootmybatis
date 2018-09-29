@@ -3,6 +3,7 @@ package com.liwen.wprogram.common.weixin;
 public class WXOrderInfo {
     private String appid;// 小程序ID
     private String mch_id;// 商户号
+    private String device_info;
     private String nonce_str;// 随机字符串
     private String sign_type;//签名类型
     private String sign;// 签名
@@ -13,6 +14,14 @@ public class WXOrderInfo {
     private String notify_url;// 通知地址
     private String trade_type;// 交易类型
     private String openid;//用户标识
+
+    public String getDevice_info() {
+        return device_info;
+    }
+
+    public void setDevice_info(String device_info) {
+        this.device_info = device_info;
+    }
 
     public String getAppid() {
         return appid;

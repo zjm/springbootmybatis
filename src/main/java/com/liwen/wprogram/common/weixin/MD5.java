@@ -39,22 +39,24 @@ public class MD5 {
         return hexDigits[d1] + hexDigits[d2];
     }
 
-    /**
-     * MD5编码
-     * @param origin 原始字符串
-     * @return 经过MD5加密之后的结果
-     */
-    public static String MD5Encode(String origin) {
+
+
+    public static String MD5Encode(String origin, String charsetname) {
         String resultString = null;
         try {
-            resultString = origin;
+            resultString = new String(origin);
             MessageDigest md = MessageDigest.getInstance("MD5");
-            resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (charsetname == null || "".equals(charsetname))
+                resultString = byteArrayToHexString(md.digest(resultString
+                        .getBytes()));
+            else
+                resultString = byteArrayToHexString(md.digest(resultString
+                        .getBytes(charsetname)));
+        } catch (Exception exception) {
         }
         return resultString;
     }
+
 
 }
 

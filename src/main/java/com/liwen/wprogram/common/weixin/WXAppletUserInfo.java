@@ -110,20 +110,23 @@ public class WXAppletUserInfo  {
     public static JSONObject wxPayNew(String openid,String orderNo, HttpServletRequest request)
     {
         try {
-            String spbill_create_ip = Utils.getIpAddr(request);
+            String spbill_create_ip ="127.0.0.1";// Utils.getIpAddr(request);
             WXOrderInfo wxOrderInfo = new WXOrderInfo();
             wxOrderInfo.setAppid(WxPayConfig.AppID);
             wxOrderInfo.setMch_id(WxPayConfig.mch_id);
-            wxOrderInfo.setNonce_str(RandomStringGenerator.getRandomStringByLength(32));
+            //wxOrderInfo.setNonce_str(RandomStringGenerator.getRandomStringByLength(32));
+            wxOrderInfo.setNonce_str("qjys7np1ropqpgx1qerrr032vbucj4g9");
             wxOrderInfo.setBody("huopintest");
-            wxOrderInfo.setOut_trade_no(orderNo);
+            wxOrderInfo.setOut_trade_no("230712844247625728");
             wxOrderInfo.setTotal_fee(1);
+            wxOrderInfo.setDevice_info("1");
             wxOrderInfo.setSpbill_create_ip(spbill_create_ip);
             wxOrderInfo.setNotify_url(WxPayConfig.NOTIFY_URL);
             wxOrderInfo.setTrade_type("JSAPI");
             wxOrderInfo.setOpenid(openid);
             wxOrderInfo.setSign_type(WxPayConfig.SIGNTYPE);
             String sign = Signature.getSign(wxOrderInfo);
+            logger.info("---------signData-------:"+sign);
             wxOrderInfo.setSign(sign);
 
             String result = HttpRequestWx.sendPost(WxPayConfig.pay_url, wxOrderInfo);

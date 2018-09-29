@@ -47,7 +47,7 @@ public class Signature {
         String result = sb.toString();
         result += "key=" + WxPayConfig.mch_key;
         System.out.println("签名数据："+result);
-        result = MD5.MD5Encode(result).toUpperCase();
+        result = MD5.MD5Encode(result,"UTF-8").toUpperCase();
         return result;
     }
 
@@ -68,7 +68,7 @@ public class Signature {
         String result = sb.toString();
         result += "key=" + WxPayConfig.mch_key;
         //Util.log("Sign Before MD5:" + result);
-        result = MD5.MD5Encode(result).toUpperCase();
+        result = MD5.MD5Encode(result,"UTF-8").toUpperCase();
         //Util.log("Sign Result:" + result);
         return result;
     }
