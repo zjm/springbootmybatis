@@ -34,15 +34,15 @@ public class OrderInfo {
     private UserInfo userInfo;
     private SellProduct sellProduct;
 
-    public long getOrderid() {
+    public String getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(long orderid) {
+    public void setOrderid(String orderid) {
         this.orderid = orderid;
     }
 
-    private long orderid ;
+    private String orderid ;
 
     public int getBuyNum() {
         return buyNum;

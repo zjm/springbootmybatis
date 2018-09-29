@@ -17,19 +17,19 @@ public class SellOrderSqlProvider {
         INSERT_INTO("sellorder");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getUserid() != null) {
-            VALUES("userid", "#{userid,jdbcType=BIGINT}");
+            VALUES("userid", "#{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getAddressid() != null) {
-            VALUES("addressid", "#{addressid,jdbcType=BIGINT}");
+            VALUES("addressid", "#{addressid,jdbcType=VARCHAR}");
         }
         
         if (record.getProductid() != null) {
-            VALUES("productid", "#{productid,jdbcType=BIGINT}");
+            VALUES("productid", "#{productid,jdbcType=VARCHAR}");
         }
         
         if (record.getPrice() != null) {
@@ -76,15 +76,15 @@ public class SellOrderSqlProvider {
         UPDATE("sellorder");
         
         if (record.getUserid() != null) {
-            SET("userid = #{userid,jdbcType=BIGINT}");
+            SET("userid = #{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getAddressid() != null) {
-            SET("addressid = #{addressid,jdbcType=BIGINT}");
+            SET("addressid = #{addressid,jdbcType=VARCHAR}");
         }
         
         if (record.getProductid() != null) {
-            SET("productid = #{productid,jdbcType=BIGINT}");
+            SET("productid = #{productid,jdbcType=VARCHAR}");
         }
         
         if (record.getPrice() != null) {
@@ -123,7 +123,7 @@ public class SellOrderSqlProvider {
             SET("paysuccesstime = #{paysuccesstime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }

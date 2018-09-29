@@ -12,7 +12,7 @@ public class SellProductService {
     @Autowired
     private SellProductMapper sellProductMapper;
 
-    public SellProduct getSellProduct(Long id)
+    public SellProduct getSellProduct(String id)
     {
         return sellProductMapper.selectByPrimaryKey(id);
     }

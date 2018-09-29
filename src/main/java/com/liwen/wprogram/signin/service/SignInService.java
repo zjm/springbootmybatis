@@ -18,5 +18,9 @@ public class SignInService {
     {
         return signInMapper.updateByPrimaryKey(signIn);
     }
+    public SignIn getSignInByUserId(String userId)
+    {
+        return signInMapper.selectByUserid(userId);
+    }
 
 }

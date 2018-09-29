@@ -1,13 +1,13 @@
 package com.liwen.wprogram.order.model;
 
 public class SellOrder {
-    private Long id;
+    private String id;
 
-    private Long userid;
+    private String userid;
 
-    private Long addressid;
+    private String addressid;
 
-    private Long productid;
+    private String productid;
 
     private Float price;
 
@@ -27,36 +27,36 @@ public class SellOrder {
 
     private String paysuccesstime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
-    public Long getAddressid() {
+    public String getAddressid() {
         return addressid;
     }
 
-    public void setAddressid(Long addressid) {
-        this.addressid = addressid;
+    public void setAddressid(String addressid) {
+        this.addressid = addressid == null ? null : addressid.trim();
     }
 
-    public Long getProductid() {
+    public String getProductid() {
         return productid;
     }
 
-    public void setProductid(Long productid) {
-        this.productid = productid;
+    public void setProductid(String productid) {
+        this.productid = productid == null ? null : productid.trim();
     }
 
     public Float getPrice() {

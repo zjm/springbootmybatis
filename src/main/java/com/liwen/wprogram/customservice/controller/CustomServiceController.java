@@ -142,5 +142,13 @@ public class CustomServiceController extends BaseConroller {
             return br;
         }
     }
+    @RequestMapping(value = "/wxmsg")
+    @ResponseBody
+    public String wxnotifymsg() {
+
+        return "wxmsg";
+
+
+    }
 
 }

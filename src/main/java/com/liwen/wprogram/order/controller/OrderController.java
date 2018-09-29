@@ -51,7 +51,7 @@ public class OrderController extends BaseConroller {
 
     @RequestMapping(value = "/myorderInfos")
     @ResponseBody
-    public BaseResult getMyOrderInfos(long userid)
+    public BaseResult getMyOrderInfos(String userid)
     {
         logger.info("getOrderInfo:" + userid );
         //  return kernelRecordService.getKernelRecords(userid);
@@ -96,7 +96,7 @@ public class OrderController extends BaseConroller {
 
     @RequestMapping(value = "/singleorderInfo")
     @ResponseBody
-    public BaseResult getOrderInfo(long orderid)
+    public BaseResult getOrderInfo(String orderid)
     {
         logger.info("getOrderInfo:" + orderid );
         //  return kernelRecordService.getKernelRecords(userid);
@@ -139,9 +139,9 @@ public class OrderController extends BaseConroller {
         BaseResult br = new BaseResult();
         try {
             SellOrder order = new SellOrder();
-            long userid = Long.valueOf(request.getParameter("userid").toString());
-            long addressid = Long.valueOf(request.getParameter("addressid").toString());
-            long productid = Long.valueOf(request.getParameter("productid").toString());
+            String userid = request.getParameter("userid").toString();
+            String addressid = request.getParameter("addressid").toString();
+            String productid = request.getParameter("productid").toString();
             int buynum = Integer.valueOf(request.getParameter("buynum").toString());
 
             //订单状态：0.正常，1.撤单,2.完成
@@ -149,7 +149,7 @@ public class OrderController extends BaseConroller {
             //配送方式：0.免费，1.收费
             byte sendType = (byte) 0;
             long id = getId();
-            order.setId(id);
+            order.setId(String.valueOf(id));
             order.setUserid(userid);
             order.setAddressid(addressid);
             order.setProductid(productid);
@@ -192,7 +192,7 @@ public class OrderController extends BaseConroller {
         logger.info("delorder==="  );
         BaseResult br = new BaseResult();
         try {
-            long id = Long.valueOf(request.getParameter("id").toString());
+            String id = request.getParameter("id").toString();
 
             orderService.deleOrder(id);
             br.setResult(BaseConstant.SUCCESS_INFO);
@@ -258,4 +258,6 @@ public class OrderController extends BaseConroller {
         out.flush();
         out.close();
     }
+
+
 }

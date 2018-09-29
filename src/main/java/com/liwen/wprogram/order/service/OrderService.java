@@ -12,7 +12,7 @@ public class OrderService {
     @Autowired
     private SellOrderMapper orderMapper;
 
-    public SellOrder getOrder(long id)
+    public SellOrder getOrder(String id)
     {
         return orderMapper.selectByPrimaryKey(id);
     }
@@ -22,14 +22,14 @@ public class OrderService {
         return  orderMapper.insert(order);
     }
 
-    public int deleOrder(long id)
+    public int deleOrder(String id)
     {
         return orderMapper.deleteByPrimaryKey(id);
     }
 
-    public List<SellOrder> getMyOrderList(long userid)
+    public List<SellOrder> getMyOrderList(String userid)
     {
-        return orderMapper.selectByUseridKey(userid);
+        return orderMapper.selectByUserid(userid);
 
     }
 }

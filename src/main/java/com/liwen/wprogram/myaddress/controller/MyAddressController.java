@@ -30,7 +30,7 @@ public class MyAddressController extends BaseConroller {
 
     @RequestMapping(value = "/getaddress")
     @ResponseBody
-    public BaseResult getAddress(long id)
+    public BaseResult getAddress(String id)
     {
         logger.info("getMyAddressList:" + id );
         //  return kernelRecordService.getKernelRecords(id);
@@ -51,7 +51,7 @@ public class MyAddressController extends BaseConroller {
 
     @RequestMapping(value = "/addresses")
     @ResponseBody
-    public BaseResult getMyAddressList(long userid)
+    public BaseResult getMyAddressList(String userid)
     {
         logger.info("getMyAddressList:" + userid );
         //  return kernelRecordService.getKernelRecords(userid);
@@ -77,14 +77,14 @@ public class MyAddressController extends BaseConroller {
         logger.info("saveMyaddress==="  );
         BaseResult br = new BaseResult();
         try {
-            long userId = Long.valueOf(request.getParameter("userid").toString());
+            String userId = request.getParameter("userid").toString();
             String name = request.getParameter("name").toString();
             String phone = request.getParameter("phone").toString();
             String area = request.getParameter("area").toString();
             String detailArea = request.getParameter("detailaddress").toString();
             String postcode = request.getParameter("postcoe").toString();
             MyAddress myAddress = new MyAddress();
-            myAddress.setId(getId());
+            myAddress.setId(String.valueOf(getId()));
             myAddress.setUserid(userId);
             myAddress.setName(name);
             myAddress.setPhone(phone);
@@ -114,15 +114,15 @@ public class MyAddressController extends BaseConroller {
         logger.info("updateMyAddress==="  );
         BaseResult br = new BaseResult();
         try {
-            long id = Long.valueOf(request.getParameter("id").toString());
-            long userId = Long.valueOf(request.getParameter("userid").toString());
+            String id = request.getParameter("id").toString();
+           // String userId = request.getParameter("userid").toString();
             String name = request.getParameter("name").toString();
             String phone = request.getParameter("phone").toString();
             String area = request.getParameter("area").toString();
             String detailArea = request.getParameter("detailaddress").toString();
             String postcode = request.getParameter("postcoe").toString();
             MyAddress myAddress = new MyAddress();
-            myAddress.setId(getId());
+            myAddress.setId(id);
             myAddress.setName(name);
             myAddress.setPhone(phone);
             myAddress.setArea(area);
@@ -147,7 +147,7 @@ public class MyAddressController extends BaseConroller {
         logger.info("delmyaddress==="  );
         BaseResult br = new BaseResult();
         try {
-            long id = Long.valueOf(request.getParameter("id").toString());
+            String id = request.getParameter("id").toString();
 
             myAddressService.deleMyAddress(id);
             br.setResult(BaseConstant.SUCCESS_INFO);

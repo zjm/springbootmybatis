@@ -79,7 +79,7 @@ public class SellProductController {
      */
     @RequestMapping(value = "/productinfo")
     @ResponseBody
-    public  BaseResult getProductInfo(@RequestParam("productid") long  productid)
+    public  BaseResult getProductInfo(@RequestParam("productid") String  productid)
     {
         BaseResult br = new BaseResult();
         try {
@@ -114,7 +114,7 @@ public class SellProductController {
         int totalnum = Integer.valueOf(requestMap.get("totalnum").toString());
         SellProduct sellProduct = new SellProduct();
         IdGenerator idg= new IdGenerator();
-        sellProduct.setId(idg.nextId());
+        sellProduct.setId(String.valueOf(idg.nextId()));
         sellProduct.setProductname(productName);
         sellProduct.setPrice(price);
         sellProduct.setKernel(kernel);

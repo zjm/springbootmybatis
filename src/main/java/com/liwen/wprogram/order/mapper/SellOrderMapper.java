@@ -16,9 +16,9 @@ import java.util.List;
 public interface SellOrderMapper {
     @Delete({
         "delete from sellorder",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
         "insert into sellorder (id, userid, ",
@@ -27,8 +27,8 @@ public interface SellOrderMapper {
         "buynum, status, ",
         "sendtype, createtime, ",
         "paytime, paysuccesstime)",
-        "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
-        "#{addressid,jdbcType=BIGINT}, #{productid,jdbcType=BIGINT}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, ",
+        "#{addressid,jdbcType=VARCHAR}, #{productid,jdbcType=VARCHAR}, ",
         "#{price,jdbcType=REAL}, #{totalcost,jdbcType=REAL}, #{realcost,jdbcType=REAL}, ",
         "#{buynum,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, ",
         "#{sendtype,jdbcType=TINYINT}, #{createtime,jdbcType=VARCHAR}, ",
@@ -44,13 +44,13 @@ public interface SellOrderMapper {
         "id, userid, addressid, productid, price, totalcost, realcost, buynum, status, ",
         "sendtype, createtime, paytime, paysuccesstime",
         "from sellorder",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
-        @Result(column="addressid", property="addressid", jdbcType=JdbcType.BIGINT),
-        @Result(column="productid", property="productid", jdbcType=JdbcType.BIGINT),
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="addressid", property="addressid", jdbcType=JdbcType.VARCHAR),
+        @Result(column="productid", property="productid", jdbcType=JdbcType.VARCHAR),
         @Result(column="price", property="price", jdbcType=JdbcType.REAL),
         @Result(column="totalcost", property="totalcost", jdbcType=JdbcType.REAL),
         @Result(column="realcost", property="realcost", jdbcType=JdbcType.REAL),
@@ -61,7 +61,7 @@ public interface SellOrderMapper {
         @Result(column="paytime", property="paytime", jdbcType=JdbcType.VARCHAR),
         @Result(column="paysuccesstime", property="paysuccesstime", jdbcType=JdbcType.VARCHAR)
     })
-    SellOrder selectByPrimaryKey(Long id);
+    SellOrder selectByPrimaryKey(String id);
 
 
     @Select({
@@ -69,13 +69,13 @@ public interface SellOrderMapper {
             "id, userid, addressid, productid, price, totalcost, realcost, buynum, status, ",
             "sendtype, createtime, paytime, paysuccesstime",
             "from sellorder",
-            "where userid = #{userid,jdbcType=BIGINT}"
+            "where userid = #{userid,jdbcType=VARCHAR}"
     })
     @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-            @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
-            @Result(column="addressid", property="addressid", jdbcType=JdbcType.BIGINT),
-            @Result(column="productid", property="productid", jdbcType=JdbcType.BIGINT),
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="addressid", property="addressid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="productid", property="productid", jdbcType=JdbcType.VARCHAR),
             @Result(column="price", property="price", jdbcType=JdbcType.REAL),
             @Result(column="totalcost", property="totalcost", jdbcType=JdbcType.REAL),
             @Result(column="realcost", property="realcost", jdbcType=JdbcType.REAL),
@@ -86,7 +86,7 @@ public interface SellOrderMapper {
             @Result(column="paytime", property="paytime", jdbcType=JdbcType.VARCHAR),
             @Result(column="paysuccesstime", property="paysuccesstime", jdbcType=JdbcType.VARCHAR)
     })
-    List<SellOrder> selectByUseridKey(Long userid);
+    List<SellOrder> selectByUserid(String userid);
 
 
     @UpdateProvider(type=SellOrderSqlProvider.class, method="updateByPrimaryKeySelective")
@@ -94,9 +94,9 @@ public interface SellOrderMapper {
 
     @Update({
         "update sellorder",
-        "set userid = #{userid,jdbcType=BIGINT},",
-          "addressid = #{addressid,jdbcType=BIGINT},",
-          "productid = #{productid,jdbcType=BIGINT},",
+        "set userid = #{userid,jdbcType=VARCHAR},",
+          "addressid = #{addressid,jdbcType=VARCHAR},",
+          "productid = #{productid,jdbcType=VARCHAR},",
           "price = #{price,jdbcType=REAL},",
           "totalcost = #{totalcost,jdbcType=REAL},",
           "realcost = #{realcost,jdbcType=REAL},",
@@ -106,7 +106,7 @@ public interface SellOrderMapper {
           "createtime = #{createtime,jdbcType=VARCHAR},",
           "paytime = #{paytime,jdbcType=VARCHAR},",
           "paysuccesstime = #{paysuccesstime,jdbcType=VARCHAR}",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(SellOrder record);
 }

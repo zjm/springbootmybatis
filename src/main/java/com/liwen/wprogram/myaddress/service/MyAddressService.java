@@ -12,12 +12,12 @@ public class MyAddressService {
     @Autowired
     private MyAddressMapper myAddressMapper;
 
-    public List<MyAddress> getMyAddressList(long userid){
+    public List<MyAddress> getMyAddressList(String userid){
 
         return myAddressMapper.selectMyaddressByUserid(userid);
     }
 
-    public MyAddress getMyAddress(long id){
+    public MyAddress getMyAddress(String id){
 
         return myAddressMapper.selectByPrimaryKey(id);
     }
@@ -32,7 +32,7 @@ public class MyAddressService {
         return  myAddressMapper.updateByPrimaryKey(address);
     }
 
-    public int deleMyAddress(long userId)
+    public int deleMyAddress(String userId)
     {
         return myAddressMapper.deleteByPrimaryKey(userId);
     }

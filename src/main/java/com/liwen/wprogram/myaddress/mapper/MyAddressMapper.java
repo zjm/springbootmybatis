@@ -16,16 +16,16 @@ import java.util.List;
 public interface MyAddressMapper {
     @Delete({
         "delete from myaddress",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
         "insert into myaddress (id, userid, ",
         "name, phone, area, ",
         "detailaddress, postcoe, ",
         "createtime)",
-        "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, ",
         "#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, ",
         "#{detailaddress,jdbcType=VARCHAR}, #{postcoe,jdbcType=VARCHAR}, ",
         "#{createtime,jdbcType=VARCHAR})"
@@ -39,11 +39,11 @@ public interface MyAddressMapper {
         "select",
         "id, userid, name, phone, area, detailaddress, postcoe, createtime",
         "from myaddress",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="area", property="area", jdbcType=JdbcType.VARCHAR),
@@ -51,18 +51,17 @@ public interface MyAddressMapper {
         @Result(column="postcoe", property="postcoe", jdbcType=JdbcType.VARCHAR),
         @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    MyAddress selectByPrimaryKey(Long id);
-
+    MyAddress selectByPrimaryKey(String id);
 
     @Select({
             "select",
             "id, userid, name, phone, area, detailaddress, postcoe, createtime",
             "from myaddress",
-            "where userid = #{userid,jdbcType=BIGINT}"
+            "where userid = #{userid,jdbcType=VARCHAR}"
     })
     @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-            @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
             @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
             @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
             @Result(column="area", property="area", jdbcType=JdbcType.VARCHAR),
@@ -70,7 +69,7 @@ public interface MyAddressMapper {
             @Result(column="postcoe", property="postcoe", jdbcType=JdbcType.VARCHAR),
             @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    List<MyAddress> selectMyaddressByUserid(Long userid);
+    List<MyAddress> selectMyaddressByUserid(String userid);
 
 
     @UpdateProvider(type=MyAddressSqlProvider.class, method="updateByPrimaryKeySelective")
@@ -78,14 +77,14 @@ public interface MyAddressMapper {
 
     @Update({
         "update myaddress",
-        "set userid = #{userid,jdbcType=BIGINT},",
+        "set userid = #{userid,jdbcType=VARCHAR},",
           "name = #{name,jdbcType=VARCHAR},",
           "phone = #{phone,jdbcType=VARCHAR},",
           "area = #{area,jdbcType=VARCHAR},",
           "detailaddress = #{detailaddress,jdbcType=VARCHAR},",
           "postcoe = #{postcoe,jdbcType=VARCHAR},",
           "createtime = #{createtime,jdbcType=VARCHAR}",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(MyAddress record);
 }

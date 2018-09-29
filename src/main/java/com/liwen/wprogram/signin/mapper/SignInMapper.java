@@ -43,6 +43,22 @@ public interface SignInMapper {
     })
     SignIn selectByPrimaryKey(String id);
 
+
+    @Select({
+            "select",
+            "id, userid, signintime, type",
+            "from signin",
+            "where userid = #{userid,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="signintime", property="signintime", jdbcType=JdbcType.VARCHAR),
+            @Result(column="type", property="type", jdbcType=JdbcType.TINYINT)
+    })
+    SignIn selectByUserid(String userid);
+
+
     @UpdateProvider(type=SignInSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SignIn record);
 
