@@ -21,7 +21,7 @@ public class QuestionImgsService {
         return questionImgsMapper.insert(questionImgs);
     }
 
-    public List<QuestionImgs> getQuestionImagses(long questionid)
+    public List<QuestionImgs> getQuestionImagses(String questionid)
     {
        return  questionImgsMapper.selectByQuestionidKey(questionid);
     }

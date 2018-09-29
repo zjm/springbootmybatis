@@ -17,11 +17,11 @@ public class QuestionImgsSqlProvider {
         INSERT_INTO("questionimgs");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getQuestionid() != null) {
-            VALUES("questionid", "#{questionid,jdbcType=BIGINT}");
+            VALUES("questionid", "#{questionid,jdbcType=VARCHAR}");
         }
         
         if (record.getImgname() != null) {
@@ -40,7 +40,7 @@ public class QuestionImgsSqlProvider {
         UPDATE("questionimgs");
         
         if (record.getQuestionid() != null) {
-            SET("questionid = #{questionid,jdbcType=BIGINT}");
+            SET("questionid = #{questionid,jdbcType=VARCHAR}");
         }
         
         if (record.getImgname() != null) {
@@ -51,7 +51,7 @@ public class QuestionImgsSqlProvider {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }

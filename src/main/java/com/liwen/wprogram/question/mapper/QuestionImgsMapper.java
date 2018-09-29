@@ -16,14 +16,14 @@ import java.util.List;
 public interface QuestionImgsMapper {
     @Delete({
         "delete from questionimgs",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
         "insert into questionimgs (id, questionid, ",
         "imgname, createtime)",
-        "values (#{id,jdbcType=BIGINT}, #{questionid,jdbcType=BIGINT}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{questionid,jdbcType=VARCHAR}, ",
         "#{imgname,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR})"
     })
     int insert(QuestionImgs record);
@@ -35,42 +35,39 @@ public interface QuestionImgsMapper {
         "select",
         "id, questionid, imgname, createtime",
         "from questionimgs",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="questionid", property="questionid", jdbcType=JdbcType.BIGINT),
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="questionid", property="questionid", jdbcType=JdbcType.VARCHAR),
         @Result(column="imgname", property="imgname", jdbcType=JdbcType.VARCHAR),
         @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    QuestionImgs selectByPrimaryKey(Long id);
+    QuestionImgs selectByPrimaryKey(String id);
 
     @Select({
             "select",
             "id, questionid, imgname, createtime",
             "from questionimgs",
-            "where questionid = #{questionid,jdbcType=BIGINT}"
+            "where questionid = #{questionid,jdbcType=VARCHAR}"
     })
     @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-            @Result(column="questionid", property="questionid", jdbcType=JdbcType.BIGINT),
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="questionid", property="questionid", jdbcType=JdbcType.VARCHAR),
             @Result(column="imgname", property="imgname", jdbcType=JdbcType.VARCHAR),
             @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    List<QuestionImgs> selectByQuestionidKey(Long qid);
-
-
-
+    List<QuestionImgs> selectByQuestionidKey(String questionid);
 
     @UpdateProvider(type=QuestionImgsSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(QuestionImgs record);
 
     @Update({
         "update questionimgs",
-        "set questionid = #{questionid,jdbcType=BIGINT},",
+        "set questionid = #{questionid,jdbcType=VARCHAR},",
           "imgname = #{imgname,jdbcType=VARCHAR},",
           "createtime = #{createtime,jdbcType=VARCHAR}",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(QuestionImgs record);
 }
