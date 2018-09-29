@@ -115,6 +115,7 @@ public class WXAppletUserInfo  {
             wxOrderInfo.setAppid(WxPayConfig.AppID);
             wxOrderInfo.setMch_id(WxPayConfig.mch_id);
             wxOrderInfo.setNonce_str(RandomStringGenerator.getRandomStringByLength(32));
+            wxOrderInfo.setBody("huopintest");
             wxOrderInfo.setOut_trade_no(orderNo);
             wxOrderInfo.setTotal_fee(1);
             wxOrderInfo.setSpbill_create_ip(spbill_create_ip);
@@ -127,7 +128,7 @@ public class WXAppletUserInfo  {
 
             String result = HttpRequestWx.sendPost(WxPayConfig.pay_url, wxOrderInfo);
             System.out.println(result);
-            logger.info("---------下单返回:"+result);
+            logger.info("---------orderret:"+result);
             XStream xStream = new XStream();
             xStream.alias("xml", OrderReturnInfo.class);
 
