@@ -17,11 +17,11 @@ public class RollTitlesSqlProvider {
         INSERT_INTO("rolltitles");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=BIGINT}");
+            VALUES("id", "#{id,jdbcType=VARCHAR}");
         }
         
         if (record.getUserid() != null) {
-            VALUES("userid", "#{userid,jdbcType=BIGINT}");
+            VALUES("userid", "#{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getNickname() != null) {
@@ -56,7 +56,7 @@ public class RollTitlesSqlProvider {
         UPDATE("rolltitles");
         
         if (record.getUserid() != null) {
-            SET("userid = #{userid,jdbcType=BIGINT}");
+            SET("userid = #{userid,jdbcType=VARCHAR}");
         }
         
         if (record.getNickname() != null) {
@@ -83,7 +83,7 @@ public class RollTitlesSqlProvider {
             SET("createtime = #{createtime,jdbcType=VARCHAR}");
         }
         
-        WHERE("id = #{id,jdbcType=BIGINT}");
+        WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return SQL();
     }

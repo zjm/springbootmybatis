@@ -16,16 +16,16 @@ import java.util.List;
 public interface RollTitlesMapper {
     @Delete({
         "delete from rolltitles",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     @Insert({
         "insert into rolltitles (id, userid, ",
         "nickname, headimg, ",
         "dimension, money, ",
         "status, createtime)",
-        "values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, ",
+        "values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, ",
         "#{nickname,jdbcType=VARCHAR}, #{headimg,jdbcType=VARCHAR}, ",
         "#{dimension,jdbcType=INTEGER}, #{money,jdbcType=INTEGER}, ",
         "#{status,jdbcType=TINYINT}, #{createtime,jdbcType=VARCHAR})"
@@ -39,11 +39,11 @@ public interface RollTitlesMapper {
         "select",
         "id, userid, nickname, headimg, dimension, money, status, createtime",
         "from rolltitles",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+        @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
         @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
         @Result(column="headimg", property="headimg", jdbcType=JdbcType.VARCHAR),
         @Result(column="dimension", property="dimension", jdbcType=JdbcType.INTEGER),
@@ -51,17 +51,18 @@ public interface RollTitlesMapper {
         @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
         @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    RollTitles selectByPrimaryKey(Long id);
+    RollTitles selectByPrimaryKey(String id);
+//selectByStatusKey
 
     @Select({
             "select",
-            "id, userid, nickname, headimg, dimension, money, status,createtime",
+            "id, userid, nickname, headimg, dimension, money, status, createtime",
             "from rolltitles",
             "where status = #{status,jdbcType=TINYINT}"
     })
     @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-            @Result(column="userid", property="userid", jdbcType=JdbcType.BIGINT),
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
             @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
             @Result(column="headimg", property="headimg", jdbcType=JdbcType.VARCHAR),
             @Result(column="dimension", property="dimension", jdbcType=JdbcType.INTEGER),
@@ -69,21 +70,21 @@ public interface RollTitlesMapper {
             @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
             @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR)
     })
-    List<RollTitles> selectByStatusKey(byte status);
+   List<RollTitles> selectByStatusKey(byte status);
 
     @UpdateProvider(type=RollTitlesSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(RollTitles record);
 
     @Update({
         "update rolltitles",
-        "set userid = #{userid,jdbcType=BIGINT},",
+        "set userid = #{userid,jdbcType=VARCHAR},",
           "nickname = #{nickname,jdbcType=VARCHAR},",
           "headimg = #{headimg,jdbcType=VARCHAR},",
           "dimension = #{dimension,jdbcType=INTEGER},",
           "money = #{money,jdbcType=INTEGER},",
           "status = #{status,jdbcType=TINYINT},",
           "createtime = #{createtime,jdbcType=VARCHAR}",
-        "where id = #{id,jdbcType=BIGINT}"
+        "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(RollTitles record);
 }
