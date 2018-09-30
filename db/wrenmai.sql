@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : bbbddd
+Source Server         : mybaidu
 Source Server Version : 50723
 Source Host           : 182.61.37.82:3306
 Source Database       : wrenmai
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2018-09-29 11:56:10
+Date: 2018-09-30 08:08:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -97,8 +97,8 @@ INSERT INTO `customservice` VALUES ('228850502454996992', '228696647893250048', 
 -- ----------------------------
 DROP TABLE IF EXISTS `kernelrecord`;
 CREATE TABLE `kernelrecord` (
-  `id` bigint(20) NOT NULL,
-  `userid` bigint(20) DEFAULT NULL,
+  `id` varchar(30) NOT NULL,
+  `userid` varchar(30) DEFAULT NULL,
   `title` varchar(100) DEFAULT '' COMMENT '奖励标题(获得原因)',
   `rewardnum` int(11) DEFAULT '0' COMMENT '奖励数量',
   `type` tinyint(4) DEFAULT '1' COMMENT '0.减少麦粒，1.增加麦粒',
@@ -134,14 +134,20 @@ INSERT INTO `kernelrecord` VALUES ('229066565541163008', null, '新用户注册'
 INSERT INTO `kernelrecord` VALUES ('229899143336685568', null, '新用户注册', '6', '1', '2018-09-27 09:37:07', '2018-09-27 09:37:07');
 INSERT INTO `kernelrecord` VALUES ('230099839310884864', null, '签到', '2', '1', '2018-09-27 22:54:36', '2018-09-27 22:54:36');
 INSERT INTO `kernelrecord` VALUES ('230464962865131520', null, '签到', '6', '1', '2018-09-28 23:05:28', '2018-09-28 23:05:28');
+INSERT INTO `kernelrecord` VALUES ('230842689522757632', null, '签到', '2', '1', '2018-09-30 00:06:26', '2018-09-30 00:06:26');
+INSERT INTO `kernelrecord` VALUES ('230843992017727488', null, '签到', '2', '1', '2018-09-30 00:11:36', '2018-09-30 00:11:36');
+INSERT INTO `kernelrecord` VALUES ('230844121399422976', null, '签到', '2', '1', '2018-09-30 00:12:07', '2018-09-30 00:12:07');
+INSERT INTO `kernelrecord` VALUES ('230844249531215872', null, '签到', '2', '1', '2018-09-30 00:12:37', '2018-09-30 00:12:37');
+INSERT INTO `kernelrecord` VALUES ('230849989398491136', null, '签到', '2', '1', '2018-09-30 00:35:26', '2018-09-30 00:35:26');
+INSERT INTO `kernelrecord` VALUES ('230850293321953280', null, '签到', '2', '1', '2018-09-30 00:36:38', '2018-09-30 00:36:38');
 
 -- ----------------------------
 -- Table structure for myaddress
 -- ----------------------------
 DROP TABLE IF EXISTS `myaddress`;
 CREATE TABLE `myaddress` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `userid` bigint(20) DEFAULT NULL,
+  `id` varchar(30) NOT NULL COMMENT '主键',
+  `userid` varchar(30) DEFAULT NULL,
   `name` varchar(100) DEFAULT '0' COMMENT '联系人',
   `phone` varchar(15) DEFAULT '' COMMENT '手机号码',
   `area` varchar(100) DEFAULT NULL COMMENT '选择地区',
@@ -151,15 +157,14 @@ CREATE TABLE `myaddress` (
   PRIMARY KEY (`id`),
   KEY `myaddindex` (`id`),
   KEY `address_userid_index` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=230272924819386369 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of myaddress
 -- ----------------------------
-INSERT INTO `myaddress` VALUES ('228173921118056448', '227939210462490624', '天孙猴', '13569878968', '天空', '天空大道888号8栋8楼8888层8室', '88888', null);
+INSERT INTO `myaddress` VALUES ('228173921118056448', null, '天孙猴', '13569878968', '北京市北京市崇文区', '天空大厦658室', '88888', null);
 INSERT INTO `myaddress` VALUES ('228180105573167104', '227939210462490624', '田星星', '13569878968', '上海市静安区', '静安大道888号8栋8楼88层8室', '88688', null);
-INSERT INTO `myaddress` VALUES ('228180143204462592', '227939210462490624', '田星星', '13569878968', '上海市静安区', '静安大道888号8栋8楼88层8室', '88688', null);
-INSERT INTO `myaddress` VALUES ('228688508343021568', '227939210462490624', '张三', '15963', '呼和浩特', 'xx小区', '485206', null);
+INSERT INTO `myaddress` VALUES ('228180143204462592', null, '田圆', '15832015876', '上海市静安区', '国贸大厦', '88688', null);
 INSERT INTO `myaddress` VALUES ('228689365608427520', '227939210462490620', '张三', '158756320589', '拱墅区', 'xx小区', '485263', null);
 INSERT INTO `myaddress` VALUES ('228883509043785728', '227939210462490620', 'ALso', '15686357852', '东河区', '尚尚小区', '482600', null);
 INSERT INTO `myaddress` VALUES ('228883913198530560', '227939210462490620', '李四', '157854203695', '红山区', '思思小区', '480132', null);
@@ -172,8 +177,8 @@ INSERT INTO `myaddress` VALUES ('230272924819386368', '0', 'Jack', '171946462', 
 -- ----------------------------
 DROP TABLE IF EXISTS `quersionanser`;
 CREATE TABLE `quersionanser` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `quersionid` bigint(20) DEFAULT NULL COMMENT '提问的问题id',
+  `id` varchar(30) NOT NULL,
+  `quersionid` varchar(30) DEFAULT NULL COMMENT '提问的问题id',
   `content` varchar(1000) DEFAULT NULL COMMENT '回答的问题答案',
   `createtime` varchar(30) DEFAULT '' COMMENT '回答时间',
   `anseruserid` tinyint(4) DEFAULT '0' COMMENT '解答人',
@@ -249,20 +254,21 @@ INSERT INTO `question` VALUES ('230086514376175616', '227939210462490620', '77',
 INSERT INTO `question` VALUES ('230087347746631680', '227939210462490620', '80', '求助帖-高级提问01', '高级提问内容01', '0', '1', '1', '0', '0', '0', '0', null, '测试公司01', '160', '2018-09-27 22:04:58');
 INSERT INTO `question` VALUES ('230273248409939968', '0', '80', null, '求主。', '0', '1', '1', '0', '0', '0', '0', null, '公司', '160', '2018-09-28 10:23:40');
 INSERT INTO `question` VALUES ('230273684441395200', '0', '81', '求助标题', '哈哈哈哈哈哈哈哈哈哈', '0', '1', '4', '0', '0', '0', '0', null, '公司', '56', '2018-09-28 10:25:24');
+INSERT INTO `question` VALUES ('230831507155972096', '227939210462490624', '79', null, '求介绍一个经验丰富的产品经理', '0', '1', '4', '0', '0', '0', '0', null, '公司', '200', '2018-09-29 23:21:59');
 
 -- ----------------------------
 -- Table structure for questionimgs
 -- ----------------------------
 DROP TABLE IF EXISTS `questionimgs`;
 CREATE TABLE `questionimgs` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `questionid` bigint(11) DEFAULT NULL,
+  `id` varchar(30) NOT NULL,
+  `questionid` varchar(30) DEFAULT NULL,
   `imgname` varchar(200) DEFAULT '' COMMENT '图片名称，高级提问图片',
   `createtime` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `qimgs_idex` (`id`),
   KEY `qimgs_quid_index` (`questionid`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of questionimgs
@@ -284,8 +290,8 @@ INSERT INTO `questionimgs` VALUES ('91', '230273684441395200', 'http://ubestchai
 -- ----------------------------
 DROP TABLE IF EXISTS `rolltitles`;
 CREATE TABLE `rolltitles` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `userid` bigint(20) DEFAULT NULL,
+  `id` varchar(30) NOT NULL COMMENT '主键',
+  `userid` varchar(30) DEFAULT NULL,
   `nickname` varchar(100) DEFAULT '0' COMMENT '用户昵称',
   `headimg` varchar(300) DEFAULT '' COMMENT '头像路径',
   `dimension` int(20) DEFAULT NULL COMMENT '人脉维度',
@@ -293,7 +299,7 @@ CREATE TABLE `rolltitles` (
   `status` tinyint(4) DEFAULT '0' COMMENT '0.不显示，1.显示，2.已解决',
   `createtime` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=228066017312501761 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rolltitles
@@ -309,10 +315,10 @@ INSERT INTO `rolltitles` VALUES ('228066017312501760', null, 'also4', 'https://w
 -- ----------------------------
 DROP TABLE IF EXISTS `sellorder`;
 CREATE TABLE `sellorder` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单id',
-  `userid` bigint(20) DEFAULT '0' COMMENT '用户id',
-  `addressid` bigint(20) DEFAULT '0' COMMENT '收货地址id',
-  `productid` bigint(20) DEFAULT '0' COMMENT '产品id',
+  `id` varchar(30) NOT NULL COMMENT '订单id',
+  `userid` varchar(30) DEFAULT '0' COMMENT '用户id',
+  `addressid` varchar(30) DEFAULT '0' COMMENT '收货地址id',
+  `productid` varchar(30) DEFAULT '0' COMMENT '产品id',
   `price` float DEFAULT NULL COMMENT '订单单价',
   `totalcost` float DEFAULT NULL COMMENT '总费用',
   `realcost` float DEFAULT NULL COMMENT '折扣后费用',
@@ -327,7 +333,7 @@ CREATE TABLE `sellorder` (
   KEY `order_user_index` (`userid`),
   KEY `order_add_index` (`addressid`),
   KEY `order_product_index` (`productid`)
-) ENGINE=InnoDB AUTO_INCREMENT=230640207278370817 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sellorder
@@ -365,13 +371,41 @@ INSERT INTO `sellorder` VALUES ('230576277944266752', '227939210462490624', '228
 INSERT INTO `sellorder` VALUES ('230580644994871296', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 06:45:09', '2018-09-29 06:45:09', null);
 INSERT INTO `sellorder` VALUES ('230638213943783424', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 10:33:55', '2018-09-29 10:33:55', null);
 INSERT INTO `sellorder` VALUES ('230640207278370816', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 10:41:50', '2018-09-29 10:41:50', null);
+INSERT INTO `sellorder` VALUES ('230690157441839104', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 14:00:19', '2018-09-29 14:00:19', null);
+INSERT INTO `sellorder` VALUES ('230712844247625728', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 15:30:28', '2018-09-29 15:30:28', null);
+INSERT INTO `sellorder` VALUES ('230719229995773952', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 15:55:50', '2018-09-29 15:55:51', null);
+INSERT INTO `sellorder` VALUES ('230721238505353216', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 16:03:49', '2018-09-29 16:03:49', null);
+INSERT INTO `sellorder` VALUES ('230721824999075840', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 16:06:09', '2018-09-29 16:06:09', null);
+INSERT INTO `sellorder` VALUES ('230721935569317888', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 16:06:36', '2018-09-29 16:06:36', null);
+INSERT INTO `sellorder` VALUES ('230721971929739264', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 16:06:44', '2018-09-29 16:06:44', null);
+INSERT INTO `sellorder` VALUES ('230729338327134208', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 16:36:01', '2018-09-29 16:36:01', null);
+INSERT INTO `sellorder` VALUES ('230732718697082880', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 16:49:26', '2018-09-29 16:49:26', null);
+INSERT INTO `sellorder` VALUES ('230740825112309760', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-29 17:21:39', '2018-09-29 17:21:39', null);
+INSERT INTO `sellorder` VALUES ('230804998550712320', '227939210462490624', '228688508343021570', '78', '10', '10', '10', '1', '0', '0', '2018-09-29 21:36:39', '2018-09-29 21:36:39', null);
+INSERT INTO `sellorder` VALUES ('230829461715546112', '227939210462490624', '228173921118056450', '78', '10', '10', '10', '1', '0', '0', '2018-09-29 23:13:52', '2018-09-29 23:13:52', null);
+INSERT INTO `sellorder` VALUES ('230844381609848832', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:13:09', '2018-09-30 00:13:09', null);
+INSERT INTO `sellorder` VALUES ('230846364622254080', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:21:02', '2018-09-30 00:21:02', null);
+INSERT INTO `sellorder` VALUES ('230846994782875648', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:23:32', '2018-09-30 00:23:32', null);
+INSERT INTO `sellorder` VALUES ('230847950891249664', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:27:20', '2018-09-30 00:27:20', null);
+INSERT INTO `sellorder` VALUES ('230849110377230336', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:31:56', '2018-09-30 00:31:56', null);
+INSERT INTO `sellorder` VALUES ('230851092089401344', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:39:49', '2018-09-30 00:39:49', null);
+INSERT INTO `sellorder` VALUES ('230852162622582784', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:44:04', '2018-09-30 00:44:04', null);
+INSERT INTO `sellorder` VALUES ('230854562343284736', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 00:53:36', '2018-09-30 00:53:36', null);
+INSERT INTO `sellorder` VALUES ('230860584021651456', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 01:17:32', '2018-09-30 01:17:32', null);
+INSERT INTO `sellorder` VALUES ('230861141813751808', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 01:19:45', '2018-09-30 01:19:45', null);
+INSERT INTO `sellorder` VALUES ('230861441404497920', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 01:20:56', '2018-09-30 01:20:56', null);
+INSERT INTO `sellorder` VALUES ('230862285688532992', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 01:24:18', '2018-09-30 01:24:18', null);
+INSERT INTO `sellorder` VALUES ('230874483655700480', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 02:12:46', '2018-09-30 02:12:46', null);
+INSERT INTO `sellorder` VALUES ('230875317357506560', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 02:16:05', '2018-09-30 02:16:05', null);
+INSERT INTO `sellorder` VALUES ('230875486652198912', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 02:16:45', '2018-09-30 02:16:45', null);
+INSERT INTO `sellorder` VALUES ('230875598271016960', '227939210462490624', '228180143204462592', '81', '56', '56', '56', '1', '0', '0', '2018-09-30 02:17:12', '2018-09-30 02:17:12', null);
 
 -- ----------------------------
 -- Table structure for sellproduct
 -- ----------------------------
 DROP TABLE IF EXISTS `sellproduct`;
 CREATE TABLE `sellproduct` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(30) NOT NULL,
   `productname` varchar(200) DEFAULT '' COMMENT '出售产品名称',
   `price` float DEFAULT '0' COMMENT '价格',
   `kernel` int(11) DEFAULT '0' COMMENT '麦粒数',
@@ -381,7 +415,7 @@ CREATE TABLE `sellproduct` (
   `totalnum` int(11) DEFAULT '0' COMMENT '商品总数',
   `createtime` varchar(30) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sellproduct
@@ -424,6 +458,8 @@ CREATE TABLE `signin` (
 -- ----------------------------
 -- Records of signin
 -- ----------------------------
+INSERT INTO `signin` VALUES ('230804398438084608', '227899321788395520', '2018-09-26 21:35:06', '0');
+INSERT INTO `signin` VALUES ('230844249984200704', '227939210462490624', '2018-09-30 00:12:38', '0');
 
 -- ----------------------------
 -- Table structure for userinfo
@@ -467,7 +503,7 @@ INSERT INTO `userinfo` VALUES ('227899744809119744', null, 'http://ubestchain.co
 INSERT INTO `userinfo` VALUES ('227902526710607872', null, 'http://ubestchain.com/images/333.png', '昵称', null, null, null, null, null, '15', null, null, '2018-09-21 21:23:16');
 INSERT INTO `userinfo` VALUES ('227902537108287488', null, 'http://ubestchain.com/images/333.png', '昵称', null, null, null, null, null, '15', null, null, '2018-09-21 21:23:19');
 INSERT INTO `userinfo` VALUES ('227919346729480192', null, 'http://ubestchain.com/images/333.png', '昵称', null, null, null, null, null, '15', null, null, '2018-09-21 22:30:06');
-INSERT INTO `userinfo` VALUES ('227939210462490624', 'oEds65J4MErwlkxLWQq_nSdI-85A', 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', 'ALSO', null, 'Addr', '公司', '技术部', '176264', '90', null, null, '2018-09-21 23:49:02');
+INSERT INTO `userinfo` VALUES ('227939210462490624', 'oEds65J4MErwlkxLWQq_nSdI-85A', 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', 'ALSO', null, 'Addr', '公司', '技术部', '176264', '102', null, null, '2018-09-21 23:49:02');
 INSERT INTO `userinfo` VALUES ('228607222232379392', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', '2', null, null, null, null, null, '15', null, null, '2018-09-23 20:03:29');
 INSERT INTO `userinfo` VALUES ('228611140337266688', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', '2', null, null, null, null, null, '20', null, null, '2018-09-23 20:19:03');
 INSERT INTO `userinfo` VALUES ('228612300624359424', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', '0', null, null, null, null, null, '20', null, null, '2018-09-23 20:23:39');
@@ -654,6 +690,28 @@ INSERT INTO `userinfo` VALUES ('230474698280923136', null, 'https://wx.qlogo.cn/
 INSERT INTO `userinfo` VALUES ('230474944964718592', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-28 23:45:08');
 INSERT INTO `userinfo` VALUES ('230487194060451840', null, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKyBXRBiafNdSx7b4nMTObjIRFAF66t4FJcAT0VAKFdwhaZJHwZtglrtKdbKc5OgP2QsDU2duvEwxg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 00:33:49');
 INSERT INTO `userinfo` VALUES ('230567290251243520', null, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKyBXRBiafNdSx7b4nMTObjIRFAF66t4FJcAT0VAKFdwhaZJHwZtglrtKdbKc5OgP2QsDU2duvEwxg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 05:52:05');
+INSERT INTO `userinfo` VALUES ('230798756189040640', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 21:11:51');
+INSERT INTO `userinfo` VALUES ('230804200005562368', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 21:33:29');
+INSERT INTO `userinfo` VALUES ('230804896696233984', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 21:36:15');
+INSERT INTO `userinfo` VALUES ('230806483925725184', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 21:42:33');
+INSERT INTO `userinfo` VALUES ('230807735719948288', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 21:47:32');
+INSERT INTO `userinfo` VALUES ('230809570266574848', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 21:54:49');
+INSERT INTO `userinfo` VALUES ('230810405314752512', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 21:58:08');
+INSERT INTO `userinfo` VALUES ('230812583429402624', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 22:06:48');
+INSERT INTO `userinfo` VALUES ('230814654773850112', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 22:15:02');
+INSERT INTO `userinfo` VALUES ('230814871531286528', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 22:15:53');
+INSERT INTO `userinfo` VALUES ('230826335990181888', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 23:01:27');
+INSERT INTO `userinfo` VALUES ('230826727457157120', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 23:03:00');
+INSERT INTO `userinfo` VALUES ('230829358246260736', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 23:13:27');
+INSERT INTO `userinfo` VALUES ('230834853682081792', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-29 23:35:17');
+INSERT INTO `userinfo` VALUES ('230842637173649408', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:06:13');
+INSERT INTO `userinfo` VALUES ('230843906802053120', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:11:16');
+INSERT INTO `userinfo` VALUES ('230844080144248832', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:11:57');
+INSERT INTO `userinfo` VALUES ('230844207542038528', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:12:27');
+INSERT INTO `userinfo` VALUES ('230849589136060416', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:33:51');
+INSERT INTO `userinfo` VALUES ('230849884914184192', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:35:01');
+INSERT INTO `userinfo` VALUES ('230855807342735360', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:58:33');
+INSERT INTO `userinfo` VALUES ('230856117561847808', null, 'https://wx.qlogo.cn/mmopen/vi_32/VXFzMBwfObb7htaEQwDm8VZcgwO0LBIsTfowaD728iaK9PANuKIEER2ZVeLbIYWggZzbRISGcPv2k3PkBb8yoMg/132', null, null, null, null, null, null, '20', null, null, '2018-09-30 00:59:47');
 INSERT INTO `userinfo` VALUES ('3', null, 'http://ubestchain.com/images/333.png', '0', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null, null);
 INSERT INTO `userinfo` VALUES ('4', null, 'http://ubestchain.com/images/333.png', '1', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null, null);
 INSERT INTO `userinfo` VALUES ('5', null, 'http://ubestchain.com/images/333.png', '2', '13585958130', 'testname3', 'artname2', '部门1啊', 'yishicom', '0', null, null, null);
