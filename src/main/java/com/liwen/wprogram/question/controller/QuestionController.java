@@ -206,7 +206,7 @@ public class QuestionController {
                         stream.close();
 
                         QuestionImgs questionImgs = new QuestionImgs();
-                        questionImgs.setQuestionid(questionId);
+                        questionImgs.setQuestionid(String.valueOf(questionId));
                         urlStr = "http://ubestchain.com"+savePath;
                         questionImgs.setImgname(urlStr);
                         question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
@@ -312,7 +312,7 @@ public class QuestionController {
      */
     @RequestMapping(value = "/questionimages")
     @ResponseBody
-    public BaseResult getQuestionimages(@RequestParam("quid") long quid) {
+    public BaseResult getQuestionimages(@RequestParam("quid") String quid) {
 
         BaseResult br = new BaseResult();
         try {
@@ -358,13 +358,13 @@ public class QuestionController {
         BaseResult br = new BaseResult();
         try {
             IdGenerator idGenerator = new IdGenerator();
-            long userId = Long.valueOf(request.getParameter("userid").toString());
+            String userId =request.getParameter("userid").toString();
             String nickename = request.getParameter("nickname").toString();
             String headImg = request.getParameter("headimg").toString();
             int dismens = Integer.valueOf(request.getParameter("dismens").toString());
             int money = Integer.valueOf(request.getParameter("money").toString());
             RollTitles rt = new RollTitles();
-            rt.setId(idGenerator.nextId());
+            rt.setId(String.valueOf(idGenerator.nextId()));
             rt.setUserid(userId);
             rt.setNickname(nickename);
             rt.setHeadimg(headImg);

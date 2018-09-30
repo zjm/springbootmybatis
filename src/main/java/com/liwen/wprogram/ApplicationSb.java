@@ -1,5 +1,6 @@
 package com.liwen.wprogram;
 
+import com.sun.management.OperatingSystemMXBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -16,6 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -64,6 +66,7 @@ public class ApplicationSb {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //从前端或者自己模拟一个日期格式，转为String即可
         String dateStr = format.format(date);
+
         logger.info("SpringBoot Start Success:"+dateStr);
 
 
