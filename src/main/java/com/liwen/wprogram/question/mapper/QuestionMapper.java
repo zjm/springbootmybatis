@@ -49,7 +49,7 @@ public interface QuestionMapper {
         "status, questiontype, viewnum, ansernum, giftimg, publishcompany, rewardbalance, ",
         "createtime",
         "from question",
-        "where id = #{id,jdbcType=VARCHAR}"
+        "where id = #{id,jdbcType=VARCHAR} AND TIMESTAMPDIFF(DAY,createtime,NOW())<validityperiod  ORDER BY createtime desc"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
@@ -78,7 +78,7 @@ public interface QuestionMapper {
             "status, questiontype, viewnum, ansernum, giftimg, publishcompany, rewardbalance, ",
             "createtime",
             "from question",
-            "where  userid = #{0} and type = #{1} ORDER BY createtime desc"
+            "where  userid = #{0} and type = #{1} AND TIMESTAMPDIFF(DAY,createtime,NOW())<validityperiod  ORDER BY createtime desc"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),

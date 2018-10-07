@@ -345,7 +345,7 @@ public class QuestionController {
                 questionInfo.setQuestion(question);
                 userInfo = userInfoService.getUserInfo(question.getUserid());
                 sellProduct = sellProductService.getSellProduct(question.getProductid());
-                logger.info("question->questionid:"+question.getId()+",type:"+question.getType());
+               // logger.info("question->questionid:"+question.getId()+",type:"+question.getType());
                 if (userInfo!=null || sellProduct!=null) {
                     questionInfo.setSellProduct(sellProduct);
                     questionInfo.setUserInfo(userInfo);
