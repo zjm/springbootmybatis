@@ -5,6 +5,7 @@ import com.liwen.wprogram.kernelrecord.model.KernelRecord;
 import com.liwen.wprogram.signin.model.SignIn;
 import com.liwen.wprogram.signin.service.SignInService;
 import com.liwen.wprogram.user.model.UserInfo;
+import com.liwen.wprogram.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Isolation;
@@ -23,6 +24,7 @@ import java.util.List;
 public class SignInController extends BaseConroller {
     @Autowired
     private SignInService signInService;
+    private UserInfoService userInfoService;
 
 
 
@@ -37,6 +39,7 @@ public class SignInController extends BaseConroller {
         SignIn signIn = signInService.getSignInByUserId(userid);
         String dayTime = Utils.getTimeYYYYMMDDHHMMSS();
         BaseResult br = new BaseResult();
+
         try {
             int singintype = 1;//0.当天已经签到，不能再签了。1.当天未签到可以签。
             if (signIn == null) {
@@ -84,6 +87,9 @@ public class SignInController extends BaseConroller {
 
             String userid = request.getParameter("userid").toString();
            // int singintype=1;//0.当天已经签到，不能再签了。1.当天未签到可以签。
+            UserInfo userInfo = userInfoService.getUserInfo(userid);
+            int mykernel = userInfo.getMykernel();
+
             SignIn signIn = signInService.getSignInByUserId(userid);
             String dayTime = Utils.getTimeYYYYMMDDHHMMSS();
             if (signIn==null)
@@ -96,6 +102,8 @@ public class SignInController extends BaseConroller {
                 signIn.setType((byte)0);
                // br.setData(singintype);
                 signInService.addSignIn(signIn);
+                userInfo.setMykernel(mykernel+10);
+                userInfoService.updateUserInfo(userInfo);
 
 
             }else
@@ -113,6 +121,8 @@ public class SignInController extends BaseConroller {
                 {
                     signIn.setSignintime(dayTime);
                     signInService.updateSignIn(signIn);
+                    userInfo.setMykernel(mykernel+10);
+                    userInfoService.updateUserInfo(userInfo);
                 }
             }
 

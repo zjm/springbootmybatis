@@ -102,6 +102,7 @@ public class UserController {
                 userInfo.setId(String.valueOf(idg.nextId()));
                 userInfo.setHeadimg(headimg);
                 userInfo.setNickname(nickname);
+                userInfo.setCompany(" ");
                 userInfo.setOpenid(openid);
                 userInfo.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
                 userInfo.setMykernel(Integer.valueOf(mykernel));
