@@ -32,6 +32,11 @@ public class QuestionService {
         return  questionMapper.insert(question);
     }
 
+    public int updateQuestion(Question question)
+    {
+        return  questionMapper.updateByPrimaryKey(question);
+    }
+
     public void delQuestion(String id)
     {
         questionMapper.deleteByPrimaryKey(id);

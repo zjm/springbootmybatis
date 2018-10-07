@@ -93,16 +93,21 @@ public class UserController {
                                    @RequestParam(value = "mykernel", required = true) String mykernel) {
         BaseResult br = new BaseResult();
         try {
-            UserInfo userInfo = new UserInfo();
-            IdGenerator idg =new IdGenerator();
-            userInfo.setId(String.valueOf(idg.nextId()));
-            userInfo.setHeadimg(headimg);
-            userInfo.setNickname(nickname);
-            userInfo.setOpenid(openid);
-            userInfo.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
-            userInfo.setMykernel(Integer.valueOf(mykernel));
-            logger.info("saveUser userinfo:" + ",nickname:"+nickname+",img:"+headimg);
-            userInfoService.saveUserInfo(userInfo);
+
+            UserInfo userInfo = userInfoService.getUserInfoByOpenid(openid);
+            if (userInfo==null) {
+
+                userInfo = new UserInfo();
+                IdGenerator idg = new IdGenerator();
+                userInfo.setId(String.valueOf(idg.nextId()));
+                userInfo.setHeadimg(headimg);
+                userInfo.setNickname(nickname);
+                userInfo.setOpenid(openid);
+                userInfo.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
+                userInfo.setMykernel(Integer.valueOf(mykernel));
+                logger.info("saveUser userinfo:" + ",nickname:" + nickname + ",img:" + headimg);
+                userInfoService.saveUserInfo(userInfo);
+            }
 
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setResult(BaseConstant.SUCCESS_INFO);

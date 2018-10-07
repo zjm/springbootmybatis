@@ -58,6 +58,7 @@ public class QuestionController {
     }
     @RequestMapping(value = "/normalquestion", method = RequestMethod.POST)
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult saveQuestionMap(HttpServletRequest requestMap) {
         logger.info("normalquestion=======comin");
         BaseResult br = new BaseResult();
@@ -237,7 +238,89 @@ public class QuestionController {
 
     }
 
+
     /**
+     * 保存问题浏览数量
+     * @param request
+     * @return
+     */
+
+    @RequestMapping(value = "/saveviewnum", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public BaseResult updateQuestionViewnum(HttpServletRequest request) {
+        logger.info("normalquestion=======comin");
+        BaseResult br = new BaseResult();
+        br.setCode(BaseConstant.SUCCESS_CODE);
+        br.setResult(BaseConstant.SUCCESS_INFO);
+        try {
+
+            String quid = request.getParameter("quid").toString();
+//            int viewnum =Integer.valueOf(request.getParameter("viewnum").toString());
+            Question question = questionService.getQuestion(quid);
+            int viewnum = question.getViewnum();
+
+            question.setViewnum(viewnum+1);
+
+            int ret = questionService.updateQuestion(question);
+            logger.info("update ret:" + ret);
+            return br;
+
+        } catch (Exception e) {
+
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setResult(BaseConstant.PARAM_ERROR_INFO + "-->" + e.getMessage());
+            logger.info("saveviewnum:"+e.getMessage());
+            e.printStackTrace();
+            return br;
+        }
+
+
+    }
+
+    /**
+     * 保存问题回答数
+     * @param request
+     * @return
+     */
+
+    @RequestMapping(value = "/saveansernum", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public BaseResult updateQuestionAnsernum(HttpServletRequest request) {
+        logger.info("updateQuestionAnsernum=======comin");
+        BaseResult br = new BaseResult();
+        br.setCode(BaseConstant.SUCCESS_CODE);
+        br.setResult(BaseConstant.SUCCESS_INFO);
+        try {
+
+            String quid = request.getParameter("quid").toString();
+          //  int viewnum =Integer.valueOf(request.getParameter("ansernum").toString());
+            Question question = questionService.getQuestion(quid);
+            int viewnum = question.getAnsernum();
+            question.setViewnum(viewnum+1);
+
+            int ret = questionService.updateQuestion(question);
+            logger.info("update ret:" + ret);
+            return br;
+
+        } catch (Exception e) {
+
+            br.setCode(BaseConstant.FAIL_CODE);
+            br.setResult(BaseConstant.PARAM_ERROR_INFO + "-->" + e.getMessage());
+            logger.info("saveviewnum:"+e.getMessage());
+            e.printStackTrace();
+            return br;
+        }
+
+
+    }
+
+
+
+    /**
+     *
+     * @param userid
      * @param type 0.我发起的；1.我参与的
      * @return 列表数据
      */
@@ -292,9 +375,20 @@ public class QuestionController {
 
         BaseResult br = new BaseResult();
         try {
+
+
+            Question question = questionService.getQuestion(quid);
+            UserInfo  userInfo = userInfoService.getUserInfo(question.getUserid());
+            SellProduct sellProduct = sellProductService.getSellProduct(question.getProductid());
+
+            QuestionInfo questionInfo = new QuestionInfo();
+            questionInfo.setUserInfo(userInfo);
+            questionInfo.setQuestion(question);
+            questionInfo.setSellProduct(sellProduct);
+
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
-            br.setData(questionService.getQuestion(quid));
+            br.setData(questionInfo);
             return br;
         }catch (Exception e)
         {
@@ -306,7 +400,7 @@ public class QuestionController {
 
     }
 
-    /** 问题详情
+    /** 问题图片
      * @param quid
      * @return
      */
