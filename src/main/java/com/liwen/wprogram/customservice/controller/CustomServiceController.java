@@ -11,12 +11,14 @@ import com.liwen.wprogram.question.model.QuestionImgs;
 import com.liwen.wprogram.user.model.UserInfo;
 import com.liwen.wprogram.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -144,9 +146,12 @@ public class CustomServiceController extends BaseConroller {
     }
     @RequestMapping(value = "/wxmsg")
     @ResponseBody
-    public String wxnotifymsg() {
+    public String wxnotifymsg(@RequestParam(name="signature")String signature,
+                              @RequestParam(name="timestamp")String timestamp,
+                              @RequestParam(name="nonce")String nonce,
+                              @RequestParam(name="echostr")String echostr) {
 
-        return "wxmsg";
+        return echostr;
 
 
     }

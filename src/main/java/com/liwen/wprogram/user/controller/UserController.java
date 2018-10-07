@@ -86,7 +86,7 @@ public class UserController {
     public BaseResult saveUserInfo(@RequestParam(value = "openid", required = true) String openid,
                                    @RequestParam(value = "headimg", required = true) String headimg,
 //                                   @RequestParam(value = "name", required = true) String name,
-                                   @RequestParam(value = "nickname", required = false) String nickname,
+                                   @RequestParam(value = "nickname", required = true) String nickname,
 //                                   @RequestParam(value = "company", required = true) String company,
 //                                   @RequestParam(value = "department", required = true) String department,
                                    @RequestParam(value = "weixinhao", required = false) String weixinhao,
@@ -98,10 +98,12 @@ public class UserController {
             userInfo.setId(String.valueOf(idg.nextId()));
             userInfo.setHeadimg(headimg);
             userInfo.setNickname(nickname);
+            userInfo.setOpenid(openid);
             userInfo.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             userInfo.setMykernel(Integer.valueOf(mykernel));
+            logger.info("saveUser userinfo:" + ",nickname:"+nickname+",img:"+headimg);
             userInfoService.saveUserInfo(userInfo);
-            logger.info("saveUser userinfo:" + headimg );
+
             br.setCode(BaseConstant.SUCCESS_CODE);
             br.setResult(BaseConstant.SUCCESS_INFO);
             return br;
@@ -114,6 +116,38 @@ public class UserController {
             return br;
         }
     }
+
+
+    @RequestMapping(value = "/updateuserwx", method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public BaseResult updateUserInfowx(
+            @RequestParam(value = "openid", required = true) String openid,
+            @RequestParam(value = "headimg", required = true) String headimg,
+            @RequestParam(value = "nickname", required = true) String nickname,
+            @RequestParam(value = "weixinhao", required = false) String weixinhao
+    ) {
+        BaseResult br = new BaseResult();
+        try {
+            UserInfo userInfo = userInfoService.getUserInfoByOpenid(openid);//.getUserInfo(userid);
+            userInfo.setOpenid(openid);
+            userInfo.setHeadimg(headimg);
+            userInfo.setNickname(nickname);
+            userInfo.setWeixinhao(weixinhao);
+            userInfoService.updateUserInfo(userInfo);
+            logger.info("saveUser inforw:" + openid );
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setResult(BaseConstant.SUCCESS_INFO);
+            return  br;
+        }catch (Exception e)
+        {
+            br.setCode(BaseConstant.SUCCESS_CODE);
+            br.setResult(BaseConstant.PARAM_ERROR_INFO +"->"+e.getMessage());
+            e.printStackTrace();
+            return br;
+        }
+    }
+
 
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
     @ResponseBody

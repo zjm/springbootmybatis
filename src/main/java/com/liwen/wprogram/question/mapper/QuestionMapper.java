@@ -78,7 +78,7 @@ public interface QuestionMapper {
             "status, questiontype, viewnum, ansernum, giftimg, publishcompany, rewardbalance, ",
             "createtime",
             "from question",
-            "where  userid = #{0} and type = #{1}"
+            "where  userid = #{0} and type = #{1} ORDER BY createtime desc"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),

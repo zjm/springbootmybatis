@@ -18,7 +18,8 @@ public class WxPayConfig {
     public static  final String mch_key="zhangzhangzhangzhangzhangzhang23";
 
     public static  final String MSG_TOKEN="h1b1o8";
-    public static final String NOTIFY_MSG_URL = "https://renmai.manmengtv.com/custom/wxmsg";
+    public static  final  String NOTIFY_MSG_URL = "https://renmai.manmengtv.com/custom/wxmsg";
+    public static  final  String  EncodingAESKey_MSG_KEY ="S6LKzXFxwxD3O5h6b5SlsIsnnsJBylAqzL9UpeUZmmO";
     //支付成功后的服务器回调url
     public static final String NOTIFY_URL = "https://renmai.manmengtv.com/order/wxNotify";
     //签名方式，固定值
