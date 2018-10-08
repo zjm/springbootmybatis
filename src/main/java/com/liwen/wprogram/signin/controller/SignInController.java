@@ -2,6 +2,7 @@ package com.liwen.wprogram.signin.controller;
 
 import com.liwen.wprogram.common.*;
 import com.liwen.wprogram.kernelrecord.model.KernelRecord;
+import com.liwen.wprogram.kernelrecord.service.KernelRecordService;
 import com.liwen.wprogram.signin.model.SignIn;
 import com.liwen.wprogram.signin.service.SignInService;
 import com.liwen.wprogram.user.model.UserInfo;
@@ -24,7 +25,10 @@ import java.util.List;
 public class SignInController extends BaseConroller {
     @Autowired
     private SignInService signInService;
+    @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private KernelRecordService kernelRecordService;
 
 
 
@@ -89,6 +93,7 @@ public class SignInController extends BaseConroller {
            // int singintype=1;//0.当天已经签到，不能再签了。1.当天未签到可以签。
             UserInfo userInfo = userInfoService.getUserInfo(userid);
             int mykernel = userInfo.getMykernel();
+            boolean saveMaili = false;
 
             SignIn signIn = signInService.getSignInByUserId(userid);
             String dayTime = Utils.getTimeYYYYMMDDHHMMSS();
@@ -104,6 +109,9 @@ public class SignInController extends BaseConroller {
                 signInService.addSignIn(signIn);
                 userInfo.setMykernel(mykernel+10);
                 userInfoService.updateUserInfo(userInfo);
+                saveMaili =true;
+
+
 
 
             }else
@@ -123,7 +131,22 @@ public class SignInController extends BaseConroller {
                     signInService.updateSignIn(signIn);
                     userInfo.setMykernel(mykernel+10);
                     userInfoService.updateUserInfo(userInfo);
+                    saveMaili = true;
                 }
+            }
+
+            if (saveMaili) {
+
+                //String currentTime = Utils.getTimeYYYYMMDDHHMMSS();
+                KernelRecord kernelRecord = new KernelRecord();
+                kernelRecord.setId(String.valueOf(getId()));
+                kernelRecord.setTitle("签到奖励");
+                // //0.减少麦粒，1.增加麦粒
+                kernelRecord.setType((byte) 1);
+                kernelRecord.setRewardnum(15);
+                kernelRecord.setCreatetime(dayTime);
+                kernelRecord.setRewardtime(dayTime);
+                kernelRecordService.saveKernelRecord(kernelRecord);
             }
 
             br.setCode(BaseConstant.SUCCESS_CODE);
@@ -131,6 +154,7 @@ public class SignInController extends BaseConroller {
             return  br;
         }catch (Exception e)
         {
+            e.printStackTrace();
             br.setCode(BaseConstant.FAIL_CODE);
 
             br.setResult("请检查参数是否为空，"+e.getMessage());

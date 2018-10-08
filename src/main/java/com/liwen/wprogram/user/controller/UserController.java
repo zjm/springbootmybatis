@@ -7,6 +7,8 @@ import com.liwen.wprogram.common.BaseResult;
 import com.liwen.wprogram.common.IdGenerator;
 import com.liwen.wprogram.common.Utils;
 import com.liwen.wprogram.common.weixin.WXAppletUserInfo;
+import com.liwen.wprogram.kernelrecord.model.KernelRecord;
+import com.liwen.wprogram.kernelrecord.service.KernelRecordService;
 import com.liwen.wprogram.user.model.UserInfo;
 import com.liwen.wprogram.user.model.UserInforResult;
 import com.liwen.wprogram.user.service.UserInfoService;
@@ -30,6 +32,8 @@ public class UserController {
     private Logger logger = Logger.getLogger(UserController.class);
     @Autowired
     UserInfoService userInfoService;
+    @Autowired
+    KernelRecordService kernelRecordService;
 
     @RequestMapping(value = "/userinfo")
     @ResponseBody
@@ -108,6 +112,17 @@ public class UserController {
                 userInfo.setMykernel(Integer.valueOf(mykernel));
                 logger.info("saveUser userinfo:" + ",nickname:" + nickname + ",img:" + headimg);
                 userInfoService.saveUserInfo(userInfo);
+
+                String currentTime = Utils.getTimeYYYYMMDDHHMMSS();
+                KernelRecord kernelRecord = new KernelRecord();
+                kernelRecord.setId(String.valueOf(idg.nextId()));
+                kernelRecord.setTitle("新用户注册");
+                // //0.减少麦粒，1.增加麦粒
+                kernelRecord.setType((byte)1);
+                kernelRecord.setRewardnum(15);
+                kernelRecord.setCreatetime(currentTime);
+                kernelRecord.setRewardtime(currentTime);
+                kernelRecordService.saveKernelRecord(kernelRecord);
             }
 
             br.setCode(BaseConstant.SUCCESS_CODE);

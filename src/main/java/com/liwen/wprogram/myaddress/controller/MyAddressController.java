@@ -121,8 +121,7 @@ public class MyAddressController extends BaseConroller {
             String area = request.getParameter("area").toString();
             String detailArea = request.getParameter("detailaddress").toString();
             String postcode = request.getParameter("postcoe").toString();
-            MyAddress myAddress = new MyAddress();
-            myAddress.setId(id);
+            MyAddress myAddress = myAddressService.getMyAddress(id);
             myAddress.setName(name);
             myAddress.setPhone(phone);
             myAddress.setArea(area);
