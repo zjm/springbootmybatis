@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -68,6 +69,8 @@ public class ApplicationSb {
         String dateStr = format.format(date);
 
         logger.info("SpringBoot Start Success:"+dateStr);
+
+
 
 
 

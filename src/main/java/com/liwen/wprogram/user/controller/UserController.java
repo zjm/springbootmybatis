@@ -103,7 +103,8 @@ public class UserController {
 
                 userInfo = new UserInfo();
                 IdGenerator idg = new IdGenerator();
-                userInfo.setId(String.valueOf(idg.nextId()));
+                String userid = String.valueOf(idg.nextId());
+                userInfo.setId(userid);
                 userInfo.setHeadimg(headimg);
                 userInfo.setNickname(nickname);
                 userInfo.setCompany(" ");
@@ -117,6 +118,7 @@ public class UserController {
                 KernelRecord kernelRecord = new KernelRecord();
                 kernelRecord.setId(String.valueOf(idg.nextId()));
                 kernelRecord.setTitle("新用户注册");
+                kernelRecord.setUserid(userid);
                 // //0.减少麦粒，1.增加麦粒
                 kernelRecord.setType((byte)1);
                 kernelRecord.setRewardnum(15);

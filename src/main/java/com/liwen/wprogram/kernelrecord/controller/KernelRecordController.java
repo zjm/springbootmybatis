@@ -92,6 +92,7 @@ public class KernelRecordController {
             KernelRecord kernelRecord = new KernelRecord();
             kernelRecord.setId(String.valueOf(id));
             kernelRecord.setTitle(title);
+            kernelRecord.setUserid(userId);
             kernelRecord.setType(type);
             kernelRecord.setRewardnum(rewardnum);
             kernelRecord.setCreatetime(currentTime);

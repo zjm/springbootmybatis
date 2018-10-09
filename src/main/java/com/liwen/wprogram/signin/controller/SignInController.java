@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -107,7 +110,7 @@ public class SignInController extends BaseConroller {
                 signIn.setType((byte)0);
                // br.setData(singintype);
                 signInService.addSignIn(signIn);
-                userInfo.setMykernel(mykernel+10);
+                userInfo.setMykernel(mykernel+2);
                 userInfoService.updateUserInfo(userInfo);
                 saveMaili =true;
 
@@ -129,24 +132,46 @@ public class SignInController extends BaseConroller {
                 {
                     signIn.setSignintime(dayTime);
                     signInService.updateSignIn(signIn);
-                    userInfo.setMykernel(mykernel+10);
+                    userInfo.setMykernel(mykernel+2);
                     userInfoService.updateUserInfo(userInfo);
                     saveMaili = true;
                 }
             }
+
+            String lastTime = signIn.getSignintime();
+            long diffday=0;
+            try {
+
+
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date d1 = df.parse(lastTime);
+                Date d2 = df.parse(dayTime);
+                long diff = d2.getTime() - d1.getTime();
+                diffday=diff/(24*60*60*1000);
+
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
 
             if (saveMaili) {
 
                 //String currentTime = Utils.getTimeYYYYMMDDHHMMSS();
                 KernelRecord kernelRecord = new KernelRecord();
                 kernelRecord.setId(String.valueOf(getId()));
-                kernelRecord.setTitle("签到奖励");
+                kernelRecord.setTitle("连续签到奖励");
+                kernelRecord.setUserid(userid);
                 // //0.减少麦粒，1.增加麦粒
                 kernelRecord.setType((byte) 1);
-                kernelRecord.setRewardnum(15);
+
                 kernelRecord.setCreatetime(dayTime);
                 kernelRecord.setRewardtime(dayTime);
-                kernelRecordService.saveKernelRecord(kernelRecord);
+
+                if (diffday>0 && diffday<=1) {
+                    kernelRecord.setRewardnum(2);
+                    kernelRecordService.saveKernelRecord(kernelRecord);
+                }
             }
 
             br.setCode(BaseConstant.SUCCESS_CODE);
