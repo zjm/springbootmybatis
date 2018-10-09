@@ -151,6 +151,13 @@ public class CustomServiceController extends BaseConroller {
                               @RequestParam(name="nonce")String nonce,
                               @RequestParam(name="echostr")String echostr) {
 
+        logger.info("[signature11: "+signature + "]<-->[timestamp: "+ timestamp+"]<-->[nonce: "+nonce+"]<-->[echostr: "+echostr+"]");
+        if (Utils.checkSignature(signature, timestamp, nonce)) {
+            logger.info("[signature22: "+signature + "]<-->[timestamp: "+ timestamp+"]<-->[nonce: "+nonce+"]<-->[echostr: "+echostr+"]");
+           // response.getOutputStream().println(echostr);
+        }
+
+
         return echostr;
 
 

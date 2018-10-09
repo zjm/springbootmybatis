@@ -4,6 +4,10 @@ package com.liwen.wprogram.common.weixin;
  * 小程序微信支付的配置文件
  * @author
  *
+ * URL(服务器地址)    https://renmai.manmengtv.com/custom/wxmsg
+ *
+ * Token(令牌)	h1b1o8
+ * EncodingAESKey(消息加密密钥)	2OI4qhdQVN0wbiJ6ioPVHQLJdLlyByEvyYzsGdt6rYY
  */
 public class WxPayConfig {
     //小程序appid
@@ -17,11 +21,12 @@ public class WxPayConfig {
 
     public static  final String mch_key="zhangzhangzhangzhangzhangzhang23";
 
-    public static  final String MSG_TOKEN="h1b1o8";
+    public static  final  String NOTIFY_MSG_TOKEN="h1b1o8";
     public static  final  String NOTIFY_MSG_URL = "https://renmai.manmengtv.com/custom/wxmsg";
-    public static  final  String  EncodingAESKey_MSG_KEY ="S6LKzXFxwxD3O5h6b5SlsIsnnsJBylAqzL9UpeUZmmO";
+    public static  final  String  EncodingAESKey_MSG_KEY ="2OI4qhdQVN0wbiJ6ioPVHQLJdLlyByEvyYzsGdt6rYY";
     //支付成功后的服务器回调url
     public static final String NOTIFY_URL = "https://renmai.manmengtv.com/order/wxNotify";
+
     //签名方式，固定值
     public static final String SIGNTYPE = "MD5";//HMAC-SHA256 //MD5
    // public static final String HMACSHA256 = "HMAC-SHA256";
