@@ -29,6 +29,7 @@ public class MoneyDetailController extends BaseConroller {
     @ResponseBody
     public BaseResult getMoneyDetail(String id)
     {
+        logger.info("moneydetail==="  );
         BaseResult br = new BaseResult();
         try {
             br.setResult(BaseConstant.SUCCESS_INFO);
@@ -49,6 +50,7 @@ public class MoneyDetailController extends BaseConroller {
     @ResponseBody
     public BaseResult getMyMoneyDetailList(String userid)
     {
+        logger.info("mymoneydetaillist==="  );
         BaseResult br = new BaseResult();
         try {
             br.setResult(BaseConstant.SUCCESS_INFO);
@@ -69,11 +71,11 @@ public class MoneyDetailController extends BaseConroller {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/getCash", method = RequestMethod.POST)
+    @RequestMapping(value = "/getcash", method = RequestMethod.POST)
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public BaseResult saveMyaddress(HttpServletRequest request) {
-        logger.info("saveMyaddress==="  );
+        logger.info("getcash==="  );
         BaseResult br = new BaseResult();
         try {
             String userId = request.getParameter("userid").toString();
