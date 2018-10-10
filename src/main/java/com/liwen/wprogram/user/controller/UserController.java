@@ -109,6 +109,7 @@ public class UserController {
                 userInfo.setNickname(nickname);
                 userInfo.setCompany(" ");
                 userInfo.setOpenid(openid);
+                userInfo.setRmbbalance(0.0f);
                 userInfo.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
                 userInfo.setMykernel(Integer.valueOf(mykernel));
                 logger.info("saveUser userinfo:" + ",nickname:" + nickname + ",img:" + headimg);
