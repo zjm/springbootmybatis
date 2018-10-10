@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
+import java.util.List;
+
 public interface MoneyDetailMapper {
     @Delete({
         "delete from moneydetail",
@@ -56,6 +58,28 @@ public interface MoneyDetailMapper {
         @Result(column="startpaytime", property="startpaytime", jdbcType=JdbcType.VARCHAR)
     })
     MoneyDetail selectByPrimaryKey(String id);
+
+    @Select({
+            "select",
+            "id, userid, type, status, moneynum, title, note, createtime, successtime, failtime, ",
+            "startpaytime",
+            "from moneydetail",
+            "where userid = #{userid,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="userid", property="userid", jdbcType=JdbcType.VARCHAR),
+            @Result(column="type", property="type", jdbcType=JdbcType.TINYINT),
+            @Result(column="status", property="status", jdbcType=JdbcType.TINYINT),
+            @Result(column="moneynum", property="moneynum", jdbcType=JdbcType.VARCHAR),
+            @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+            @Result(column="note", property="note", jdbcType=JdbcType.VARCHAR),
+            @Result(column="createtime", property="createtime", jdbcType=JdbcType.VARCHAR),
+            @Result(column="successtime", property="successtime", jdbcType=JdbcType.VARCHAR),
+            @Result(column="failtime", property="failtime", jdbcType=JdbcType.VARCHAR),
+            @Result(column="startpaytime", property="startpaytime", jdbcType=JdbcType.VARCHAR)
+    })
+    List<MoneyDetail> selectByUseridKey(String userid);
 
     @UpdateProvider(type=MoneyDetailSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(MoneyDetail record);
