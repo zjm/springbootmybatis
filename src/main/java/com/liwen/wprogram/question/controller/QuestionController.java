@@ -183,7 +183,8 @@ public class QuestionController {
             String path = requestMap.getSession().getServletContext().getRealPath(savePath);
             if (!win)
             {
-                path="/var/www/html"+savePath;
+                //path="/var/www/html"+savePath;
+                path ="/var/www/renmai.manmengtv.com"+savePath;
             }
 
             logger.info("path:" + path + ",request.getRequestURI():"
@@ -207,8 +208,12 @@ public class QuestionController {
                         stream.close();
 
                         QuestionImgs questionImgs = new QuestionImgs();
+
+                        questionImgs.setId(String.valueOf(ig.nextId()));
                         questionImgs.setQuestionid(String.valueOf(questionId));
-                        urlStr = "http://ubestchain.com"+savePath;
+                       // urlStr = "http://ubestchain.com"+savePath;
+                        //https://renmai.manmengtv.com/sharetoall.png
+                        urlStr = "https://renmai.manmengtv.com"+savePath;
                         questionImgs.setImgname(urlStr);
                         question.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
                         questionImgsService.saveQuestionImags(questionImgs);
