@@ -158,14 +158,15 @@ public class OrderController extends BaseConroller {
             order.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             SellProduct sellProduct  = sellProductService.getSellProduct(productid);
             order.setPrice(sellProduct.getPrice());
-            order.setTotalcost(sellProduct.getPrice()*buynum);
-            order.setRealcost(sellProduct.getPrice()*buynum);
+            float money = sellProduct.getPrice()*buynum;
+            order.setTotalcost(money);
+            order.setRealcost(money);
             order.setPaytime(Utils.getTimeYYYYMMDDHHMMSS());
 
             UserInfo userInfo = userInfoService.getUserInfo(String.valueOf(userid));
             String tradNo = String.valueOf(id);
 
-            JSONObject response = WXAppletUserInfo.wxPayNew(userInfo.getOpenid(),tradNo,request);
+            JSONObject response = WXAppletUserInfo.wxPayNew(sellProduct.getProductname(),userInfo.getOpenid(),tradNo,money,request);
 
             orderService.saveOrder(order);
 

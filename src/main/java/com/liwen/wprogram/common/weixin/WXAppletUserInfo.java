@@ -107,7 +107,7 @@ public class WXAppletUserInfo  {
         return null;
     }
 
-    public static JSONObject wxPayNew(String openid,String orderNo, HttpServletRequest request)
+    public static JSONObject wxPayNew(String productName, String openid,String orderNo,float price, HttpServletRequest request)
     {
         try {
             String spbill_create_ip = Utils.getIpAddr(request);
@@ -116,9 +116,9 @@ public class WXAppletUserInfo  {
             wxOrderInfo.setMch_id(WxPayConfig.mch_id);
             wxOrderInfo.setNonce_str(RandomStringGenerator.getRandomStringByLength(32));
             //wxOrderInfo.setNonce_str("qjys7np1ropqpgx1qerrr032vbucj4g9");
-            wxOrderInfo.setBody("huopintest");
+            wxOrderInfo.setBody(productName);
             wxOrderInfo.setOut_trade_no(orderNo);
-            wxOrderInfo.setTotal_fee(1);//单位为分
+            wxOrderInfo.setTotal_fee((int)price*100);//单位为分
             wxOrderInfo.setDevice_info("1");
             wxOrderInfo.setSpbill_create_ip(spbill_create_ip);
             wxOrderInfo.setNotify_url(WxPayConfig.NOTIFY_URL);
