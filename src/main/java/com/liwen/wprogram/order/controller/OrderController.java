@@ -142,6 +142,13 @@ public class OrderController extends BaseConroller {
             String addressid = request.getParameter("addressid").toString();
             String productid = request.getParameter("productid").toString();
             int buynum = Integer.valueOf(request.getParameter("buynum").toString());
+            logger.info("buynum:"+buynum);
+            logger.info("productid:"+productid);
+            logger.info("userid:"+userid);
+            if (productid==null||productid.equals("0"))
+            {
+                productid="78";
+            }
 
             //订单状态：0.正常，1.撤单,2.完成
             byte status = (byte)0;
@@ -157,6 +164,7 @@ public class OrderController extends BaseConroller {
             order.setSendtype(sendType);
             order.setCreatetime(Utils.getTimeYYYYMMDDHHMMSS());
             SellProduct sellProduct  = sellProductService.getSellProduct(productid);
+            logger.info("getPrice:"+sellProduct.getPrice());
             order.setPrice(sellProduct.getPrice());
             float money = sellProduct.getPrice()*buynum;
             order.setTotalcost(money);
@@ -170,14 +178,14 @@ public class OrderController extends BaseConroller {
                 productName = sellProduct.getProductname();
                 logger.info("productName:"+sellProduct.getProductname());
                 logger.info("userInfo.getOpenid():"+userInfo.getOpenid());
-
             }catch (Exception e)
             {
                 e.printStackTrace();
+                br.setResult("登录时请允许授权");
+                br.setCode(BaseConstant.FAIL_CODE);
+                return br;
 
             }
-
-
             JSONObject response = WXAppletUserInfo.wxPayNew(productName,userInfo.getOpenid(),tradNo,money,request);
             orderService.saveOrder(order);
             br.setData(response);
