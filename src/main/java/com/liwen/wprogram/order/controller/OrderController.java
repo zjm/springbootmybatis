@@ -141,10 +141,11 @@ public class OrderController extends BaseConroller {
             String userid = request.getParameter("userid").toString();
             String addressid = request.getParameter("addressid").toString();
             String productid = request.getParameter("productid").toString();
+            String openId =  request.getParameter("openid").toString();
             int buynum = Integer.valueOf(request.getParameter("buynum").toString());
             logger.info("buynum:"+buynum);
             logger.info("productid:"+productid);
-            logger.info("userid:"+userid);
+            logger.info("openId:"+openId);
             if (productid==null||productid.equals("0"))
             {
                 productid="78";
@@ -171,22 +172,23 @@ public class OrderController extends BaseConroller {
             order.setRealcost(money);
             order.setPaytime(Utils.getTimeYYYYMMDDHHMMSS());
 
-            UserInfo userInfo = userInfoService.getUserInfo(String.valueOf(userid));
+          //  UserInfo userInfo = userInfoService.getUserInfo(userid);
+            //logger.info("userInfo:"+userInfo);
             String tradNo = String.valueOf(id);
             String productName ="产品";
             try {
                 productName = sellProduct.getProductname();
                 logger.info("productName:"+sellProduct.getProductname());
-                logger.info("userInfo.getOpenid():"+userInfo.getOpenid());
+               // logger.info("userInfo.getOpenid():"+userInfo.getOpenid());
             }catch (Exception e)
             {
                 e.printStackTrace();
-                br.setResult("登录时请允许授权");
+                br.setResult("登录时请允许授权 userid："+userid);
                 br.setCode(BaseConstant.FAIL_CODE);
                 return br;
 
             }
-            JSONObject response = WXAppletUserInfo.wxPayNew(productName,userInfo.getOpenid(),tradNo,money,request);
+            JSONObject response = WXAppletUserInfo.wxPayNew(productName,openId,tradNo,money,request);
             orderService.saveOrder(order);
             br.setData(response);
             br.setResult(BaseConstant.SUCCESS_INFO);

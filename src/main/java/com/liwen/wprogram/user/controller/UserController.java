@@ -66,6 +66,7 @@ public class UserController {
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
             UserInfo userInfo = userInfoService.getUserInfoByOpenid(openid);
+            logger.info("openid=====userid=="+userInfo.getId());
             br.setData(userInfo);
             return br;
         }catch (Exception e)

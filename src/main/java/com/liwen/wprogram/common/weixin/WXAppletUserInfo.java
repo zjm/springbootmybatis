@@ -118,7 +118,7 @@ public class WXAppletUserInfo  {
             //wxOrderInfo.setNonce_str("qjys7np1ropqpgx1qerrr032vbucj4g9");
             wxOrderInfo.setBody(productName);
             wxOrderInfo.setOut_trade_no(orderNo);
-            wxOrderInfo.setTotal_fee((int)price*100);//单位为分
+            wxOrderInfo.setTotal_fee((int)price*100);//单位为分*100
             wxOrderInfo.setDevice_info("1");
             wxOrderInfo.setSpbill_create_ip(spbill_create_ip);
             wxOrderInfo.setNotify_url(WxPayConfig.NOTIFY_URL);
