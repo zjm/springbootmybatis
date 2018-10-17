@@ -95,7 +95,12 @@ public class SignInController extends BaseConroller {
             String userid = request.getParameter("userid").toString();
            // int singintype=1;//0.当天已经签到，不能再签了。1.当天未签到可以签。
             UserInfo userInfo = userInfoService.getUserInfo(userid);
-            int mykernel = userInfo.getMykernel();
+            int mykernel =0;
+            if (userInfo.getMykernel()!=null)
+            {
+                mykernel = userInfo.getMykernel();
+            }
+
             boolean saveMaili = false;
 
             SignIn signIn = signInService.getSignInByUserId(userid);
@@ -113,10 +118,6 @@ public class SignInController extends BaseConroller {
                 userInfo.setMykernel(mykernel+2);
                 userInfoService.updateUserInfo(userInfo);
                 saveMaili =true;
-
-
-
-
             }else
             {
                 String time = signIn.getSignintime();

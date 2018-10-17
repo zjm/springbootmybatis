@@ -165,11 +165,21 @@ public class OrderController extends BaseConroller {
 
             UserInfo userInfo = userInfoService.getUserInfo(String.valueOf(userid));
             String tradNo = String.valueOf(id);
+            String productName ="产品";
+            try {
+                productName = sellProduct.getProductname();
+                logger.info("productName:"+sellProduct.getProductname());
+                logger.info("userInfo.getOpenid():"+userInfo.getOpenid());
 
-            JSONObject response = WXAppletUserInfo.wxPayNew(sellProduct.getProductname(),userInfo.getOpenid(),tradNo,money,request);
+            }catch (Exception e)
+            {
+                e.printStackTrace();
 
+            }
+
+
+            JSONObject response = WXAppletUserInfo.wxPayNew(productName,userInfo.getOpenid(),tradNo,money,request);
             orderService.saveOrder(order);
-
             br.setData(response);
             br.setResult(BaseConstant.SUCCESS_INFO);
             br.setCode(BaseConstant.SUCCESS_CODE);
