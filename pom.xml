@@ -175,7 +175,6 @@
                 </includes>
             </resource>
         </resources>
-
     </build>
 
     <repositories>
